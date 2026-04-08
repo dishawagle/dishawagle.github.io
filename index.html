@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Disha Wagle · Product Enthusiast</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #faf7f2;
+    --ink: #1a1612;
+    --warm: #c4713a;
+    --warm-light: #f0e0d0;
+    --muted: #8a7f75;
+    --border: #e8e0d5;
+    --card: #ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--warm); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #f0e0d0 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.25s;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--warm);
+  }
+  .hero-desc {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.55s;
+  }
+  .tag {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    background: var(--warm-light);
+    color: var(--warm);
+    border: 1px solid #e5c9b0;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.7s;
+  }
+  .btn {
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--warm);
+    color: white;
+  }
+  .btn-primary:hover { background: #b0632e; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--ink); }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+
+  /* ABOUT */
+  .about { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1000px;
+  }
+  .about-text p {
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+  }
+  .about-text strong { color: var(--ink); font-weight: 500; }
+  .skills-list { list-style: none; }
+  .skills-list li {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    color: var(--ink);
+  }
+  .skills-list li:last-child { border-bottom: none; }
+  .skill-bar {
+    width: 120px; height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%;
+    background: var(--warm);
+    border-radius: 2px;
+    transform-origin: left;
+    animation: growBar 1s ease forwards 0.8s;
+    transform: scaleX(0);
+  }
+
+  /* PROJECT IDEAS */
+  .projects { background: var(--cream); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+  }
+  .project-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--warm);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-domain {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 0.8rem;
+  }
+  .project-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
+  .project-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+  .project-status {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #d4b896;
+  }
+  .dot.building { background: #4caf84; animation: pulse 2s infinite; }
+
+  /* THINKING */
+  .thinking { background: white; border-top: 1px solid var(--border); }
+  .thinking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+  }
+  .thought-card {
+    padding: 1.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--cream);
+    transition: border-color 0.2s;
+  }
+  .thought-card:hover { border-color: var(--warm); }
+  .thought-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .thought-a {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--ink);
+    color: white;
+    text-align: center;
+  }
+  .contact .section-label { color: #c4856a; }
+  .contact .section-title { color: white; margin-bottom: 1rem; }
+  .contact-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+  .contact-links {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+  .contact-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    color: white;
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.06);
+  }
+
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer span {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes growBar {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section { padding: 5rem 1.5rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-name" href="#">Disha Wagle</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#thinking">Thinking</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">AI Product Management · Portfolio</p>
+    <h1>Disha Wagle<br/><em>Product Enthusiast</em></h1>
+    <p class="hero-desc">
+      Engineer turned Product Owner, now building at the intersection of AI and human experience.
+      I care about products that are useful, trustworthy, and a little bit delightful.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">AI Copilots</span>
+      <span class="tag">Developer Tools</span>
+      <span class="tag">Fintech</span>
+      <span class="tag">EdTech</span>
+      <span class="tag">Healthcare AI</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">See my projects</a>
+      <a class="btn btn-outline" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">Where I'm coming from</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I started as a <strong>software engineer</strong> — which means I've sat in sprint planning rooms arguing about story points, 
+        read API docs at midnight, and genuinely love talking to developers.
+      </p>
+      <p>
+        From there I moved into <strong>product ownership</strong>, where I learned that the hardest part of building software 
+        isn't the code — it's deciding what to build and why. 
+      </p>
+      <p>
+        Now I'm focused on <strong>AI products specifically</strong>: how to ship AI features responsibly, 
+        how to write specs when the output is non-deterministic, and how to bring users along 
+        when the technology feels like magic (or a black box).
+      </p>
+      <p>
+        I'm based in <strong>Jersey City, NJ</strong> and open to AI PM roles across product, platform, and 0→1 work.
+      </p>
+    </div>
+    <div>
+      <ul class="skills-list">
+        <li>Product strategy & roadmapping <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></li>
+        <li>User research & discovery <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></li>
+        <li>Technical depth (eng background) <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></li>
+        <li>AI/ML product thinking <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></li>
+        <li>Agile / sprint facilitation <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></li>
+        <li>Stakeholder communication <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <p class="section-label">Work in progress</p>
+  <h2 class="section-title">Projects & case studies</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <p class="project-domain">AI Copilot · EdTech</p>
+      <h3>Study Companion — AI tutor for self-learners</h3>
+      <p>
+        An AI-powered study assistant that adapts to a learner's pace, 
+        generates practice questions from uploaded notes, and explains concepts 
+        the way a patient tutor would. Focused on reducing the "I don't know what I don't know" problem.
+      </p>
+      <span class="project-status"><span class="dot building"></span> Concept in progress</span>
+    </div>
+
+    <div class="project-card">
+      <p class="project-domain">Developer Tools · AI</p>
+      <h3>PR Reviewer — AI code review assistant for small teams</h3>
+      <p>
+        Small dev teams don't always have senior engineers available for thorough PR reviews. 
+        This tool surfaces potential issues, suggests improvements, and flags patterns — 
+        acting as a first-pass reviewer that saves senior eng time.
+      </p>
+      <span class="project-status"><span class="dot building"></span> Concept in progress</span>
+    </div>
+
+    <div class="project-card">
+      <p class="project-domain">Fintech · AI</p>
+      <h3>Finance Copilot — plain-language money explainer</h3>
+      <p>
+        Most people ignore their bank notifications. This product turns financial data 
+        into plain-language nudges and explanations — "you spent 30% more on food this month, 
+        here's why that matters for your goal." Trust and transparency by design.
+      </p>
+      <span class="project-status"><span class="dot"></span> Idea stage</span>
+    </div>
+
+    <div class="project-card">
+      <p class="project-domain">Healthcare · AI</p>
+      <h3>Care Navigator — AI triage assistant for clinics</h3>
+      <p>
+        Before a patient sees a doctor, an AI navigator collects symptom history, 
+        flags urgent signals, and surfaces relevant context for the clinician. 
+        Reduces admin burden without replacing clinical judgment.
+      </p>
+      <span class="project-status"><span class="dot"></span> Idea stage</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- THINKING -->
+<section class="thinking" id="thinking">
+  <p class="section-label">My perspective</p>
+  <h2 class="section-title">How I think about AI products</h2>
+  <div class="thinking-grid">
+
+    <div class="thought-card">
+      <p class="thought-q">"How do you spec a feature when the AI output isn't guaranteed?"</p>
+      <p class="thought-a">
+        You spec the guardrails, not the output. Define what failure looks like, how the product degrades gracefully, 
+        and what the human fallback is. Non-determinism is a design constraint, not an excuse.
+      </p>
+    </div>
+
+    <div class="thought-card">
+      <p class="thought-q">"What makes an AI feature trustworthy?"</p>
+      <p class="thought-a">
+        Transparency about what it can and can't do. Users don't need to understand transformers — 
+        they need to know when to trust the output and when to double-check. That's a UX problem as much as a model problem.
+      </p>
+    </div>
+
+    <div class="thought-card">
+      <p class="thought-q">"How does your engineering background help you as a PM?"</p>
+      <p class="thought-a">
+        I can read a technical spec, spot unrealistic estimates, and have honest conversations 
+        about trade-offs. I don't need things translated. That builds trust with eng teams quickly.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label">Let's talk</p>
+  <h2 class="section-title">Open to AI PM opportunities</h2>
+  <p class="contact-sub">Especially roles at the intersection of AI and real human problems.</p>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:disha@example.com">Email me</a>
+    <a class="contact-link" href="https://linkedin.com/in/dishawagle" target="_blank">LinkedIn</a>
+    <a class="contact-link" href="#">Download resume</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Disha Wagle</span>
+  <span>Product Enthusiast · AI PM</span>
+</footer>
+
+</body>
+</html>
