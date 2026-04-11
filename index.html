@@ -14,6 +14,10 @@
     --muted: #8a7f75;
     --border: #e8e0d5;
     --card: #ffffff;
+    --teal: #0f6e56;
+    --teal-light: #e1f5ee;
+    --accent-blue: #1a3a5c;
+    --accent-blue-light: #e8eef5;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -108,7 +112,7 @@
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.55s;
   }
-  .tag {
+  .hero-tag {
     font-size: 0.78rem;
     font-weight: 500;
     letter-spacing: 0.05em;
@@ -134,16 +138,9 @@
     cursor: pointer;
     border: none;
   }
-  .btn-primary {
-    background: var(--warm);
-    color: white;
-  }
+  .btn-primary { background: var(--warm); color: white; }
   .btn-primary:hover { background: #b0632e; transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent;
-    color: var(--ink);
-    border: 1.5px solid var(--border);
-  }
+  .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
   .btn-outline:hover { border-color: var(--ink); }
 
   /* SECTIONS */
@@ -188,12 +185,7 @@
     color: var(--ink);
   }
   .skills-list li:last-child { border-bottom: none; }
-  .skill-bar {
-    width: 120px; height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
+  .skill-bar { width: 120px; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .skill-fill {
     height: 100%;
     background: var(--warm);
@@ -203,7 +195,7 @@
     transform: scaleX(0);
   }
 
-  /* PROJECT IDEAS */
+  /* PROJECTS */
   .projects { background: var(--cream); }
   .projects-grid {
     display: grid;
@@ -211,6 +203,8 @@
     gap: 1.5rem;
     max-width: 1100px;
   }
+
+  /* Base project card — used by all four cards */
   .project-card {
     background: white;
     border: 1px solid var(--border);
@@ -219,6 +213,9 @@
     transition: transform 0.2s, box-shadow 0.2s;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
   }
   .project-card::before {
     content: '';
@@ -231,40 +228,89 @@
   }
   .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
   .project-card:hover::before { transform: scaleX(1); }
+
+  /* Featured card (AI Digest) gets a teal top bar instead */
+  .project-card.featured::before { background: var(--teal); transform: scaleX(1); }
+  .project-card.featured:hover { box-shadow: 0 12px 40px rgba(15,110,86,0.1); }
+
   .project-domain {
     font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--warm);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.2rem;
   }
+
+  /* Tag row for the featured card */
+  .project-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 0.2rem;
+  }
+  .project-card-tag {
+    display: inline-block;
+    background: var(--accent-blue-light);
+    color: var(--accent-blue);
+    border-radius: 4px;
+    padding: 3px 9px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .project-card-tag.active {
+    background: var(--teal-light);
+    color: var(--teal);
+  }
+
   .project-card h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    margin-bottom: 0.6rem;
     line-height: 1.3;
+    color: var(--ink);
   }
   .project-card p {
     font-size: 0.9rem;
     color: var(--muted);
     line-height: 1.65;
-    margin-bottom: 1.2rem;
     font-weight: 300;
+    flex: 1;
+  }
+
+  /* Card footer row */
+  .project-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.25rem;
   }
   .project-status {
-    display: inline-flex; align-items: center; gap: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--muted);
     letter-spacing: 0.04em;
   }
-  .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #d4b896;
+  .project-status.live { color: var(--teal); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #d4b896; }
+  .dot.building { background: var(--teal); animation: pulse 2s infinite; }
+
+  .case-study-link {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent-blue);
+    text-decoration: none;
+    letter-spacing: 0.02em;
   }
-  .dot.building { background: #4caf84; animation: pulse 2s infinite; }
+  .case-study-link:hover { text-decoration: underline; }
 
   /* THINKING */
   .thinking { background: white; border-top: 1px solid var(--border); }
@@ -298,11 +344,7 @@
   }
 
   /* CONTACT */
-  .contact {
-    background: var(--ink);
-    color: white;
-    text-align: center;
-  }
+  .contact { background: var(--ink); color: white; text-align: center; }
   .contact .section-label { color: #c4856a; }
   .contact .section-title { color: white; margin-bottom: 1rem; }
   .contact-sub {
@@ -311,9 +353,7 @@
     margin-bottom: 2.5rem;
     font-weight: 300;
   }
-  .contact-links {
-    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-  }
+  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
   .contact-link {
     font-size: 0.85rem;
     font-weight: 500;
@@ -326,11 +366,7 @@
     border-radius: 4px;
     transition: all 0.2s;
   }
-  .contact-link:hover {
-    color: white;
-    border-color: rgba(255,255,255,0.4);
-    background: rgba(255,255,255,0.06);
-  }
+  .contact-link:hover { color: white; border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
 
   footer {
     background: var(--ink);
@@ -338,10 +374,7 @@
     padding: 1.5rem 4rem;
     display: flex; justify-content: space-between; align-items: center;
   }
-  footer span {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.3);
-  }
+  footer span { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -388,11 +421,10 @@
       I care about products that are useful, trustworthy, and a little bit delightful.
     </p>
     <div class="hero-tags">
-      <span class="tag">AI Copilots</span>
-      <span class="tag">Developer Tools</span>
-      <span class="tag">Fintech</span>
-      <span class="tag">EdTech</span>
-      <span class="tag">Healthcare AI</span>
+      <span class="hero-tag">AI Copilots</span>
+      <span class="hero-tag">Fintech</span>
+      <span class="hero-tag">EdTech</span>
+      <span class="hero-tag">Healthcare AI</span>
     </div>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#projects">See my projects</a>
@@ -408,16 +440,16 @@
   <div class="about-grid">
     <div class="about-text">
       <p>
-        I started as a <strong>software engineer</strong> — which means I've sat in sprint planning rooms arguing about story points, 
+        I started as a <strong>software engineer</strong> — which means I've sat in sprint planning rooms arguing about story points,
         read API docs at midnight, and genuinely love talking to developers.
       </p>
       <p>
-        From there I moved into <strong>product ownership</strong>, where I learned that the hardest part of building software 
-        isn't the code — it's deciding what to build and why. 
+        From there I moved into <strong>product ownership</strong>, where I learned that the hardest part of building software
+        isn't the code — it's deciding what to build and why.
       </p>
       <p>
-        Now I'm focused on <strong>AI products specifically</strong>: how to ship AI features responsibly, 
-        how to write specs when the output is non-deterministic, and how to bring users along 
+        Now I'm focused on <strong>AI products specifically</strong>: how to ship AI features responsibly,
+        how to write specs when the output is non-deterministic, and how to bring users along
         when the technology feels like magic (or a black box).
       </p>
       <p>
@@ -443,59 +475,67 @@
   <h2 class="section-title">Projects & case studies</h2>
   <div class="projects-grid">
 
-    <div class="project-card">
-      <article class="project-card featured">
-  <div class="project-tags">
-    <span class="tag">AI · Research</span>
-    <span class="tag">Developer Tools</span>
-  </div>
-  <h3>
-    <a href="digest.html">AI Research Digest — role-aware intelligence for PMs</a>
-  </h3>
-  <p>
-    Product managers have abandoned any consistent habit of tracking AI research — 
-    not from lack of interest, but because nothing filters it for their role. 
-    This tool delivers crisp, PM-specific takeaways from the week's most important 
-    papers and news, in under 5 minutes, every Monday morning.
-  </p>
-  <div class="project-footer">
-    <span class="status active">● In progress</span>
-    <a href="digest.html" class="case-study-link">Read case study →</a>
-  </div>
-</article>
+    <!-- AI Digest — active case study -->
+    <div class="project-card featured">
+      <div class="project-card-tags">
+        <span class="project-card-tag active">● Active case study</span>
+        <span class="project-card-tag">AI · Research</span>
+        <span class="project-card-tag">Productivity</span>
+        <span class="project-card-tag">B2B · SaaS</span>
+      </div>
+      <h3>AI Research Digest — role-aware intelligence for product managers</h3>
+      <p>
+        Product managers have abandoned any consistent habit of tracking AI research —
+        not from lack of interest, but because nothing filters it for their role.
+        This tool delivers crisp, PM-specific takeaways from the week's most important
+        papers and news, in under 5 minutes, every Monday morning.
+      </p>
+      <div class="project-card-footer">
+        <span class="project-status live"><span class="dot building"></span> In progress · Problem definition complete</span>
+        <a href="digest.html" class="case-study-link">Read case study →</a>
+      </div>
     </div>
 
+    <!-- PR Reviewer -->
     <div class="project-card">
       <p class="project-domain">Developer Tools · AI</p>
       <h3>PR Reviewer — AI code review assistant for small teams</h3>
       <p>
-        Small dev teams don't always have senior engineers available for thorough PR reviews. 
-        This tool surfaces potential issues, suggests improvements, and flags patterns — 
+        Small dev teams don't always have senior engineers available for thorough PR reviews.
+        This tool surfaces potential issues, suggests improvements, and flags patterns —
         acting as a first-pass reviewer that saves senior eng time.
       </p>
-      <span class="project-status"><span class="dot building"></span> Concept in progress</span>
+      <div class="project-card-footer">
+        <span class="project-status"><span class="dot building"></span> Concept in progress</span>
+      </div>
     </div>
 
+    <!-- Finance Copilot -->
     <div class="project-card">
       <p class="project-domain">Fintech · AI</p>
       <h3>Finance Copilot — plain-language money explainer</h3>
       <p>
-        Most people ignore their bank notifications. This product turns financial data 
-        into plain-language nudges and explanations — "you spent 30% more on food this month, 
+        Most people ignore their bank notifications. This product turns financial data
+        into plain-language nudges and explanations — "you spent 30% more on food this month,
         here's why that matters for your goal." Trust and transparency by design.
       </p>
-      <span class="project-status"><span class="dot"></span> Idea stage</span>
+      <div class="project-card-footer">
+        <span class="project-status"><span class="dot"></span> Idea stage</span>
+      </div>
     </div>
 
+    <!-- Care Navigator -->
     <div class="project-card">
       <p class="project-domain">Healthcare · AI</p>
       <h3>Care Navigator — AI triage assistant for clinics</h3>
       <p>
-        Before a patient sees a doctor, an AI navigator collects symptom history, 
-        flags urgent signals, and surfaces relevant context for the clinician. 
+        Before a patient sees a doctor, an AI navigator collects symptom history,
+        flags urgent signals, and surfaces relevant context for the clinician.
         Reduces admin burden without replacing clinical judgment.
       </p>
-      <span class="project-status"><span class="dot"></span> Idea stage</span>
+      <div class="project-card-footer">
+        <span class="project-status"><span class="dot"></span> Idea stage</span>
+      </div>
     </div>
 
   </div>
@@ -510,7 +550,7 @@
     <div class="thought-card">
       <p class="thought-q">"How do you spec a feature when the AI output isn't guaranteed?"</p>
       <p class="thought-a">
-        You spec the guardrails, not the output. Define what failure looks like, how the product degrades gracefully, 
+        You spec the guardrails, not the output. Define what failure looks like, how the product degrades gracefully,
         and what the human fallback is. Non-determinism is a design constraint, not an excuse.
       </p>
     </div>
@@ -518,7 +558,7 @@
     <div class="thought-card">
       <p class="thought-q">"What makes an AI feature trustworthy?"</p>
       <p class="thought-a">
-        Transparency about what it can and can't do. Users don't need to understand transformers — 
+        Transparency about what it can and can't do. Users don't need to understand transformers —
         they need to know when to trust the output and when to double-check. That's a UX problem as much as a model problem.
       </p>
     </div>
@@ -526,7 +566,7 @@
     <div class="thought-card">
       <p class="thought-q">"How does your engineering background help you as a PM?"</p>
       <p class="thought-a">
-        I can read a technical spec, spot unrealistic estimates, and have honest conversations 
+        I can read a technical spec, spot unrealistic estimates, and have honest conversations
         about trade-offs. I don't need things translated. That builds trust with eng teams quickly.
       </p>
     </div>
