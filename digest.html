@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Research Digest — Case Study · Disha Wagle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink:     #0f0f0f;
+    --ink-2:   #3a3a3a;
+    --ink-3:   #6b6b6b;
+    --ink-4:   #a0a0a0;
+    --paper:   #faf9f7;
+    --surface: #f2f0ec;
+    --accent:  #1a3a5c;
+    --accent-light: #e8eef5;
+    --teal:    #0f6e56;
+    --teal-light: #e1f5ee;
+    --coral:   #993c1d;
+    --coral-light: #faece7;
+    --rule:    #d8d4cc;
+    --serif:   'DM Serif Display', Georgia, serif;
+    --sans:    'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.85rem; color: var(--ink-3); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-back { font-size: 0.82rem; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+  .nav-back:hover { text-decoration: underline; }
+
+  /* ── Hero ── */
+  .hero {
+    border-bottom: 1px solid var(--rule);
+    padding: 5rem 2rem 4rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: inline-block;
+    width: 28px; height: 1px; background: var(--accent);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    max-width: 680px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--ink-2);
+    max-width: 560px; line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    font-size: 0.82rem; color: var(--ink-3);
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .hero-meta span strong { color: var(--ink-2); font-weight: 500; display: block; margin-bottom: 2px; }
+
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--teal-light); color: var(--teal);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 0.78rem; font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* ── Layout ── */
+  .page-wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── Stage nav ── */
+  .stages {
+    display: flex; gap: 0; overflow-x: auto;
+    border-bottom: 1px solid var(--rule);
+    margin: 0 -2rem;
+    padding: 0 2rem;
+    scrollbar-width: none;
+  }
+  .stages::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    flex-shrink: 0;
+    padding: 1rem 1.25rem;
+    font-size: 0.82rem; font-weight: 500;
+    color: var(--ink-4);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .stage-tab:hover { color: var(--ink-2); }
+  .stage-tab.done { color: var(--teal); }
+  .stage-tab.done:hover { border-bottom-color: var(--teal); }
+  .stage-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .stage-num { font-size: 0.7rem; opacity: 0.6; margin-right: 4px; }
+
+  /* ── Sections ── */
+  .section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-4);
+    margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label .check { color: var(--teal); font-size: 0.9rem; }
+  .section-label .pending { color: var(--ink-4); font-size: 0.9rem; }
+
+  .section h2 {
+    font-family: var(--serif);
+    font-size: 1.9rem; line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 10px;
+  }
+  .card-label {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-4);
+    margin-bottom: 6px;
+  }
+  .card p { font-size: 0.95rem; color: var(--ink-2); line-height: 1.65; }
+  .card p strong { font-weight: 500; color: var(--ink); }
+
+  /* ── Insight blocks ── */
+  .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 1.5rem 0; }
+  .insight {
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+  }
+  .insight.purple { background: #EEEDFE; }
+  .insight.teal   { background: var(--teal-light); }
+  .insight.coral  { background: var(--coral-light); }
+  .insight h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 6px; }
+  .insight.purple h4 { color: #26215C; }
+  .insight.teal   h4 { color: #04342C; }
+  .insight.coral  h4 { color: #4A1B0C; }
+  .insight p { font-size: 0.85rem; line-height: 1.55; }
+  .insight.purple p { color: #3C3489; }
+  .insight.teal   p { color: #085041; }
+  .insight.coral  p { color: #712B13; }
+
+  /* ── Hypothesis cards ── */
+  .hypothesis {
+    background: white;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 10px;
+  }
+  .hypothesis .h-label { font-size: 0.72rem; font-weight: 500; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .hypothesis p { font-size: 0.9rem; color: var(--ink-2); line-height: 1.6; }
+  .hypothesis .h-test { font-size: 0.8rem; color: var(--ink-4); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--rule); }
+
+  /* ── Metrics ── */
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.5rem 0; }
+  .metric { background: var(--surface); border-radius: 10px; padding: 1.1rem 1.25rem; }
+  .metric .val { font-family: var(--serif); font-size: 1.7rem; color: var(--accent); line-height: 1.1; margin-bottom: 4px; }
+  .metric .lbl { font-size: 0.8rem; color: var(--ink-3); line-height: 1.4; }
+
+  /* ── Tag cloud ── */
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 1rem 0; }
+  .tag { display: inline-block; border-radius: 5px; padding: 4px 11px; font-size: 0.78rem; font-weight: 500; }
+  .tag.no  { background: var(--coral-light); color: var(--coral); }
+  .tag.yes { background: var(--teal-light); color: var(--teal); }
+
+  /* ── Stage roadmap ── */
+  .roadmap { margin: 1.5rem 0; }
+  .roadmap-row {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .roadmap-row:last-child { border-bottom: none; }
+  .roadmap-num { font-size: 0.75rem; font-weight: 500; color: var(--ink-4); width: 22px; flex-shrink: 0; padding-top: 2px; }
+  .roadmap-stage { flex: 1; }
+  .roadmap-stage .name { font-size: 0.92rem; font-weight: 500; color: var(--ink); }
+  .roadmap-stage .desc { font-size: 0.82rem; color: var(--ink-3); margin-top: 2px; }
+  .roadmap-status { flex-shrink: 0; }
+  .pill {
+    display: inline-block; border-radius: 20px; padding: 3px 12px;
+    font-size: 0.73rem; font-weight: 500;
+  }
+  .pill.done    { background: var(--teal-light); color: var(--teal); }
+  .pill.active  { background: var(--accent-light); color: var(--accent); }
+  .pill.pending { background: var(--surface); color: var(--ink-4); }
+
+  /* ── Problem statement callout ── */
+  .ps-callout {
+    background: var(--accent);
+    color: white;
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    margin: 2rem 0;
+  }
+  .ps-callout p {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-style: italic;
+    opacity: 0.95;
+  }
+  .ps-callout .ps-attr { font-size: 0.78rem; opacity: 0.6; margin-top: 1rem; font-family: var(--sans); font-style: normal; }
+
+  /* ── Coming soon sections ── */
+  .coming-soon {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 2.5rem;
+    text-align: center;
+    color: var(--ink-4);
+  }
+  .coming-soon .cs-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .coming-soon p { font-size: 0.88rem; line-height: 1.6; max-width: 360px; margin: 0 auto; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.82rem;
+    color: var(--ink-4);
+    border-top: 1px solid var(--rule);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero > * { animation: fadeUp 0.5s ease both; }
+  .hero > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero > *:nth-child(2) { animation-delay: 0.12s; }
+  .hero > *:nth-child(3) { animation-delay: 0.18s; }
+  .hero > *:nth-child(4) { animation-delay: 0.24s; }
+  .hero > *:nth-child(5) { animation-delay: 0.30s; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .page-wrap { padding: 0 1.25rem; }
+    nav { padding: 0 1.25rem; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .ps-callout { padding: 1.5rem; }
+    .ps-callout p { font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Disha Wagle</a>
+  <a class="nav-back" href="index.html#projects">← All projects</a>
+</nav>
+
+<div class="hero">
+  <div class="status-badge">
+    <span class="status-dot"></span>
+    In progress · Problem definition complete
+  </div>
+  <div class="hero-eyebrow">Case study · AI Product</div>
+  <h1>AI Research Digest — <em>role-aware intelligence</em> for product managers</h1>
+  <p class="hero-sub">A weekly AI-powered digest that filters the noise of AI research and news into crisp, role-specific takeaways — built for product managers who have given up trying to keep up.</p>
+  <div class="hero-meta">
+    <span><strong>My role</strong>PM · Researcher · Builder</span>
+    <span><strong>Stage</strong>Problem definition → User research</span>
+    <span><strong>Stack</strong>Python · Streamlit · Claude API</span>
+    <span><strong>Timeline</strong>Apr 2026 – ongoing</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- Stage roadmap -->
+  <div class="section">
+    <div class="section-label">Project roadmap</div>
+    <h2>Where we are</h2>
+    <div class="roadmap">
+      <div class="roadmap-row">
+        <div class="roadmap-num">01</div>
+        <div class="roadmap-stage">
+          <div class="name">Problem definition</div>
+          <div class="desc">Who, what pain, what cost, what it's not</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-num">02</div>
+        <div class="roadmap-stage">
+          <div class="name">User research</div>
+          <div class="desc">4–5 interviews with PMs, insight synthesis</div>
+        </div>
+        <div class="roadmap-status"><span class="pill active">Up next</span></div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-num">03</div>
+        <div class="roadmap-stage">
+          <div class="name">Competitive landscape</div>
+          <div class="desc">Competitor map, gap analysis</div>
+        </div>
+        <div class="roadmap-status"><span class="pill pending">Pending</span></div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-num">04</div>
+        <div class="roadmap-stage">
+          <div class="name">Product vision &amp; metrics</div>
+          <div class="desc">Vision statement, success metrics, north star</div>
+        </div>
+        <div class="roadmap-status"><span class="pill pending">Pending</span></div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-num">05</div>
+        <div class="roadmap-stage">
+          <div class="name">PRD &amp; feature prioritisation</div>
+          <div class="desc">v1 scope, user stories, what's out</div>
+        </div>
+        <div class="roadmap-status"><span class="pill pending">Pending</span></div>
+      </div>
+      <div class="roadmap-row">
+        <div class="roadmap-num">06</div>
+        <div class="roadmap-stage">
+          <div class="name">Build &amp; ship</div>
+          <div class="desc">Live Streamlit app with Claude API</div>
+        </div>
+        <div class="roadmap-status"><span class="pill pending">Pending</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem definition -->
+  <div class="section" id="problem">
+    <div class="section-label"><span class="check">✓</span> Stage 01 · Complete</div>
+    <h2>Problem definition</h2>
+
+    <div class="ps-callout">
+      <p>"Product managers at tech companies have abandoned any consistent habit of tracking AI research and news — not because they lack interest, but because no existing solution filters and frames information for their specific role."</p>
+      <div class="ps-attr">Problem statement · derived from discovery · April 2026</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Who</div>
+      <p><strong>Primary:</strong> Product managers at tech companies working on or adjacent to AI products. They understand why AI matters. They've tried existing solutions and found them either too shallow, too broad, or too dense. So they've stopped trying altogether.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Beachhead segment</div>
+      <p>PMs actively job-hunting or recently placed in AI PM roles — highest motivation, highest willingness to adopt, most likely to evangelize. Natural wedge before expanding to employed PMs.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">The cost</div>
+      <p>They miss product opportunities and pivots they should be proposing. They waste the limited reading time they have on content that doesn't connect to their daily decisions. The anxiety is chronic, not situational.</p>
+    </div>
+
+    <div class="insights">
+      <div class="insight purple">
+        <h4>No consistent habit</h4>
+        <p>The user isn't optimising an existing routine — they've given up entirely. The product isn't competing with newsletters. It's filling a vacuum.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Willing but unsupported</h4>
+        <p>When asked "would you read it immediately?" — the answer is yes. The user is not the problem. The available solutions are. This is a product gap, not a behaviour change problem.</p>
+      </div>
+      <div class="insight coral">
+        <h4>Opportunity framing</h4>
+        <p>The anxiety is about missing opportunities, not lacking knowledge. Value prop is "never miss what matters to you" — not "understand AI better."</p>
+      </div>
+    </div>
+
+    <div style="margin: 2rem 0 1rem;">
+      <div class="section-label">Design constraints</div>
+    </div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="val">≤ 5 min</div>
+        <div class="lbl">Total weekly reading time to feel genuinely caught up</div>
+      </div>
+      <div class="metric">
+        <div class="val">Mon AM</div>
+        <div class="lbl">Ideal delivery window — before the week's meetings</div>
+      </div>
+      <div class="metric">
+        <div class="val">1 role</div>
+        <div class="lbl">Takeaway framed for their job, not generic summaries</div>
+      </div>
+    </div>
+
+    <div style="margin: 2rem 0 0.75rem;">
+      <div class="section-label">Scope boundaries</div>
+    </div>
+    <div class="tags">
+      <span class="tag no">Not a news aggregator</span>
+      <span class="tag no">Not a paper summariser</span>
+      <span class="tag no">Not another newsletter</span>
+      <span class="tag no">Not built for engineers in v1</span>
+      <span class="tag no">Not a daily product</span>
+      <span class="tag yes">Weekly cadence</span>
+      <span class="tag yes">PM lens only in v1</span>
+      <span class="tag yes">Replaces habit, doesn't add to it</span>
+      <span class="tag yes">Actionable over comprehensive</span>
+    </div>
+
+    <div style="margin: 2.5rem 0 1rem;">
+      <div class="section-label">Hypotheses to test in user research</div>
+    </div>
+    <div class="hypothesis">
+      <div class="h-label">H1 — Relevance over volume</div>
+      <p>PMs will engage consistently if content is pre-filtered to their role — even if it covers fewer topics than existing newsletters.</p>
+      <div class="h-test">Test: show 5 role-specific takeaways vs 20 generic headlines. Measure preference and recall.</div>
+    </div>
+    <div class="hypothesis">
+      <div class="h-label">H2 — Monday morning delivery</div>
+      <p>Monday morning is the highest-value delivery window because PMs are preparing for the week ahead, not winding down.</p>
+      <div class="h-test">Test: ask interviewees when they're most receptive to new information and describe their Monday routine.</div>
+    </div>
+    <div class="hypothesis">
+      <div class="h-label">H3 — Opportunity framing over knowledge framing</div>
+      <p>The anxiety is about missing opportunities, not lacking knowledge — meaning the core value prop is "never miss a relevant development" not "understand AI better."</p>
+      <div class="h-test">Test: ask interviewees to describe the last time they felt behind, and what the actual consequence was.</div>
+    </div>
+  </div>
+
+  <!-- User research — coming soon -->
+  <div class="section" id="research">
+    <div class="section-label"><span class="pending">○</span> Stage 02 · Up next</div>
+    <h2>User research</h2>
+    <div class="coming-soon">
+      <div class="cs-icon">◎</div>
+      <p>4–5 interviews with product managers currently working in tech. Insight synthesis, assumption validation, and updated problem statement to follow.</p>
+    </div>
+  </div>
+
+  <!-- Competitive landscape — coming soon -->
+  <div class="section" id="competitive">
+    <div class="section-label"><span class="pending">○</span> Stage 03 · Pending</div>
+    <h2>Competitive landscape</h2>
+    <div class="coming-soon">
+      <div class="cs-icon">◎</div>
+      <p>Competitor map covering existing solutions — TLDR AI, The Rundown, ArXiv feeds, LinkedIn — and a gap analysis showing where this product sits.</p>
+    </div>
+  </div>
+
+  <!-- PRD — coming soon -->
+  <div class="section" id="prd">
+    <div class="section-label"><span class="pending">○</span> Stage 04–05 · Pending</div>
+    <h2>Product vision &amp; PRD</h2>
+    <div class="coming-soon">
+      <div class="cs-icon">◎</div>
+      <p>Vision statement, north star metric, success criteria, and v1 feature set with prioritisation rationale.</p>
+    </div>
+  </div>
+
+  <!-- Build — coming soon -->
+  <div class="section" id="build">
+    <div class="section-label"><span class="pending">○</span> Stage 06 · Pending</div>
+    <h2>Live product</h2>
+    <div class="coming-soon">
+      <div class="cs-icon">◎</div>
+      <p>A working Streamlit app powered by the Claude API — pulling real papers from ArXiv, generating PM-specific takeaways weekly. Link will appear here when live.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <a href="index.html">← Back to portfolio</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:disha@example.com">Get in touch</a>
+    &nbsp;·&nbsp;
+    © 2026 Disha Wagle
+  </p>
+</footer>
+
+</body>
+</html>
