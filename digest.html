@@ -307,14 +307,14 @@
 <div class="hero">
   <div class="status-badge">
     <span class="status-dot"></span>
-    In progress · Problem definition complete
+    In progress · User research complete
   </div>
   <div class="hero-eyebrow">Case study · AI Product</div>
   <h1>AI Research Digest — <em>role-aware intelligence</em> for product managers</h1>
   <p class="hero-sub">A weekly AI-powered digest that filters the noise of AI research and news into crisp, role-specific takeaways — built for product managers who have given up trying to keep up.</p>
   <div class="hero-meta">
     <span><strong>My role</strong>PM · Researcher · Builder</span>
-    <span><strong>Stage</strong>Problem definition → User research</span>
+    <span><strong>Stage</strong>User research complete → Competitive landscape</span>
     <span><strong>Stack</strong>Python · Streamlit · Claude API</span>
     <span><strong>Timeline</strong>Apr 2026 – ongoing</span>
   </div>
@@ -341,7 +341,7 @@
           <div class="name">User research</div>
           <div class="desc">4–5 interviews with PMs, insight synthesis</div>
         </div>
-        <div class="roadmap-status"><span class="pill active">Up next</span></div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
       </div>
       <div class="roadmap-row">
         <div class="roadmap-num">03</div>
@@ -349,7 +349,7 @@
           <div class="name">Competitive landscape</div>
           <div class="desc">Competitor map, gap analysis</div>
         </div>
-        <div class="roadmap-status"><span class="pill pending">Pending</span></div>
+        <div class="roadmap-status"><span class="pill active">Up next</span></div>
       </div>
       <div class="roadmap-row">
         <div class="roadmap-num">04</div>
@@ -469,14 +469,146 @@
     </div>
   </div>
 
-  <!-- User research — coming soon -->
+  <!-- User research — complete -->
   <div class="section" id="research">
-    <div class="section-label"><span class="pending">○</span> Stage 02 · Up next</div>
+    <div class="section-label"><span class="check">✓</span> Stage 02 · Complete</div>
     <h2>User research</h2>
-    <div class="coming-soon">
-      <div class="cs-icon">◎</div>
-      <p>4–5 interviews with product managers currently working in tech. Insight synthesis, assumption validation, and updated problem statement to follow.</p>
+
+    <p style="font-size:0.95rem; color:var(--ink-2); max-width:600px; margin-bottom:2rem; line-height:1.7;">3 interviews conducted with PMs across different experience levels, company sizes, and relationships with AI research. Each interview was open-ended and non-directive — no solution was pitched at any point.</p>
+
+    <!-- Participants -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-bottom:2rem;">
+      <div class="card">
+        <div style="width:36px;height:36px;border-radius:50%;background:#E6F1FB;color:#0C447C;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;margin-bottom:10px;">P1</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">Participant A</div>
+        <div style="font-size:11px;color:var(--ink-3);margin-bottom:8px;line-height:1.4;">PM · Mid-size SaaS · 4 yrs · New York</div>
+        <span style="background:#E6F1FB;color:#185FA5;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:500;">No system</span>
+      </div>
+      <div class="card">
+        <div style="width:36px;height:36px;border-radius:50%;background:#E1F5EE;color:#085041;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;margin-bottom:10px;">P2</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">Participant B</div>
+        <div style="font-size:11px;color:var(--ink-3);margin-bottom:8px;line-height:1.4;">Senior PM · Fintech · 7 yrs · San Francisco</div>
+        <span style="background:#E1F5EE;color:#0F6E56;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:500;">Sophisticated system</span>
+      </div>
+      <div class="card">
+        <div style="width:36px;height:36px;border-radius:50%;background:#EEEDFE;color:#3C3489;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;margin-bottom:10px;">P3</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">Participant C</div>
+        <div style="font-size:11px;color:var(--ink-3);margin-bottom:8px;line-height:1.4;">PM · AI Startup · 3 yrs · London</div>
+        <span style="background:#EEEDFE;color:#534AB7;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:500;">Over-informed</span>
+      </div>
     </div>
+
+    <!-- Key findings -->
+    <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Key findings</div>
+
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+        <span style="font-size:11px;font-weight:500;color:var(--ink-4);width:20px;flex-shrink:0;padding-top:2px;">01</span>
+        <span style="font-size:14px;font-weight:500;color:var(--ink);">The problem is translation, not access — and it's universal</span>
+      </div>
+      <p style="font-size:0.88rem;padding-left:30px;margin-bottom:10px;">All three participants — regardless of how much they read — hit the same wall: they cannot reliably extract what an AI development means for their specific product, company, and domain.</p>
+      <div style="padding-left:30px;display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant A:</strong> "I understood the words but I couldn't connect it to what it meant for our product decisions."</div>
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant B:</strong> "I'm always doing this mental translation — does this matter for my domain specifically? Sometimes I genuinely don't know."</div>
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant C:</strong> "There's no layer that connects what I've read to what I might actually need it for."</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+        <span style="font-size:11px;font-weight:500;color:var(--ink-4);width:20px;flex-shrink:0;padding-top:2px;">02</span>
+        <span style="font-size:14px;font-weight:500;color:var(--ink);">Every existing solution fails at the same layer</span>
+      </div>
+      <p style="font-size:0.88rem;padding-left:30px;margin-bottom:10px;">Participants have tried newsletters, X, ChatGPT, peer networks, and note systems. All fail to provide domain-specific, role-specific "so what." They solve discovery but not relevance.</p>
+      <div style="padding-left:30px;display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant A:</strong> "It's written for researchers and engineers — I have to do all the translation work myself."</div>
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant B:</strong> "ChatGPT tells me what the paper says. It won't tell me whether it matters for my roadmap."</div>
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant C:</strong> Tried RSS feeds, 40 follows on X, 3 Discord servers — still making gut calls under pressure.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+        <span style="font-size:11px;font-weight:500;color:var(--ink-4);width:20px;flex-shrink:0;padding-top:2px;">03</span>
+        <span style="font-size:14px;font-weight:500;color:var(--ink);">The emotional cost is higher than it appears</span>
+      </div>
+      <p style="font-size:0.88rem;padding-left:30px;margin-bottom:10px;">None of the three experience this as a mild inconvenience. Two participants admitted to performing confidence they don't fully feel. The anxiety is persistent, not situational.</p>
+      <div style="padding-left:30px;display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant A:</strong> "There's this background anxiety that never fully goes away — what if the thing you missed is the thing that matters?"</div>
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant B:</strong> "I've gotten quite good at performing confidence I don't fully feel. It works. But it's exhausting."</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:2rem;">
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+        <span style="font-size:11px;font-weight:500;color:var(--ink-4);width:20px;flex-shrink:0;padding-top:2px;">04</span>
+        <span style="font-size:14px;font-weight:500;color:var(--ink);">The problem extends beyond the individual — it's a team alignment gap</span>
+      </div>
+      <p style="font-size:0.88rem;padding-left:30px;margin-bottom:10px;">Participant C surfaced a dimension the others didn't name: entire product teams operate from fragmented, unshared mental models of where AI is heading — and make decisions at the intersection of those fragments.</p>
+      <div style="padding-left:30px;display:flex;flex-direction:column;gap:5px;">
+        <div style="font-size:12px;color:var(--ink-3);background:var(--surface);border-radius:6px;padding:6px 10px;line-height:1.5;"><strong style="color:var(--ink-2);">Participant C:</strong> "We're good at responding to explosions. We're bad at tracking the slow burn."</div>
+      </div>
+    </div>
+
+    <!-- Verbatim quotes -->
+    <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">User-defined product positioning — verbatim</div>
+    <div class="ps-callout" style="margin-bottom:10px;">
+      <p>"Not more content. A filter with judgment."</p>
+      <div class="ps-attr">Participant A · unprompted · in response to "what would you actually want?"</div>
+    </div>
+    <div class="ps-callout" style="margin-bottom:10px;background:#085041;">
+      <p>"The confidence to ignore things without feeling like I'm missing something important."</p>
+      <div class="ps-attr">Participant B · unprompted · describing the ideal state</div>
+    </div>
+    <div class="ps-callout" style="margin-bottom:2rem;background:#26215C;">
+      <p>"We're good at responding to explosions. We're bad at tracking the slow burn."</p>
+      <div class="ps-attr">Participant C · unprompted · describing the team-level problem</div>
+    </div>
+
+    <!-- Hypothesis validation -->
+    <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Hypothesis validation</div>
+
+    <div style="border-left:3px solid var(--teal);padding:0.75rem 1rem;border-radius:0 8px 8px 0;background:white;margin-bottom:8px;">
+      <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--teal);margin-bottom:4px;">✓ Validated</div>
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">H1 — PMs will engage if content is pre-filtered to their role, even with fewer topics</div>
+      <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">All three explicitly rejected volume in favour of relevance. Fewer, better items beats more, generic ones.</div>
+    </div>
+    <div style="border-left:3px solid var(--teal);padding:0.75rem 1rem;border-radius:0 8px 8px 0;background:white;margin-bottom:8px;">
+      <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--teal);margin-bottom:4px;">✓ Validated</div>
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">H2 — Monday morning is the highest-value delivery window</div>
+      <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Weekly cadence confirmed across all three. Monday AM aligns with natural preparation behaviour before the week's meetings.</div>
+    </div>
+    <div style="border-left:3px solid #EF9F27;padding:0.75rem 1rem;border-radius:0 8px 8px 0;background:white;margin-bottom:2rem;">
+      <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:#BA7517;margin-bottom:4px;">↗ Evolved</div>
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">H3 — The anxiety is about missing opportunities, not lacking knowledge</div>
+      <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Partially confirmed but sharper: the common thread across all three is decision confidence, not just opportunity awareness. Reframed accordingly.</div>
+    </div>
+
+    <!-- Product requirements -->
+    <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Product requirements — surfaced unprompted</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+      <div class="card">
+        <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:5px;">Req 01</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">Role + domain specificity</div>
+        <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Not just "what happened" but "what this means for you" — at a specific company, in a specific domain.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:5px;">Req 02</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">Proactive synthesis</div>
+        <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">A running picture built before the question gets asked — not reconstructed reactively under pressure.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:5px;">Req 03</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">Permission to ignore</div>
+        <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Explicitly telling users what they can safely skip is as valuable as surfacing what matters.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:5px;">Req 04 · v2</div>
+        <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">Team layer</div>
+        <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Shared digest for product teams — creates alignment before planning sessions. Not v1, but a clear natural expansion.</div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Competitive landscape — coming soon -->
