@@ -333,14 +333,14 @@
 <div class="hero">
   <div class="status-badge">
     <span class="status-dot"></span>
-    In progress · User research complete
+    In progress · Competitive landscape complete
   </div>
   <div class="hero-eyebrow">Case study · AI Product</div>
   <h1>AI Research Digest — <em>role-aware intelligence</em> for product managers</h1>
   <p class="hero-sub">A weekly AI-powered digest that filters the noise of AI research and news into crisp, role-specific takeaways — built for product managers who have given up trying to keep up.</p>
   <div class="hero-meta">
     <span><strong>My role</strong>PM · Researcher · Builder</span>
-    <span><strong>Stage</strong>User research complete → Competitive landscape</span>
+    <span><strong>Stage</strong>Competitive landscape complete → Product vision</span>
     <span><strong>Stack</strong>Python · Streamlit · Claude API</span>
     <span><strong>Timeline</strong>Apr 2026 – ongoing</span>
   </div>
@@ -369,21 +369,21 @@
         </div>
         <div class="roadmap-status"><span class="pill done">Done</span></div>
       </a>
-      <div class="roadmap-row">
+      <a href="#competitive" class="roadmap-row linked">
         <div class="roadmap-num">03</div>
         <div class="roadmap-stage">
           <div class="name">Competitive landscape</div>
           <div class="desc">Competitor map, gap analysis</div>
         </div>
-        <div class="roadmap-status"><span class="pill active">Up next</span></div>
-      </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
       <div class="roadmap-row">
         <div class="roadmap-num">04</div>
         <div class="roadmap-stage">
           <div class="name">Product vision &amp; metrics</div>
           <div class="desc">Vision statement, success metrics, north star</div>
         </div>
-        <div class="roadmap-status"><span class="pill pending">Pending</span></div>
+        <div class="roadmap-status"><span class="pill active">Up next</span></div>
       </div>
       <div class="roadmap-row">
         <div class="roadmap-num">05</div>
@@ -661,12 +661,12 @@
     </details>
   </div>
 
-  <!-- Competitive landscape — coming soon -->
+  <!-- Competitive landscape — complete -->
   <div class="section" id="competitive">
     <details class="stage-details">
       <summary class="stage-summary">
         <div class="stage-summary-left">
-          <span class="pill active" style="flex-shrink:0;">Up next</span>
+          <span class="pill done" style="flex-shrink:0;">✓ Done</span>
           <div class="stage-summary-meta">
             <span class="stage-summary-label">Stage 03</span>
             <span class="stage-summary-title">Competitive landscape</span>
@@ -675,11 +675,195 @@
         <span class="stage-summary-chevron">▼</span>
       </summary>
       <div class="stage-body">
-        <div class="coming-soon">
-          <div class="cs-icon">◎</div>
-          <p>Competitor map covering existing solutions — TLDR AI, The Rundown, ArXiv feeds, LinkedIn — and a gap analysis showing where this product sits.</p>
+
+        <!-- The gap -->
+        <div style="background:var(--teal-light);border:0.5px solid #5DCAA5;border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:1.5rem;">
+          <div style="font-size:13px;font-weight:500;color:#04342C;margin-bottom:6px;">The gap in one sentence</div>
+          <p style="font-size:13px;color:#085041;line-height:1.6;margin:0;">Every existing solution was built for a general tech audience and optimises for volume and speed. None of them ask "what's your role?" before deciding what to show you. That single missing layer — role-specific contextual translation — is the gap this product fills.</p>
         </div>
-      </div>
+
+        <!-- Competitor grid -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Competitor profiles</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-bottom:1.5rem;">
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">TLDR AI</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:10px;">Newsletter · 1.25M subscribers</div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Built for</span><span style="font-size:11px;font-weight:500;">Developers</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Role-aware</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">PM takeaway</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:11px;color:var(--ink-3);">Depth</span><span style="font-size:11px;font-weight:500;">Headlines only</span></div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">The Rundown AI</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:10px;">Newsletter · 1.75M subscribers</div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Built for</span><span style="font-size:11px;font-weight:500;">General professionals</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Role-aware</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">PM takeaway</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:11px;color:var(--ink-3);">Depth</span><span style="font-size:11px;font-weight:500;">Conversational summary</span></div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">ChatGPT / Perplexity</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:10px;">On-demand AI research</div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Built for</span><span style="font-size:11px;font-weight:500;">General users</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Role-aware</span><span style="font-size:11px;font-weight:500;color:#854F0B;">~ With prompting</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">PM takeaway</span><span style="font-size:11px;font-weight:500;color:#854F0B;">~ With prompting</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:11px;color:var(--ink-3);">Depth</span><span style="font-size:11px;font-weight:500;">High but reactive</span></div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">X / LinkedIn</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:10px;">Social discovery</div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Built for</span><span style="font-size:11px;font-weight:500;">General audience</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Role-aware</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">PM takeaway</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:11px;color:var(--ink-3);">Depth</span><span style="font-size:11px;font-weight:500;">Shallow / variable</span></div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px;">ArXiv / RSS feeds</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:10px;">Raw research feeds</div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Built for</span><span style="font-size:11px;font-weight:500;">Researchers / ML eng</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">Role-aware</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid var(--rule);"><span style="font-size:11px;color:var(--ink-3);">PM takeaway</span><span style="font-size:11px;font-weight:500;color:#993c1d;">✗ No</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:11px;color:var(--ink-3);">Depth</span><span style="font-size:11px;font-weight:500;">Maximum, untranslated</span></div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;border:1.5px solid var(--teal);background:var(--teal-light);">
+            <div style="font-size:13px;font-weight:500;color:#04342C;margin-bottom:2px;">AI Research Digest ✦</div>
+            <div style="font-size:11px;color:#0F6E56;margin-bottom:10px;">Our product</div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid #5DCAA5;"><span style="font-size:11px;color:#085041;">Built for</span><span style="font-size:11px;font-weight:500;color:#04342C;">Product managers</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid #5DCAA5;"><span style="font-size:11px;color:#085041;">Role-aware</span><span style="font-size:11px;font-weight:500;color:#04342C;">✓ Core feature</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:0.5px solid #5DCAA5;"><span style="font-size:11px;color:#085041;">PM takeaway</span><span style="font-size:11px;font-weight:500;color:#04342C;">✓ Only one that does</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="font-size:11px;color:#085041;">Depth</span><span style="font-size:11px;font-weight:500;color:#04342C;">Translated, actionable</span></div>
+          </div>
+
+        </div>
+
+        <!-- Strategic implications -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Strategic implications</div>
+
+        <div class="card" style="border-left:3px solid var(--accent);border-radius:0 10px 10px 0;margin-bottom:8px;">
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:4px;">Implication 01</div>
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">Don't compete on volume or speed</div>
+          <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">TLDR AI and The Rundown win on scale and daily cadence. The product wins by being the only one that asks "what's your role?" — depth and relevance over breadth and recency.</div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent);border-radius:0 10px 10px 0;margin-bottom:8px;">
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:4px;">Implication 02</div>
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">Weekly cadence is a feature, not a limitation</div>
+          <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Daily newsletters contribute to the overload problem. A weekly digest that covers only what matters signals respect for the user's time. "5 things, once a week, none of which you can safely ignore."</div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent);border-radius:0 10px 10px 0;margin-bottom:2rem;">
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:4px;">Implication 03 · Moat</div>
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;">Role + domain personalisation is the defensible layer</div>
+          <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Any newsletter can add an AI summary. The defensible advantage is a product that learns the user's role, domain, company stage, and product context over time — making takeaways progressively more accurate and harder to replicate.</div>
+        </div>
+
+        <!-- Product evolution -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Product evolution — v1 → v3</div>
+
+        <div class="card" style="margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="background:#E1F5EE;color:#0F6E56;font-size:10px;font-weight:500;border-radius:3px;padding:2px 8px;">v1 · Now</span>
+            <span style="font-size:14px;font-weight:500;color:var(--ink);">The digest — establish the habit</span>
+          </div>
+          <p style="font-size:13px;color:var(--ink-3);margin-bottom:8px;">Weekly email, 5 PM-specific AI takeaways, domain filter, Monday AM delivery. Proves role-aware translation beats generic summaries.</p>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;flex-direction:column;gap:3px;">
+            <div>→ Weekly digest from ArXiv + news sources</div>
+            <div>→ PM-specific takeaway per item</div>
+            <div>→ Domain filter · "safe to ignore" signal</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="background:#E6F1FB;color:#185FA5;font-size:10px;font-weight:500;border-radius:3px;padding:2px 8px;">v2 · Context layer</span>
+            <span style="font-size:14px;font-weight:500;color:var(--ink);">Company context API — deepen personalisation</span>
+          </div>
+          <p style="font-size:13px;color:var(--ink-3);margin-bottom:8px;">Users feed in company, product, tech stack, roadmap. Takeaways become hyper-specific — referencing your actual product, not a generic PM's hypothetical.</p>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;flex-direction:column;gap:3px;">
+            <div>→ Context onboarding — company, product, stage, stack, competitors</div>
+            <div>→ On-demand queries: "what does this mean for our search feature?"</div>
+            <div>→ Slow burn tracker — flags when a trend builds relevance to your product</div>
+          </div>
+          <div style="margin-top:10px;background:var(--surface);border-radius:6px;padding:10px 12px;">
+            <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:6px;">Example output with context</div>
+            <p style="font-size:12px;color:var(--ink-2);font-style:italic;line-height:1.6;margin:0;">"This paper on long-context reasoning models is directly relevant to your narrative summary feature — current models struggle to maintain coherence across a full quarter's financial data. Worth flagging to your ML lead before finalising the v2 spec."</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:2rem;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="background:#EEEDFE;color:#534AB7;font-size:10px;font-weight:500;border-radius:3px;padding:2px 8px;">v3 · Team + API</span>
+            <span style="font-size:14px;font-weight:500;color:var(--ink);">Team intelligence layer</span>
+          </div>
+          <p style="font-size:13px;color:var(--ink-3);margin-bottom:8px;">The digest becomes a team artifact. Shared context before planning sessions. REST API lets engineering teams integrate into Slack, Notion, and internal tools.</p>
+          <div style="font-size:12px;color:var(--ink-3);display:flex;flex-direction:column;gap:3px;">
+            <div>→ Shared team digest link — everyone same context</div>
+            <div>→ Role-differentiated views — PM sees strategy, eng sees technical</div>
+            <div>→ REST API · Slack / Notion integrations · admin dashboard</div>
+          </div>
+        </div>
+
+        <!-- Tier model -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Tier model</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-bottom:1.5rem;">
+
+          <div class="card" style="margin-bottom:0;">
+            <span style="background:#E1F5EE;color:#0F6E56;font-size:10px;font-weight:500;border-radius:3px;padding:2px 8px;display:inline-block;margin-bottom:8px;">Free</span>
+            <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px;">Digest</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:8px;">Individual PMs, job seekers</div>
+            <div style="font-size:18px;font-weight:500;color:var(--ink);margin-bottom:10px;">$0<span style="font-size:11px;font-weight:400;color:var(--ink-4);"> / mo</span></div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Weekly digest · 5 items</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ PM role takeaway</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Domain filter (1)</div>
+            <div style="font-size:12px;color:var(--ink-4);padding:4px 0;">○ Company context</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;border:1.5px solid var(--accent);">
+            <span style="background:#E6F1FB;color:#185FA5;font-size:10px;font-weight:500;border-radius:3px;padding:2px 8px;display:inline-block;margin-bottom:8px;">Pro</span>
+            <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px;">Context</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:8px;">Senior PMs, AI PM candidates</div>
+            <div style="font-size:18px;font-weight:500;color:var(--ink);margin-bottom:10px;">$12<span style="font-size:11px;font-weight:400;color:var(--ink-4);"> / mo</span></div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Everything in Free</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Company + product context</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ On-demand queries (20/mo)</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;">✓ Slow burn tracker</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <span style="background:#EEEDFE;color:#534AB7;font-size:10px;font-weight:500;border-radius:3px;padding:2px 8px;display:inline-block;margin-bottom:8px;">Team</span>
+            <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px;">Shared</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:8px;">Product teams · 3–15 people</div>
+            <div style="font-size:18px;font-weight:500;color:var(--ink);margin-bottom:10px;">$49<span style="font-size:11px;font-weight:400;color:var(--ink-4);"> / mo</span></div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Everything in Pro</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Shared team digest</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Role-differentiated views</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;">✓ Unlimited queries</div>
+          </div>
+
+          <div class="card" style="margin-bottom:0;">
+            <span style="background:#FAEEDA;color:#854F0B;font-size:10px;font-weight:500;border-radius:3px;padding:2px 8px;display:inline-block;margin-bottom:8px;">Enterprise</span>
+            <div style="font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px;">API</div>
+            <div style="font-size:11px;color:var(--ink-4);margin-bottom:8px;">Eng teams · PM orgs</div>
+            <div style="font-size:18px;font-weight:500;color:var(--ink);margin-bottom:10px;">Custom<span style="font-size:11px;font-weight:400;color:var(--ink-4);"> / contract</span></div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Everything in Team</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ REST API access</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;border-bottom:0.5px solid var(--rule);">✓ Slack / Notion integration</div>
+            <div style="font-size:12px;color:var(--ink-3);padding:4px 0;">✓ Custom context schema</div>
+          </div>
+
+        </div>
+
+        <!-- Moat -->
+        <div style="background:#EEEDFE;border:0.5px solid #AFA9EC;border-radius:10px;padding:1.1rem 1.25rem;">
+          <div style="font-size:13px;font-weight:500;color:#26215C;margin-bottom:6px;">Why this creates a defensible moat</div>
+          <p style="font-size:12px;color:#3C3489;line-height:1.6;margin:0;">Every piece of company context, every query, every feedback signal makes the product more accurate for that specific user. A competitor launching a generic AI digest tomorrow cannot replicate six months of accumulated context. This is the same flywheel that makes Notion, Linear, and Figma sticky — the product becomes a record of how you think, not just a tool you use.</p>
+        </div>
+
+      </div><!-- end stage-body -->
     </details>
   </div>
 
