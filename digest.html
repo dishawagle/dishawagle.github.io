@@ -156,6 +156,29 @@
     margin-bottom: 1.5rem;
   }
 
+  /* ── Expandable stage sections ── */
+  .stage-details { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .stage-summary {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    background: var(--paper);
+    user-select: none;
+    transition: background 0.15s;
+    gap: 1rem;
+  }
+  .stage-summary::-webkit-details-marker { display: none; }
+  .stage-summary:hover { background: var(--surface); }
+  .stage-details[open] > .stage-summary { background: var(--surface); border-bottom: 1px solid var(--rule); }
+  .stage-summary-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .stage-summary-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .stage-summary-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4); }
+  .stage-summary-title { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); }
+  .stage-summary-chevron { font-size: 0.75rem; color: var(--ink-4); transition: transform 0.25s; flex-shrink: 0; }
+  .stage-details[open] .stage-summary-chevron { transform: rotate(180deg); }
+  .stage-body { padding: 2rem 1.5rem; }
+
   /* ── Cards ── */
   .card {
     background: white;
@@ -217,7 +240,10 @@
 
   /* ── Stage roadmap ── */
   .roadmap { margin: 1.5rem 0; }
-  .roadmap-row {
+  .roadmap-row.linked { cursor: pointer; text-decoration: none; color: inherit; transition: background 0.15s; border-radius: 8px; margin: 0 -0.5rem; padding-left: 0.5rem; padding-right: 0.5rem; }
+  .roadmap-row.linked:hover { background: var(--accent-light); }
+  .roadmap-row.linked:hover .name { color: var(--accent); }
+  .roadmap-row.linked .pill.done::after { content: ' ↓'; font-size: 0.7rem; }
     display: flex; align-items: flex-start; gap: 1rem;
     padding: 0.9rem 0;
     border-bottom: 1px solid var(--rule);
@@ -327,22 +353,22 @@
     <div class="section-label">Project roadmap</div>
     <h2>Where we are</h2>
     <div class="roadmap">
-      <div class="roadmap-row">
+      <a href="#problem" class="roadmap-row linked">
         <div class="roadmap-num">01</div>
         <div class="roadmap-stage">
           <div class="name">Problem definition</div>
           <div class="desc">Who, what pain, what cost, what it's not</div>
         </div>
         <div class="roadmap-status"><span class="pill done">Done</span></div>
-      </div>
-      <div class="roadmap-row">
+      </a>
+      <a href="#research" class="roadmap-row linked">
         <div class="roadmap-num">02</div>
         <div class="roadmap-stage">
           <div class="name">User research</div>
           <div class="desc">4–5 interviews with PMs, insight synthesis</div>
         </div>
         <div class="roadmap-status"><span class="pill done">Done</span></div>
-      </div>
+      </a>
       <div class="roadmap-row">
         <div class="roadmap-num">03</div>
         <div class="roadmap-stage">
@@ -380,8 +406,18 @@
 
   <!-- Problem definition -->
   <div class="section" id="problem">
-    <div class="section-label"><span class="check">✓</span> Stage 01 · Complete</div>
-    <h2>Problem definition</h2>
+    <details class="stage-details">
+      <summary class="stage-summary">
+        <div class="stage-summary-left">
+          <span class="pill done" style="flex-shrink:0;">✓ Done</span>
+          <div class="stage-summary-meta">
+            <span class="stage-summary-label">Stage 01</span>
+            <span class="stage-summary-title">Problem definition</span>
+          </div>
+        </div>
+        <span class="stage-summary-chevron">▼</span>
+      </summary>
+      <div class="stage-body">
 
     <div class="ps-callout">
       <p>"Product managers at tech companies have abandoned any consistent habit of tracking AI research and news — not because they lack interest, but because no existing solution filters and frames information for their specific role."</p>
@@ -467,12 +503,24 @@
       <p>The anxiety is about missing opportunities, not lacking knowledge — meaning the core value prop is "never miss a relevant development" not "understand AI better."</p>
       <div class="h-test">Test: ask interviewees to describe the last time they felt behind, and what the actual consequence was.</div>
     </div>
+      </div><!-- end stage-body -->
+    </details>
   </div>
 
   <!-- User research — complete -->
   <div class="section" id="research">
-    <div class="section-label"><span class="check">✓</span> Stage 02 · Complete</div>
-    <h2>User research</h2>
+    <details class="stage-details">
+      <summary class="stage-summary">
+        <div class="stage-summary-left">
+          <span class="pill done" style="flex-shrink:0;">✓ Done</span>
+          <div class="stage-summary-meta">
+            <span class="stage-summary-label">Stage 02</span>
+            <span class="stage-summary-title">User research</span>
+          </div>
+        </div>
+        <span class="stage-summary-chevron">▼</span>
+      </summary>
+      <div class="stage-body">
 
     <p style="font-size:0.95rem; color:var(--ink-2); max-width:600px; margin-bottom:2rem; line-height:1.7;">3 interviews conducted with PMs across different experience levels, company sizes, and relationships with AI research. Each interview was open-ended and non-directive — no solution was pitched at any point.</p>
 
@@ -609,36 +657,74 @@
       </div>
     </div>
 
+      </div><!-- end stage-body -->
+    </details>
   </div>
 
   <!-- Competitive landscape — coming soon -->
   <div class="section" id="competitive">
-    <div class="section-label"><span class="pending">○</span> Stage 03 · Pending</div>
-    <h2>Competitive landscape</h2>
-    <div class="coming-soon">
-      <div class="cs-icon">◎</div>
-      <p>Competitor map covering existing solutions — TLDR AI, The Rundown, ArXiv feeds, LinkedIn — and a gap analysis showing where this product sits.</p>
-    </div>
+    <details class="stage-details">
+      <summary class="stage-summary">
+        <div class="stage-summary-left">
+          <span class="pill active" style="flex-shrink:0;">Up next</span>
+          <div class="stage-summary-meta">
+            <span class="stage-summary-label">Stage 03</span>
+            <span class="stage-summary-title">Competitive landscape</span>
+          </div>
+        </div>
+        <span class="stage-summary-chevron">▼</span>
+      </summary>
+      <div class="stage-body">
+        <div class="coming-soon">
+          <div class="cs-icon">◎</div>
+          <p>Competitor map covering existing solutions — TLDR AI, The Rundown, ArXiv feeds, LinkedIn — and a gap analysis showing where this product sits.</p>
+        </div>
+      </div>
+    </details>
   </div>
 
   <!-- PRD — coming soon -->
   <div class="section" id="prd">
-    <div class="section-label"><span class="pending">○</span> Stage 04–05 · Pending</div>
-    <h2>Product vision &amp; PRD</h2>
-    <div class="coming-soon">
-      <div class="cs-icon">◎</div>
-      <p>Vision statement, north star metric, success criteria, and v1 feature set with prioritisation rationale.</p>
-    </div>
+    <details class="stage-details">
+      <summary class="stage-summary">
+        <div class="stage-summary-left">
+          <span class="pill pending" style="flex-shrink:0;">Pending</span>
+          <div class="stage-summary-meta">
+            <span class="stage-summary-label">Stage 04–05</span>
+            <span class="stage-summary-title">Product vision &amp; PRD</span>
+          </div>
+        </div>
+        <span class="stage-summary-chevron">▼</span>
+      </summary>
+      <div class="stage-body">
+        <div class="coming-soon">
+          <div class="cs-icon">◎</div>
+          <p>Vision statement, north star metric, success criteria, and v1 feature set with prioritisation rationale.</p>
+        </div>
+      </div>
+    </details>
   </div>
 
   <!-- Build — coming soon -->
   <div class="section" id="build">
-    <div class="section-label"><span class="pending">○</span> Stage 06 · Pending</div>
-    <h2>Live product</h2>
-    <div class="coming-soon">
-      <div class="cs-icon">◎</div>
-      <p>A working Streamlit app powered by the Claude API — pulling real papers from ArXiv, generating PM-specific takeaways weekly. Link will appear here when live.</p>
-    </div>
+    <details class="stage-details">
+      <summary class="stage-summary">
+        <div class="stage-summary-left">
+          <span class="pill pending" style="flex-shrink:0;">Pending</span>
+          <div class="stage-summary-meta">
+            <span class="stage-summary-label">Stage 06</span>
+            <span class="stage-summary-title">Live product</span>
+          </div>
+        </div>
+        <span class="stage-summary-chevron">▼</span>
+      </summary>
+      <div class="stage-body">
+        <div class="coming-soon">
+          <div class="cs-icon">◎</div>
+          <p>A working Streamlit app powered by the Claude API — pulling real papers from ArXiv, generating PM-specific takeaways weekly. Link will appear here when live.</p>
+        </div>
+      </div>
+    </details>
   </div>
 
 </div>
