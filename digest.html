@@ -333,14 +333,14 @@
 <div class="hero">
   <div class="status-badge">
     <span class="status-dot"></span>
-    In progress · PRD complete
+    In progress · v1 shipped
   </div>
   <div class="hero-eyebrow">Case study · AI Product</div>
   <h1>AI Research Digest — <em>role-aware intelligence</em> for product managers</h1>
   <p class="hero-sub">A weekly AI-powered digest that filters the noise of AI research and news into crisp, role-specific takeaways — built for product managers who have given up trying to keep up.</p>
   <div class="hero-meta">
     <span><strong>My role</strong>PM · Researcher · Builder</span>
-    <span><strong>Stage</strong>PRD complete → Build &amp; ship</span>
+    <span><strong>Stage</strong>v1 live — iterating</span>
     <span><strong>Stack</strong>Python · Streamlit · Claude API</span>
     <span><strong>Timeline</strong>Apr 2026 – ongoing</span>
   </div>
@@ -393,14 +393,14 @@
         </div>
         <div class="roadmap-status"><span class="pill done">Done</span></div>
       </a>
-      <div class="roadmap-row">
+      <a href="#build" class="roadmap-row linked">
         <div class="roadmap-num">06</div>
         <div class="roadmap-stage">
           <div class="name">Build &amp; ship</div>
-          <div class="desc">Live Streamlit app with Claude API</div>
+          <div class="desc">Live Streamlit app with Gemini API</div>
         </div>
-        <div class="roadmap-status"><span class="pill active">Up next</span></div>
-      </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
     </div>
   </div>
 
@@ -1216,20 +1216,97 @@
     <details class="stage-details">
       <summary class="stage-summary">
         <div class="stage-summary-left">
-          <span class="pill pending" style="flex-shrink:0;">Pending</span>
+          <span class="pill done" style="flex-shrink:0;">✓ Done</span>
           <div class="stage-summary-meta">
             <span class="stage-summary-label">Stage 06</span>
-            <span class="stage-summary-title">Live product</span>
+            <span class="stage-summary-title">Build &amp; ship</span>
           </div>
         </div>
         <span class="stage-summary-chevron">▼</span>
       </summary>
       <div class="stage-body">
-        <div class="coming-soon">
-          <div class="cs-icon">◎</div>
-          <p>A working Streamlit app powered by the Claude API — pulling real papers from ArXiv, generating PM-specific takeaways weekly. Link will appear here when live.</p>
+
+        <!-- Live app CTA -->
+        <div style="background:#1a3a5c;border-radius:12px;padding:2rem;text-align:center;margin-bottom:1.5rem;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">📡</div>
+          <div style="font-family:var(--serif);font-size:1.3rem;color:white;margin-bottom:0.5rem;">AI Research Digest is live</div>
+          <div style="font-size:0.88rem;color:rgba(255,255,255,0.6);margin-bottom:1.25rem;line-height:1.6;">5 PM-specific AI takeaways, generated fresh each week from OpenAI, Google DeepMind, Anthropic, Meta, Hugging Face, and ArXiv. Ask follow-up questions on any item.</div>
+          <a href="https://ai-digest-uw3pnsanzhmcgfoxrrqw4p.streamlit.app/" target="_blank"
+             style="display:inline-block;background:white;color:#1a3a5c;font-weight:600;font-size:0.9rem;padding:0.75rem 2rem;border-radius:6px;text-decoration:none;">
+            Open the live app →
+          </a>
         </div>
-      </div>
+
+        <!-- What was built -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">What was built</div>
+
+        <div class="card" style="margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;">engine.py — the digest pipeline</div>
+          <p>Fetches from 9 sources (OpenAI, Google DeepMind, Hugging Face, Google Research, Microsoft Research, AWS AI via RSS; Anthropic, Meta AI, Mistral via ArXiv), deduplicates across runs using MD5 fingerprints, selects the 5 most PM-relevant items using Gemini, and generates role-specific takeaways with Act / Watch / Skip signals.</p>
+        </div>
+
+        <div class="card" style="margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;">review.py — internal editorial dashboard</div>
+          <p>Streamlit-based human approval UI. Each draft item is editable — title, summary, PM takeaway, relevance signal. Nothing goes live until all 5 items are approved. Approved items are logged to prevent republishing in future issues.</p>
+        </div>
+
+        <div class="card" style="margin-bottom:1.5rem;">
+          <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px;">app.py — public web reader</div>
+          <p>Self-contained Streamlit app deployed on Streamlit Community Cloud. Fetches and generates live on first visit, caches for 7 days. Features: Act/Watch/Skip relevance signals, PM takeaways, per-item Q&A powered by Gemini (with suggested starter questions and conversation history), weekly pulse survey measuring decision influence rate, and a subscribe form.</p>
+        </div>
+
+        <!-- Tech stack -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Stack</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;">
+          <span style="background:var(--accent-light);color:var(--accent);border-radius:4px;padding:3px 10px;font-size:12px;font-weight:500;">Python</span>
+          <span style="background:var(--accent-light);color:var(--accent);border-radius:4px;padding:3px 10px;font-size:12px;font-weight:500;">Streamlit</span>
+          <span style="background:var(--accent-light);color:var(--accent);border-radius:4px;padding:3px 10px;font-size:12px;font-weight:500;">Gemini API</span>
+          <span style="background:var(--accent-light);color:var(--accent);border-radius:4px;padding:3px 10px;font-size:12px;font-weight:500;">ArXiv API</span>
+          <span style="background:var(--accent-light);color:var(--accent);border-radius:4px;padding:3px 10px;font-size:12px;font-weight:500;">RSS feeds</span>
+          <span style="background:var(--accent-light);color:var(--accent);border-radius:4px;padding:3px 10px;font-size:12px;font-weight:500;">Streamlit Community Cloud</span>
+          <span style="background:var(--accent-light);color:var(--accent);border-radius:4px;padding:3px 10px;font-size:12px;font-weight:500;">GitHub</span>
+        </div>
+
+        <!-- Key decisions -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Key decisions made during build</div>
+
+        <div style="border-left:2px solid var(--rule);padding:0.75rem 1rem;margin-bottom:8px;border-radius:0 8px 8px 0;background:white;">
+          <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;">Switched from Anthropic API to Gemini — free tier enabled zero-cost build</div>
+          <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">The original spec used the Claude API, but Anthropic requires paid credits. Gemini 2.0 Flash has a generous free tier, making the entire product buildable and deployable at zero cost — important for a portfolio project that needs to stay live indefinitely.</div>
+        </div>
+
+        <div style="border-left:2px solid var(--rule);padding:0.75rem 1rem;margin-bottom:8px;border-radius:0 8px 8px 0;background:white;">
+          <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;">Self-contained app over JSON file dependency</div>
+          <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">The original architecture stored approved digests as local JSON files, which don't exist on Streamlit Cloud. Redesigned app.py to fetch and generate live on first load, cached for 7 days — making the app fully self-contained with no file dependencies.</div>
+        </div>
+
+        <div style="border-left:2px solid var(--rule);padding:0.75rem 1rem;margin-bottom:1.5rem;border-radius:0 8px 8px 0;background:white;">
+          <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px;">Hybrid curation maintained as a product principle</div>
+          <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">The public app generates automatically, but the local workflow (engine.py + review.py) preserves human approval for issues distributed to subscribers. Fully automated output is the public demo; curated output is the real product. Trust is built by the human review layer, not despite its absence.</div>
+        </div>
+
+        <!-- What's next -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">What I'd build next (v2)</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;">
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px;">Domain filter</div>
+            <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Let users specify their industry so takeaways reference their specific domain — fintech, healthcare, developer tools.</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px;">Company context layer</div>
+            <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Users feed in their product, stack, and roadmap. Takeaways reference their actual product — the Pro tier moat.</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px;">Email delivery</div>
+            <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Monday morning inbox delivery via Resend or Mailchimp — the habit-forming surface identified in user research.</div>
+          </div>
+          <div class="card" style="margin-bottom:0;">
+            <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px;">Slow burn tracker</div>
+            <div style="font-size:12px;color:var(--ink-3);line-height:1.5;">Flags when a trend is building across multiple weeks before it becomes an explosion — Participant C's key insight.</div>
+          </div>
+        </div>
+
+      </div><!-- end stage-body -->
     </details>
   </div>
 
