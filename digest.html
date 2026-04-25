@@ -101,7 +101,7 @@
     font-size: 0.78rem; font-weight: 500;
     margin-bottom: 1.5rem;
   }
-  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
   /* ── Layout ── */
@@ -332,15 +332,15 @@
 
 <div class="hero">
   <div class="status-badge">
-    <span class="status-dot"></span>
-    In progress · v1 shipped
+    <span class="status-dot" style="background:#1D9E75;"></span>
+    Complete · v1 live
   </div>
   <div class="hero-eyebrow">Case study · AI Product</div>
   <h1>AI Research Digest — <em>role-aware intelligence</em> for product managers</h1>
   <p class="hero-sub">A weekly AI-powered digest that filters the noise of AI research and news into crisp, role-specific takeaways — built for product managers who have given up trying to keep up.</p>
   <div class="hero-meta">
     <span><strong>My role</strong>PM · Researcher · Builder</span>
-    <span><strong>Stage</strong>v1 live — iterating</span>
+    <span><strong>Stage</strong>v1 live · Evals defined · iterating</span>
     <span><strong>Stack</strong>Python · Streamlit · Claude API</span>
     <span><strong>Timeline</strong>Apr 2026 – ongoing</span>
   </div>
@@ -398,6 +398,14 @@
         <div class="roadmap-stage">
           <div class="name">Build &amp; ship</div>
           <div class="desc">Live Streamlit app with Gemini API</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+      <a href="#evals" class="roadmap-row linked">
+        <div class="roadmap-num">07</div>
+        <div class="roadmap-stage">
+          <div class="name">Evals &amp; iteration</div>
+          <div class="desc">Product evals, LLM quality rubric, regression tests</div>
         </div>
         <div class="roadmap-status"><span class="pill done">Done</span></div>
       </a>
@@ -1311,6 +1319,203 @@
   </div>
 
 </div>
+
+  <!-- Evals & iteration — complete -->
+  <div class="section" id="evals">
+    <details class="stage-details">
+      <summary class="stage-summary">
+        <div class="stage-summary-left">
+          <span class="pill done" style="flex-shrink:0;">✓ Done</span>
+          <div class="stage-summary-meta">
+            <span class="stage-summary-label">Stage 07</span>
+            <span class="stage-summary-title">Evals &amp; iteration framework</span>
+          </div>
+        </div>
+        <span class="stage-summary-chevron">▼</span>
+      </summary>
+      <div class="stage-body">
+
+        <div class="card" style="margin-bottom:1.5rem;">
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);margin-bottom:6px;">Why two types of evals</div>
+          <p>This product has two distinct quality layers that degrade independently. <strong>Product evals</strong> measure whether users are getting value — are they building habits, making better decisions? <strong>LLM evals</strong> measure whether the AI outputs are good — are takeaways specific, grounded, correctly labelled? A product can have great engagement but poor LLM quality, or vice versa. Both need separate monitoring.</p>
+        </div>
+
+        <!-- PRODUCT EVALS -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Type 1 — Product evals</div>
+
+        <!-- Outcome -->
+        <div style="background:#E1F5EE;border-radius:8px;padding:0.65rem 1rem;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:13px;font-weight:500;color:#04342C;">Outcome evals — is the product working?</span>
+          <span style="font-size:11px;color:#0F6E56;">Monthly</span>
+        </div>
+        <div style="border:0.5px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:10px;">
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.5rem 1rem;background:var(--surface);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);">
+            <div>Metric</div><div>Target</div><div>Method</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;">
+            <div><strong style="color:var(--ink);display:block;margin-bottom:2px;">Decision influence rate</strong><span style="color:var(--ink-4);font-size:11px;">% of WAUs who say digest influenced a work decision</span></div>
+            <div style="color:var(--ink-3);">≥ 40%</div>
+            <div style="color:var(--ink-3);line-height:1.5;">Weekly pulse survey in app — Yes / Not yet / No</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;">
+            <div><strong style="color:var(--ink);display:block;margin-bottom:2px;">Week-8 retention</strong><span style="color:var(--ink-4);font-size:11px;">% of week-1 users still opening by week 8</span></div>
+            <div style="color:var(--ink-3);">≥ 60%</div>
+            <div style="color:var(--ink-3);line-height:1.5;">Track subscriber cohorts by signup week</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;">
+            <div><strong style="color:var(--ink);display:block;margin-bottom:2px;">Qualitative recall signal</strong><span style="color:var(--ink-4);font-size:11px;">Can users name a specific item that changed their thinking?</span></div>
+            <div style="color:var(--ink-3);">2 of 3 interviewees</div>
+            <div style="color:var(--ink-3);line-height:1.5;">15-min interview with 3 users quarterly</div>
+          </div>
+        </div>
+
+        <!-- Engagement -->
+        <div style="background:#E1F5EE;border-radius:8px;padding:0.65rem 1rem;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:13px;font-weight:500;color:#04342C;">Engagement evals — are users getting value each week?</span>
+          <span style="font-size:11px;color:#0F6E56;">Per issue</span>
+        </div>
+        <div style="border:0.5px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;">
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.5rem 1rem;background:var(--surface);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);">
+            <div>Metric</div><div>Target</div><div>Method</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;">
+            <div><strong style="color:var(--ink);display:block;margin-bottom:2px;">Weekly open rate</strong></div>
+            <div style="color:var(--ink-3);">≥ 55%</div>
+            <div style="color:var(--ink-3);">Email analytics — industry avg is ~25%</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;">
+            <div><strong style="color:var(--ink);display:block;margin-bottom:2px;">Source click-through rate</strong></div>
+            <div style="color:var(--ink-3);">≥ 25%</div>
+            <div style="color:var(--ink-3);">Link tracking — signals takeaway was interesting enough to go deeper</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;">
+            <div><strong style="color:var(--ink);display:block;margin-bottom:2px;">Q&amp;A engagement rate</strong></div>
+            <div style="color:var(--ink-3);">≥ 20%</div>
+            <div style="color:var(--ink-3);">Session state logging when Q&amp;A expander is used</div>
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1.5fr;gap:8px;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;">
+            <div><strong style="color:var(--ink);display:block;margin-bottom:2px;">Unsubscribe rate</strong><span style="color:var(--ink-4);font-size:11px;">Guardrail — spike signals quality problem</span></div>
+            <div style="color:var(--ink-3);">≤ 0.5%</div>
+            <div style="color:var(--ink-3);">Email analytics</div>
+          </div>
+        </div>
+
+        <!-- LLM EVALS -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Type 2 — LLM output evals</div>
+
+        <div style="background:#E6F1FB;border-radius:8px;padding:0.65rem 1rem;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:13px;font-weight:500;color:#0C447C;">Per-item quality rubric — score each item 1–3 before publishing</span>
+          <span style="font-size:11px;color:#185FA5;">Per issue</span>
+        </div>
+        <div style="border:0.5px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:10px;">
+          <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;padding:0.5rem 1rem;background:var(--surface);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-4);">
+            <div>Dimension</div><div style="color:#A32D2D;">1 — Fail</div><div style="color:#BA7517;">2 — Pass</div><div style="color:#1D9E75;">3 — Excellent</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;gap:8px;">
+            <div><strong style="color:var(--ink);">Grounding</strong><br><span style="font-size:11px;color:var(--ink-4);">Does it name the specific thing?</span></div>
+            <div style="color:#A32D2D;line-height:1.4;">"This is important for AI products"</div>
+            <div style="color:#BA7517;line-height:1.4;">Names it but takeaway is vague</div>
+            <div style="color:#1D9E75;line-height:1.4;">Names it and connects to a specific decision</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;gap:8px;">
+            <div><strong style="color:var(--ink);">Actionability</strong><br><span style="font-size:11px;color:var(--ink-4);">Can a PM do something with this?</span></div>
+            <div style="color:#A32D2D;line-height:1.4;">Restates the news</div>
+            <div style="color:#BA7517;line-height:1.4;">"Watch this space"</div>
+            <div style="color:#1D9E75;line-height:1.4;">"Flag to your ML lead before finalising v2 spec"</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;gap:8px;">
+            <div><strong style="color:var(--ink);">Relevance signal</strong><br><span style="font-size:11px;color:var(--ink-4);">Is Act/Watch/Skip correct?</span></div>
+            <div style="color:#A32D2D;line-height:1.4;">Skip on a major model release</div>
+            <div style="color:#BA7517;line-height:1.4;">Debatable but defensible</div>
+            <div style="color:#1D9E75;line-height:1.4;">Clearly correct with specific reasoning</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;padding:0.75rem 1rem;border-top:0.5px solid var(--rule);font-size:12px;gap:8px;">
+            <div><strong style="color:var(--ink);">Jargon-free</strong><br><span style="font-size:11px;color:var(--ink-4);">Can a non-ML PM understand it?</span></div>
+            <div style="color:#A32D2D;line-height:1.4;">Assumes ML knowledge</div>
+            <div style="color:#BA7517;line-height:1.4;">One unexplained term</div>
+            <div style="color:#1D9E75;line-height:1.4;">Fully readable without ML background</div>
+          </div>
+        </div>
+
+        <!-- REGRESSION TESTS -->
+        <div style="background:#E6F1FB;border-radius:8px;padding:0.65rem 1rem;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:13px;font-weight:500;color:#0C447C;">Regression tests — run when changing the prompt</span>
+          <span style="font-size:11px;color:#185FA5;">On prompt change</span>
+        </div>
+
+        <div style="background:var(--surface);border-radius:8px;padding:0.75rem 1rem;margin-bottom:6px;">
+          <div style="font-size:12px;color:var(--ink-2);margin-bottom:6px;line-height:1.5;"><strong style="color:var(--ink);">Test 1 — Major model release</strong><br>Input: "Anthropic releases Claude 4 with 10x improved reasoning on agentic tasks"</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="font-size:11px;color:#1D9E75;display:flex;gap:6px;"><span>✓</span>Summary names "Claude 4" explicitly in sentence 1</div>
+            <div style="font-size:11px;color:#1D9E75;display:flex;gap:6px;"><span>✓</span>Takeaway mentions agents or automation specifically</div>
+            <div style="font-size:11px;color:#1D9E75;display:flex;gap:6px;"><span>✓</span>Relevance = "Act now"</div>
+            <div style="font-size:11px;color:#A32D2D;display:flex;gap:6px;"><span>✗</span>Relevance = "Watch" or "Skip" on a major release — fail</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border-radius:8px;padding:0.75rem 1rem;margin-bottom:6px;">
+          <div style="font-size:12px;color:var(--ink-2);margin-bottom:6px;line-height:1.5;"><strong style="color:var(--ink);">Test 2 — Niche benchmark paper</strong><br>Input: "New method improves transformer attention efficiency by 12% on benchmark X"</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="font-size:11px;color:#1D9E75;display:flex;gap:6px;"><span>✓</span>Summary explains the method in plain English</div>
+            <div style="font-size:11px;color:#1D9E75;display:flex;gap=6px;"><span>✓</span>Relevance = "Watch" or "Skip" — not "Act now"</div>
+            <div style="font-size:11px;color:#A32D2D;display:flex;gap:6px;"><span>✗</span>Relevance = "Act now" for incremental benchmark improvement — fail</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border-radius:8px;padding:0.75rem 1rem;margin-bottom:6px;">
+          <div style="font-size:12px;color:var(--ink-2);margin-bottom:6px;line-height:1.5;"><strong style="color:var(--ink);">Test 3 — Business/PR news</strong><br>Input: "OpenAI signs enterprise deal with Fortune 500 company"</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="font-size:11px;color:#1D9E75;display:flex;gap:6px;"><span>✓</span>Relevance = "Skip" or "Watch"</div>
+            <div style="font-size:11px;color:#A32D2D;display:flex;gap:6px;"><span>✗</span>Relevance = "Act now" on pure business news — fail</div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface);border-radius:8px;padding:0.75rem 1rem;margin-bottom:1.5rem;">
+          <div style="font-size:12px;color:var(--ink-2);margin-bottom:6px;line-height:1.5;"><strong style="color:var(--ink);">Test 4 — Jargon check</strong><br>Input: Paper using ML-heavy terms (KV cache, LoRA, RLHF)</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="font-size:11px;color:#1D9E75;display:flex;gap:6px;"><span>✓</span>PM takeaway contains no unexplained ML acronyms</div>
+            <div style="font-size:11px;color:#A32D2D;display:flex;gap:6px;"><span>✗</span>Takeaway assumes reader knows what LoRA or KV cache means — fail</div>
+          </div>
+        </div>
+
+        <!-- MONTHLY SCORECARD -->
+        <div style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:0.75rem;">Monthly scorecard — track trends over time</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
+          <div style="background:var(--surface);border-radius:8px;padding:0.9rem 1rem;">
+            <div style="font-size:22px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:3px;">—%</div>
+            <div style="font-size:11px;color:var(--ink-4);line-height:1.4;">Decision influence rate</div>
+            <div style="font-size:10px;color:var(--ink-4);margin-top:3px;">Target: ≥ 40%</div>
+          </div>
+          <div style="background:var(--surface);border-radius:8px;padding:0.9rem 1rem;">
+            <div style="font-size:22px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:3px;">—%</div>
+            <div style="font-size:11px;color:var(--ink-4);line-height:1.4;">Week-8 retention</div>
+            <div style="font-size:10px;color:var(--ink-4);margin-top:3px;">Target: ≥ 60%</div>
+          </div>
+          <div style="background:var(--surface);border-radius:8px;padding:0.9rem 1rem;">
+            <div style="font-size:22px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:3px;">—%</div>
+            <div style="font-size:11px;color:var(--ink-4);line-height:1.4;">Weekly open rate</div>
+            <div style="font-size:10px;color:var(--ink-4);margin-top:3px;">Target: ≥ 55%</div>
+          </div>
+          <div style="background:var(--surface);border-radius:8px;padding:0.9rem 1rem;">
+            <div style="font-size:22px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:3px;">—/3</div>
+            <div style="font-size:11px;color:var(--ink-4);line-height:1.4;">Avg LLM rubric score</div>
+            <div style="font-size:10px;color:var(--ink-4);margin-top:3px;">Target: ≥ 2.5</div>
+          </div>
+          <div style="background:var(--surface);border-radius:8px;padding:0.9rem 1rem;">
+            <div style="font-size:22px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:3px;">—%</div>
+            <div style="font-size:11px;color:var(--ink-4);line-height:1.4;">Selection overrides</div>
+            <div style="font-size:10px;color:var(--ink-4);margin-top:3px;">Target: ≤ 20%</div>
+          </div>
+          <div style="background:var(--surface);border-radius:8px;padding:0.9rem 1rem;">
+            <div style="font-size:22px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:3px;">—%</div>
+            <div style="font-size:11px;color:var(--ink-4);line-height:1.4;">Q&amp;A engagement</div>
+            <div style="font-size:10px;color:var(--ink-4);margin-top:3px;">Target: ≥ 20%</div>
+          </div>
+        </div>
+
+      </div><!-- end stage-body -->
+    </details>
+  </div>
 
 <footer>
   <p>
