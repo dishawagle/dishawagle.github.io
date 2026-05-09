@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Claims Adjudication Engine — Case Study · Disha Wagle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink:          #0f0f0f;
+    --ink-2:        #3a3a3a;
+    --ink-3:        #6b6b6b;
+    --ink-4:        #a0a0a0;
+    --paper:        #faf9f7;
+    --surface:      #f2f0ec;
+    --accent:       #1a3a5c;
+    --accent-light: #e8eef5;
+    --teal:         #0f6e56;
+    --teal-light:   #e1f5ee;
+    --coral:        #993c1d;
+    --coral-light:  #faece7;
+    --amber:        #854f0b;
+    --amber-light:  #faeeda;
+    --rule:         #d8d4cc;
+    --serif:        'DM Serif Display', Georgia, serif;
+    --sans:         'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 100; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+  .nav-back  { font-size: 0.82rem; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .nav-back:hover { text-decoration: underline; }
+
+  /* Hero */
+  .hero { border-bottom: 1px solid var(--rule); padding: 5rem 2rem 4rem; max-width: 860px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); }
+  .hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.15; color: var(--ink); margin-bottom: 1.25rem; max-width: 680px; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 1.05rem; color: var(--ink-2); max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.82rem; color: var(--ink-3); padding-top: 2rem; border-top: 1px solid var(--rule); }
+  .hero-meta span strong { color: var(--ink-2); font-weight: 500; display: block; margin-bottom: 2px; }
+  .status-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--teal-light); color: var(--teal); border-radius: 20px; padding: 5px 14px; font-size: 0.78rem; font-weight: 500; margin-bottom: 1.5rem; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
+
+  /* Layout */
+  .page-wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Sections */
+  .section { padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 0.5rem; }
+  .section h2 { font-family: var(--serif); font-size: 1.9rem; line-height: 1.2; color: var(--ink); margin-bottom: 1.5rem; }
+
+  /* Cards */
+  .card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 10px; }
+  .card-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 6px; }
+  .card p { font-size: 0.95rem; color: var(--ink-2); line-height: 1.65; }
+  .card p + p { margin-top: 0.75rem; }
+  .card p strong { font-weight: 500; color: var(--ink); }
+
+  /* Insights */
+  .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 1.5rem 0; }
+  .insight { border-radius: 10px; padding: 1.1rem 1.25rem; }
+  .insight.purple { background: #EEEDFE; }
+  .insight.teal   { background: var(--teal-light); }
+  .insight.coral  { background: var(--coral-light); }
+  .insight.amber  { background: var(--amber-light); }
+  .insight.blue   { background: var(--accent-light); }
+  .insight h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 6px; }
+  .insight.purple h4 { color: #26215C; }
+  .insight.teal   h4 { color: #04342C; }
+  .insight.coral  h4 { color: #4A1B0C; }
+  .insight.amber  h4 { color: #633806; }
+  .insight.blue   h4 { color: #1a3a5c; }
+  .insight p { font-size: 0.85rem; line-height: 1.55; }
+  .insight.purple p { color: #3C3489; }
+  .insight.teal   p { color: #085041; }
+  .insight.coral  p { color: #712B13; }
+  .insight.amber  p { color: #854f0b; }
+  .insight.blue   p { color: #1a3a5c; }
+
+  /* Callouts */
+  .callout { background: var(--accent); color: white; border-radius: 12px; padding: 2rem 2.5rem; margin: 2rem 0; }
+  .callout p { font-family: var(--serif); font-size: 1.15rem; line-height: 1.6; font-style: italic; opacity: 0.95; }
+  .callout .attr { font-size: 0.78rem; opacity: 0.6; margin-top: 1rem; font-family: var(--sans); font-style: normal; }
+  .callout.dark { background: #0f0f0f; }
+  .callout.coral { background: var(--coral); }
+
+  /* Metrics */
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.5rem 0; }
+  .metric { background: var(--surface); border-radius: 10px; padding: 1.1rem 1.25rem; }
+  .metric .val { font-family: var(--serif); font-size: 1.7rem; color: var(--accent); line-height: 1.1; margin-bottom: 4px; }
+  .metric .lbl { font-size: 0.8rem; color: var(--ink-3); line-height: 1.4; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 1.5px; background: var(--rule); }
+  .tl-item { position: relative; margin-bottom: 2rem; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot { position: absolute; left: -2rem; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 2px solid var(--paper); }
+  .tl-dot.teal { background: var(--teal); }
+  .tl-dot.coral { background: var(--coral); }
+  .tl-phase { font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); margin-bottom: 3px; }
+  .tl-title { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .tl-body { font-size: 0.88rem; color: var(--ink-3); line-height: 1.65; }
+
+  /* Incident cards */
+  .incident { border-radius: 10px; border: 1px solid var(--rule); background: white; padding: 1.4rem 1.5rem; margin-bottom: 12px; border-left: 4px solid var(--coral); }
+  .incident-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+  .incident-title { font-size: 1rem; font-weight: 500; color: var(--ink); }
+  .incident-badge { font-size: 0.7rem; font-weight: 500; border-radius: 4px; padding: 3px 9px; background: var(--coral-light); color: var(--coral); flex-shrink: 0; }
+  .incident p { font-size: 0.9rem; color: var(--ink-3); line-height: 1.65; margin-bottom: 0.5rem; }
+  .incident-fix { font-size: 0.85rem; color: var(--teal); padding-top: 0.6rem; border-top: 1px solid var(--rule); font-weight: 500; }
+  .incident-fix span { font-weight: 400; color: var(--ink-3); }
+
+  /* Technical spec rows */
+  .spec-row { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 0.5px solid var(--rule); font-size: 0.9rem; }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-label { font-weight: 500; color: var(--ink); width: 160px; flex-shrink: 0; }
+  .spec-value { color: var(--ink-3); line-height: 1.5; flex: 1; }
+
+  /* Decision log */
+  .decision { border-left: 2px solid var(--rule); padding: 0.75rem 1rem; margin-bottom: 8px; border-radius: 0 10px 10px 0; background: white; }
+  .decision-q { font-size: 0.88rem; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .decision-a { font-size: 0.85rem; color: var(--ink-3); line-height: 1.6; }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 1rem 0; }
+  .tag { display: inline-block; border-radius: 5px; padding: 4px 11px; font-size: 0.78rem; font-weight: 500; }
+  .tag.tech    { background: var(--accent-light); color: var(--accent); }
+  .tag.outcome { background: var(--teal-light);   color: var(--teal); }
+  .tag.role    { background: var(--amber-light);   color: var(--amber); }
+
+  /* Animations */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .hero > * { animation: fadeUp 0.5s ease both; }
+  .hero > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero > *:nth-child(2) { animation-delay: 0.12s; }
+  .hero > *:nth-child(3) { animation-delay: 0.18s; }
+  .hero > *:nth-child(4) { animation-delay: 0.24s; }
+  .hero > *:nth-child(5) { animation-delay: 0.30s; }
+
+  /* Footer */
+  footer { text-align: center; padding: 3rem 2rem; font-size: 0.82rem; color: var(--ink-4); border-top: 1px solid var(--rule); }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .page-wrap { padding: 0 1.25rem; }
+    nav { padding: 0 1.25rem; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .callout { padding: 1.5rem; }
+    .spec-label { width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Disha Wagle</a>
+  <a class="nav-back" href="index.html#projects">← All projects</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="status-badge"><span class="status-dot"></span> Shipped · Production · 2019–2024</div>
+  <div class="hero-eyebrow">Work Project · Healthcare PBM</div>
+  <h1>Claims adjudication engine — <em>8,000 decisions a day, under one second</em></h1>
+  <p class="hero-sub">Built from scratch at Flipt to replace a third-party dependency that limited pricing control and made reconciliation painful. A HIPAA-compliant, sub-1s adjudication system that grew from one employer to enterprise scale — processing every prescription claim for employees across five companies.</p>
+  <div class="hero-meta">
+    <span><strong>Company</strong>Flipt / NTT Data</span>
+    <span><strong>Role</strong>Architect · Lead Engineer · Product Owner</span>
+    <span><strong>Timeline</strong>2019 — 2024</span>
+    <span><strong>Scale</strong>~8,000 claims/day · 5–6 employers · up to 40K employees each</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- Context -->
+  <div class="section">
+    <div class="section-label">Context</div>
+    <h2>Why we built it</h2>
+
+    <div class="card">
+      <div class="card-label">The situation before</div>
+      <p>When I joined NTT as one of the first three engineers on the Flipt healthcare platform, the client was processing pharmacy claims through a third-party adjudication vendor. The relationship worked — until it didn't. The vendor's data was inconsistent with our own records, creating weekly and monthly reconciliation headaches that consumed engineering time. Worse, the vendor's pricing model was a black box. Every time the client negotiated a new deal with a pharmacy network or a payor, we had to work around constraints the third party imposed. We couldn't control our own pricing logic.</p>
+      <p>The decision to build our own was not made lightly. Claims adjudication is one of the most complex, regulated systems in healthcare. A wrong response doesn't just mean a bad user experience — it means a patient at a pharmacy counter being told they can't have their medication, possibly with the wrong reason why.</p>
+    </div>
+
+    <div class="callout">
+      <p>"The third-party system told pharmacies what we could dispense. But it didn't know our pricing deals, our payor relationships, or our formulary. We were renting someone else's judgment on our most critical decisions."</p>
+      <div class="attr">The trigger for building our own claims engine — Flipt, 2019</div>
+    </div>
+
+    <div class="insights">
+      <div class="insight coral">
+        <h4>Pain 1 — Data inconsistency</h4>
+        <p>Third-party records diverged from our own on drug prices, dispensing history, and patient eligibility. Every reconciliation cycle required manual investigation to identify and correct mismatches.</p>
+      </div>
+      <div class="insight coral">
+        <h4>Pain 2 — Pricing inflexibility</h4>
+        <p>We couldn't implement our own negotiated deals with payors and pharmacy networks inside the third-party system. The client's competitive advantage — better pricing for employers — was being undermined by a vendor constraint.</p>
+      </div>
+      <div class="insight coral">
+        <h4>Pain 3 — No ownership</h4>
+        <p>When something went wrong — a wrong rejection, a pricing error — we were dependent on the vendor's timeline to investigate and fix it. We had no visibility into the logic and no ability to patch it ourselves.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What I built -->
+  <div class="section">
+    <div class="section-label">What I built</div>
+    <h2>How the system works</h2>
+
+    <div class="card">
+      <div class="card-label">The core function</div>
+      <p>A pharmacy submits a claim when a patient presents a prescription. The claims engine receives that request and runs it through a series of checks in sequence — verifying patient eligibility, checking drug formulary status, validating the pharmacy is in network, confirming prior authorisation if required, and calculating the exact amounts owed by the patient, the employer, and the plan. The response goes back to the pharmacy in under one second. If the claim is approved, the pharmacist dispenses the medication and the patient pays their portion. If rejected, the response includes a specific, actionable rejection reason code so the pharmacist knows exactly what to tell the patient.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">The sequence of checks — simplified</div>
+      <p><strong>Step 1 — Patient eligibility.</strong> Is this patient enrolled in an active plan? Is their coverage current? Are they within their benefit period?</p>
+      <p><strong>Step 2 — Drug validation.</strong> Is this drug on the formulary? What tier is it on? Does it require prior authorisation? Drug information pulled from Medispan — NDC codes, drug class, generic equivalents, market pricing.</p>
+      <p><strong>Step 3 — Pharmacy network check.</strong> Is this pharmacy in the patient's network? What are the dispensing fees and discount rates for this pharmacy?</p>
+      <p><strong>Step 4 — Pricing calculation.</strong> What does the patient owe? What does the employer pay? What is the plan's liability? This calls the pricing engine — a separate service I also built — which calculates amounts based on the plan's benefit design, the negotiated rates, and the patient's deductible and out-of-pocket status.</p>
+      <p><strong>Step 5 — Response.</strong> Approved with amounts, or rejected with a specific NCPDP rejection reason code. Either way, under one second.</p>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="val">&lt; 1s</div>
+        <div class="lbl">SLA — end-to-end adjudication under concurrent load</div>
+      </div>
+      <div class="metric">
+        <div class="val">~8K</div>
+        <div class="lbl">Claims processed per day at peak</div>
+      </div>
+      <div class="metric">
+        <div class="val">5–6</div>
+        <div class="lbl">Enterprise employers onboarded — up to 40K employees each</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical decisions -->
+  <div class="section">
+    <div class="section-label">Technical depth</div>
+    <h2>The hard problems and how I solved them</h2>
+
+    <div class="card" style="margin-bottom:1.5rem;">
+      <div class="card-label">Stack</div>
+      <div class="spec-row"><span class="spec-label">Language</span><span class="spec-value">Python — chosen for speed of iteration, strong healthcare library support, and team familiarity</span></div>
+      <div class="spec-row"><span class="spec-label">Framework</span><span class="spec-value">Flask + Pydantic — Flask for routing and request handling, Pydantic for strict input validation and schema enforcement at the API boundary</span></div>
+      <div class="spec-row"><span class="spec-label">Database</span><span class="spec-value">Couchbase (NoSQL) — chosen for low-latency reads, flexible document schema that accommodated varying plan structures, and built-in caching layer</span></div>
+      <div class="spec-row"><span class="spec-label">Drug data</span><span class="spec-value">Medispan integration — NDC codes, drug classifications, market pricing, generic equivalents</span></div>
+      <div class="spec-row"><span class="spec-label">Payor integration</span><span class="spec-value">Direct API integrations with third-party payors for real-time drug pricing, pharmacy network data, and dispensing fees</span></div>
+      <div class="spec-row"><span class="spec-label">Compliance</span><span class="spec-value">HIPAA — all PHI encrypted at rest and in transit, audit logging on every claim transaction, role-based access controls</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Hard problem 1 — Sub-1 second SLA under concurrent load</div>
+      <p>The NCPDP standard that governs pharmacy claims processing expects a response in under one second. Miss that SLA and the pharmacist's system times out — the patient is left waiting at the counter with no answer. The challenge is that a single claim requires 5+ sequential checks, each potentially hitting the database or an external API.</p>
+      <p><strong>How I solved it:</strong> Couchbase's in-memory caching was central — frequently accessed data (formulary, pharmacy network, payor rates) was cached so the majority of claims never hit the primary database. The check sequence was ordered deliberately — cheapest checks first, so claims that would obviously fail rejected early without running the full pipeline. External payor API calls were the biggest latency risk; I implemented circuit breakers so a slow payor response degraded gracefully rather than blowing the SLA.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Hard problem 2 — Concurrent requests for the same patient</div>
+      <p>Insurance coverage rules mean the sequence of claims matters. If a patient fills two prescriptions simultaneously at different pharmacies, the order in which those claims are processed affects deductible calculations, out-of-pocket tracking, and benefit limits. Process them out of sequence and you can produce pricing inconsistencies that are both wrong for the patient and difficult to reconcile later.</p>
+      <p><strong>How I solved it:</strong> Timestamp and audit logging on every claim transaction meant the sequence was always recoverable. Rather than trying to prevent concurrent submissions — which would have added latency — I ensured the system had an immutable record of what happened when, so any inconsistency could be identified and corrected in reconciliation. Insurance adjudication rules define sequence-of-processing standards; as long as our logs provided evidence of the actual sequence, we were within compliance.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Hard problem 3 — Designing for pricing flexibility</div>
+      <p>The entire reason we built our own system was to control pricing. The pricing engine I built alongside the claims engine handled the calculation of patient amount, employer amount, and plan liability — but it had to support multiple benefit designs, multiple payor contracts, multiple pharmacy network tiers, and the client's own negotiated deals simultaneously. A change to one employer's benefit design could not affect another's.</p>
+      <p><strong>How I solved it:</strong> The pricing engine was a separate service with clearly defined interfaces — the claims engine called it as an internal API. Plan-specific configuration was isolated at the data layer so benefit design changes for one employer were scoped to that employer's documents in Couchbase. I built a comprehensive test suite with hundreds of test cases covering edge conditions — the suite had to pass completely before any change could be promoted to QA or production.</p>
+    </div>
+  </div>
+
+  <!-- Launch and incidents -->
+  <div class="section">
+    <div class="section-label">Launch &amp; production reality</div>
+    <h2>How it went live — and what broke</h2>
+
+    <div class="timeline" style="margin-bottom:2rem;">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 1</div>
+        <div class="tl-title">Launch with parent company</div>
+        <div class="tl-body">First go-live was with the client's own parent company — a controlled environment where we had direct relationships with the people using the system. Real pharmacy traffic, real patients, but a team around us who could escalate issues quickly. This was our production test.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot teal"></div>
+        <div class="tl-phase">Phase 2</div>
+        <div class="tl-title">Smaller employer onboarding</div>
+        <div class="tl-body">Onboarded smaller employers one at a time. Each new employer brought a new benefit design, a new set of plan configurations, and new edge cases we hadn't seen. This phase was where most of the system hardening happened.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot teal"></div>
+        <div class="tl-phase">Phase 3 — 18 months post-launch</div>
+        <div class="tl-title">Enterprise scale</div>
+        <div class="tl-body">5–6 employers onboarded, each with 5,000 to 40,000 employees. 40% traffic growth absorbed without SLA degradation. The architecture decisions made at the start — caching, early rejection, isolated plan configuration — held at scale.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.95rem;color:var(--ink-3);margin-bottom:1.5rem;">Every production system has incidents. These three happened — and how we handled them shaped the system's maturity.</p>
+
+    <div class="incident">
+      <div class="incident-header">
+        <div class="incident-title">Incident 1 — Wrong rejection reason code</div>
+        <div class="incident-badge">Production · Post-launch</div>
+      </div>
+      <p><strong>What happened:</strong> A pharmacist called in because their system was showing a rejection reason that didn't match the actual problem. The patient's drug required prior authorisation — but the rejection code being returned indicated a formulary exclusion. Two very different messages to give a patient at the counter.</p>
+      <p><strong>How we found it:</strong> The pharmacist called our customer service team, who escalated to engineering. We pulled the claim from the audit log, traced the check sequence, and identified the logic branch that was returning the wrong code.</p>
+      <p><strong>What we did:</strong> Diagnosed and patched live. The fix was a correction to the rejection code mapping in the drug validation logic — the prior auth check was running correctly, but its output was being mapped to the wrong NCPDP code. We updated the mapping, reprocessed the affected claim, and added a test case to the suite to prevent regression.</p>
+      <div class="incident-fix">Fix: <span>Corrected rejection code mapping — added prior auth rejection codes to test suite. Pharmacist was called back same day with the correct patient guidance.</span></div>
+    </div>
+
+    <div class="incident">
+      <div class="incident-header">
+        <div class="incident-title">Incident 2 — Concurrent request pricing inconsistency</div>
+        <div class="incident-badge">Production · Edge case</div>
+      </div>
+      <p><strong>What happened:</strong> A patient filled two prescriptions near-simultaneously at different pharmacies. The deductible calculation on the second claim didn't reflect the first claim's impact — because both claims were processed within milliseconds of each other, before either had fully committed to the database.</p>
+      <p><strong>Why this was acceptable:</strong> Insurance coverage rules define sequence-of-processing standards. As long as an audit trail exists showing the timestamps and the processing order, the sequence is recoverable and defensible to payors. We did not try to prevent concurrent submissions — that would have added latency. We ensured the immutable log existed and that reconciliation could identify and correct any deductible discrepancy.</p>
+      <div class="incident-fix">Resolution: <span>Timestamp logging confirmed processing sequence. Deductible was corrected in the next reconciliation cycle. No patient overpaid — the discrepancy was within the plan's grace handling window.</span></div>
+    </div>
+
+    <div class="incident">
+      <div class="incident-header">
+        <div class="incident-title">Incident 3 — Reconciliation mismatch</div>
+        <div class="incident-badge">Caught early · Pre-patient impact</div>
+      </div>
+      <p><strong>What happened:</strong> During a routine reconciliation run, our automated checks flagged a mismatch between the amounts recorded in our system and the amounts reported by a payor for a subset of claims. The delta was small — a rounding difference in dispensing fee calculation — but consistent across a batch of claims.</p>
+      <p><strong>How we caught it:</strong> We had built automated reconciliation checks that ran after every processing batch and flagged deviations above a threshold. The checks caught this before it reached the employer billing cycle, meaning no employer was incorrectly charged.</p>
+      <div class="incident-fix">Fix: <span>Identified a rounding inconsistency in the dispensing fee formula — payor was rounding at a different decimal point than we were. Updated the formula to match, reprocessed the affected batch, and added a payor-specific rounding rule to the configuration layer.</span></div>
+    </div>
+  </div>
+
+  <!-- PM layer -->
+  <div class="section">
+    <div class="section-label">PM perspective</div>
+    <h2>The product decisions behind the engineering</h2>
+
+    <div class="card">
+      <div class="card-label">Why build vs. buy was the right call</div>
+      <p>The conventional wisdom in healthcare IT is to buy adjudication infrastructure — it's complex, regulated, and expensive to build. We built because the third-party system was preventing us from delivering the client's core value proposition: better drug pricing for employers. You cannot build a differentiated pricing product on top of someone else's pricing logic. The build decision was a product strategy decision as much as a technical one.</p>
+    </div>
+
+    <div class="decision">
+      <div class="decision-q">Why Couchbase over a relational database?</div>
+      <div class="decision-a">Claims adjudication needs sub-second reads across variable data structures — different employers have different plan designs, different formularies, different benefit configurations. A relational schema would have required complex joins on every claim. Couchbase's document model let us store each plan's configuration as a self-contained document, retrieved in a single key lookup. The caching layer was a decisive advantage for SLA compliance.</div>
+    </div>
+
+    <div class="decision">
+      <div class="decision-q">Why separate the pricing engine from the claims engine?</div>
+      <div class="decision-a">The pricing engine needed to serve three consumers — the claims engine, the mobile app, and the web portal. Embedding pricing logic inside the claims engine would have meant duplicating it everywhere. A separate service with a clean API meant pricing logic lived in one place, was tested in one place, and could be updated without touching the claims engine. It also meant the pricing engine could evolve independently — adding new plan types or pricing models without touching adjudication logic.</div>
+    </div>
+
+    <div class="decision">
+      <div class="decision-q">Why did the test suite have to pass completely before QA promotion?</div>
+      <div class="decision-a">A wrong adjudication response affects a patient at a pharmacy counter in real time. Unlike most software, you cannot ship a bug and patch it quietly — the consequences are immediate and visible. The test suite was the gate because we could not afford to discover edge cases in production. Every incident we had in production generated a new test case. The suite grew to several hundred cases over five years and caught multiple regressions before they reached patients.</div>
+    </div>
+
+    <div class="insights" style="margin-top:1.5rem;">
+      <div class="insight teal">
+        <h4>Customer service as product feedback</h4>
+        <p>I attended customer service reviews directly — sitting in on calls where patient issues were discussed. This was the most efficient feedback loop for the claims engine. Pharmacist calls about wrong rejection codes, patient confusion about benefit limits, employer questions about reconciliation — all of it fed directly into the backlog. We resolved 80% of high-priority patient issues within 7 days because engineering was in the room when the issues were identified.</p>
+      </div>
+      <div class="insight blue">
+        <h4>Scalability as a PM discipline</h4>
+        <p>The SLA requirement was a PM decision as much as an engineering one. NCPDP standards mandate sub-second responses — but we could have built a system that met the SLA for small load and degraded under scale. The decision to design for concurrent load from day one — caching, early rejection, isolated configuration — added build time upfront and paid off when we absorbed 40% traffic growth without rearchitecting.</p>
+      </div>
+      <div class="insight amber">
+        <h4>The acquisition due diligence test</h4>
+        <p>The ultimate validation of the system's quality was the company's acquisition process. When a buyer conducted technical due diligence, the claims engine was the centrepiece. I prepared documentation, ran demonstrations live to the due diligence team, and coordinated rapid fixes under time pressure. The system held — and the acquisition completed. A production system being demonstrated to an acquirer is the highest-stakes product review there is.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Outcomes -->
+  <div class="section">
+    <div class="section-label">Outcomes</div>
+    <h2>What it delivered</h2>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="val">40%</div>
+        <div class="lbl">Traffic growth absorbed without SLA degradation</div>
+      </div>
+      <div class="metric">
+        <div class="val">18mo</div>
+        <div class="lbl">From launch to 5–6 enterprise employers onboarded</div>
+      </div>
+      <div class="metric">
+        <div class="val">80%</div>
+        <div class="lbl">High-priority patient issues resolved within 7 days</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">What replacing the third party unlocked</div>
+      <p>Owning the adjudication engine meant owning the pricing logic. The client could now implement their own negotiated deals with payors and pharmacy networks directly — without working around a vendor constraint. Reconciliation went from a weekly manual investigation to an automated check with a clear exception workflow. And when something went wrong in production, we could diagnose and fix it ourselves, the same day.</p>
+    </div>
+
+    <div class="tags">
+      <span class="tag tech">Python · Flask · Pydantic</span>
+      <span class="tag tech">Couchbase (NoSQL)</span>
+      <span class="tag tech">Medispan integration</span>
+      <span class="tag tech">NCPDP claims standard</span>
+      <span class="tag tech">HIPAA compliant</span>
+      <span class="tag outcome">Sub-1s SLA</span>
+      <span class="tag outcome">8K claims/day</span>
+      <span class="tag outcome">Zero pricing bugs post-fix</span>
+      <span class="tag role">Sole architect</span>
+      <span class="tag role">Lead engineer</span>
+      <span class="tag role">Product owner</span>
+    </div>
+  </div>
+
+</div><!-- end page-wrap -->
+
+<footer>
+  <p>
+    <a href="index.html">← Back to portfolio</a>
+    &nbsp;·&nbsp;
+    <a href="digest.html">See AI Research Digest case study</a>
+    &nbsp;·&nbsp;
+    © 2026 Disha Wagle
+  </p>
+</footer>
+
+</body>
+</html>
