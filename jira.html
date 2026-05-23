@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JIRA — Product Teardown · Disha Wagle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0f0f0f; --ink-2: #3a3a3a; --ink-3: #6b6b6b; --ink-4: #a0a0a0;
+    --paper: #faf9f7; --surface: #f2f0ec;
+    --accent: #1a3a5c; --accent-light: #e8eef5;
+    --teal: #0f6e56; --teal-light: #e1f5ee;
+    --coral: #993c1d; --coral-light: #faece7;
+    --amber: #854f0b; --amber-light: #faeeda;
+    --rule: #d8d4cc;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .nav-back:hover { text-decoration: underline; }
+
+  .hero { border-bottom: 1px solid var(--rule); padding: 5rem 2rem 4rem; max-width: 860px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); }
+  .hero h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; color: var(--ink); margin-bottom: 1.25rem; max-width: 680px; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 1.05rem; color: var(--ink-2); max-width: 620px; line-height: 1.75; margin-bottom: 2.5rem; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.82rem; color: var(--ink-3); padding-top: 2rem; border-top: 1px solid var(--rule); }
+  .hero-meta span strong { color: var(--ink-2); font-weight: 500; display: block; margin-bottom: 2px; }
+  .thesis-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); border-radius: 20px; padding: 5px 14px; font-size: 0.78rem; font-weight: 500; margin-bottom: 1.5rem; }
+
+  .page-wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 3.5rem 0; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 0.5rem; }
+  .section h2 { font-family: var(--serif); font-size: 1.75rem; line-height: 1.2; color: var(--ink); margin-bottom: 1.25rem; }
+
+  .card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 10px; }
+  .card-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 6px; }
+  .card p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.65; }
+  .card p + p { margin-top: 0.6rem; }
+  .card p strong { font-weight: 500; color: var(--ink); }
+
+  .callout { background: var(--accent); color: white; border-radius: 12px; padding: 1.75rem 2rem; margin: 1.5rem 0; }
+  .callout p { font-family: var(--serif); font-size: 1.1rem; line-height: 1.6; font-style: italic; opacity: 0.95; }
+  .callout .attr { font-size: 0.75rem; opacity: 0.55; margin-top: 0.75rem; font-family: var(--sans); font-style: normal; }
+  .callout.dark { background: #0f0f0f; }
+
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.25rem 0; }
+  .metric { background: var(--surface); border-radius: 10px; padding: 1rem 1.25rem; }
+  .metric .val { font-family: var(--serif); font-size: 1.6rem; color: var(--accent); line-height: 1.1; margin-bottom: 4px; }
+  .metric .lbl { font-size: 0.78rem; color: var(--ink-3); line-height: 1.4; }
+
+  .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 1.25rem 0; }
+  .insight { border-radius: 10px; padding: 1rem 1.1rem; }
+  .insight.teal   { background: var(--teal-light); }
+  .insight.coral  { background: var(--coral-light); }
+  .insight.amber  { background: var(--amber-light); }
+  .insight.blue   { background: var(--accent-light); }
+  .insight.purple { background: #EEEDFE; }
+  .insight h4 { font-size: 0.8rem; font-weight: 500; margin-bottom: 5px; }
+  .insight.teal   h4 { color: #04342C; }
+  .insight.coral  h4 { color: #4A1B0C; }
+  .insight.amber  h4 { color: #633806; }
+  .insight.blue   h4 { color: #1a3a5c; }
+  .insight.purple h4 { color: #26215C; }
+  .insight p { font-size: 0.83rem; line-height: 1.55; }
+  .insight.teal   p { color: #085041; }
+  .insight.coral  p { color: #712B13; }
+  .insight.amber  p { color: #854f0b; }
+  .insight.blue   p { color: #1a3a5c; }
+  .insight.purple p { color: #3C3489; }
+
+  /* Gap cards */
+  .gap { border-radius: 10px; border: 1px solid var(--rule); background: white; padding: 1.4rem 1.5rem; margin-bottom: 12px; border-left: 4px solid var(--coral); }
+  .gap-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+  .gap-title { font-size: 1rem; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .gap-badge { font-size: 0.7rem; font-weight: 500; border-radius: 4px; padding: 3px 9px; background: var(--coral-light); color: var(--coral); flex-shrink: 0; white-space: nowrap; }
+  .gap p { font-size: 0.88rem; color: var(--ink-3); line-height: 1.65; margin-bottom: 0.5rem; }
+  .gap p + p { margin-top: 0.4rem; }
+  .gap p strong { font-weight: 500; color: var(--ink-2); }
+  .gap-evidence { font-size: 0.83rem; color: var(--ink-4); padding-top: 0.6rem; border-top: 1px solid var(--rule); font-style: italic; }
+
+  /* Recommendation cards */
+  .rec { border-radius: 10px; border: 1px solid var(--rule); background: white; padding: 1.4rem 1.5rem; margin-bottom: 12px; }
+  .rec.high   { border-left: 4px solid var(--coral); }
+  .rec.medium { border-left: 4px solid var(--amber); }
+  .rec.low    { border-left: 4px solid var(--teal); }
+  .rec-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+  .rec-title  { font-size: 1rem; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .rec-badge  { font-size: 0.7rem; font-weight: 500; border-radius: 4px; padding: 3px 9px; flex-shrink: 0; white-space: nowrap; }
+  .rec.high   .rec-badge { background: var(--coral-light); color: var(--coral); }
+  .rec.medium .rec-badge { background: var(--amber-light); color: var(--amber); }
+  .rec.low    .rec-badge { background: var(--teal-light);  color: var(--teal); }
+  .rec p { font-size: 0.88rem; color: var(--ink-3); line-height: 1.65; margin-bottom: 0.5rem; }
+  .rec-rationale { font-size: 0.83rem; color: var(--ink-4); padding-top: 0.6rem; border-top: 1px solid var(--rule); }
+  .rec-rationale strong { color: var(--ink-3); font-weight: 500; }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 1rem 0; }
+  .tag { display: inline-block; border-radius: 5px; padding: 4px 11px; font-size: 0.78rem; font-weight: 500; }
+  .tag.good    { background: var(--teal-light);   color: var(--teal); }
+  .tag.bad     { background: var(--coral-light);  color: var(--coral); }
+  .tag.neutral { background: var(--surface);      color: var(--ink-3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .hero > * { animation: fadeUp 0.5s ease both; }
+  .hero > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero > *:nth-child(2) { animation-delay: 0.12s; }
+  .hero > *:nth-child(3) { animation-delay: 0.18s; }
+  .hero > *:nth-child(4) { animation-delay: 0.24s; }
+
+  footer { text-align: center; padding: 3rem 2rem; font-size: 0.82rem; color: var(--ink-4); border-top: 1px solid var(--rule); }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .page-wrap { padding: 0 1.25rem; }
+    nav { padding: 0 1.25rem; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .callout { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Disha Wagle</a>
+  <a class="nav-back" href="index.html#projects">← All projects</a>
+</nav>
+
+<div class="hero">
+  <div class="thesis-badge">Product teardown · 8 years of daily use</div>
+  <div class="hero-eyebrow">Project Management · Enterprise SaaS · Atlassian</div>
+  <h1>JIRA — <em>built for engineers, deployed on everyone</em></h1>
+  <p class="hero-sub">JIRA became the default project management tool for the entire enterprise — not just engineering teams. The product never fully evolved to serve that broader audience. A teardown from someone who used JIRA as a developer, a product owner, and a team lead across two regulated industries.</p>
+  <div class="hero-meta">
+    <span><strong>Product</strong>JIRA (Atlassian) · 2026</span>
+    <span><strong>Analyst</strong>Disha Wagle — PM</span>
+    <span><strong>Primary experience</strong>Flipt (2017–2024) · Morgan Stanley (2024–2025)</span>
+    <span><strong>Roles</strong>Engineer · Product owner · Team lead</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- Context -->
+  <div class="section">
+    <div class="section-label">Context</div>
+    <h2>What JIRA is — the 30-second primer</h2>
+    <div class="card">
+      <p>JIRA is a project management tool built by Atlassian. It lets teams plan work, track progress, and manage software development cycles. Teams create tickets for individual tasks, organise them into sprints, group them under epics, and track their status from "To Do" through "In Progress" to "Done."</p>
+      <p>It is the most widely deployed project management tool in the world — used by over 65,000 companies. At most technology companies, JIRA is the system of record for everything being built. Every feature, every bug, every release passes through it.</p>
+      <p>The question is not whether JIRA works. It does. The question is whether it works for everyone who now depends on it — and whether it has kept up with how modern product teams actually operate.</p>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="val">65K+</div>
+        <div class="lbl">Companies using JIRA globally</div>
+      </div>
+      <div class="metric">
+        <div class="val">2002</div>
+        <div class="lbl">Founded — built for Agile engineering teams</div>
+      </div>
+      <div class="metric">
+        <div class="val">8yrs</div>
+        <div class="lbl">Personal experience across three roles and two industries</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thesis -->
+  <div class="section">
+    <div class="section-label">Thesis</div>
+    <h2>The core argument</h2>
+
+    <div class="callout">
+      <p>"JIRA was built for engineering teams and became the default for everyone. The product never fully made that transition. In 2026, with modern alternatives gaining ground, the gap between who JIRA was designed for and who now depends on it is becoming a competitive liability."</p>
+      <div class="attr">Thesis — derived from 8 years of daily use across engineering, product ownership, and team leadership</div>
+    </div>
+
+    <div class="card">
+      <p>JIRA was built in 2002 for software engineering teams running Agile. It solved a real problem — giving developers a structured way to plan sprints, track tickets, and ship software. It became the default project management tool not just for engineering, but for the entire enterprise. Business stakeholders, executives, finance teams, customer service, operations — everyone ended up in JIRA.</p>
+      <p>The product never fully evolved to serve that broader audience. It still thinks in engineering primitives — sprints, story points, backlogs, epics. It still treats the team board as the fundamental unit of work. It still assumes the person configuring it understands Agile. Everyone else adapts to JIRA's mental model, not the other way around.</p>
+      <p>This isn't a complaint about a bad product. JIRA is deeply capable and genuinely powerful for the teams it was designed for. The gap is strategic — Atlassian built the dominant tool for engineering teams and then watched the world expand around it without fully expanding the product with it. In 2026, with Linear winning developer hearts, Notion reshaping how non-technical teams manage work, and AI beginning to automate the manual overhead that makes JIRA painful — that gap is becoming a competitive liability.</p>
+    </div>
+  </div>
+
+  <!-- Strengths -->
+  <div class="section">
+    <div class="section-label">Strengths</div>
+    <h2>What JIRA does genuinely well</h2>
+
+    <p style="font-size:0.92rem;color:var(--ink-3);margin-bottom:1.25rem;">A credible teardown requires honest credit before criticism. These are real strengths from real use — not concessions.</p>
+
+    <div class="insights">
+      <div class="insight teal">
+        <h4>Agile and Kanban — best in class</h4>
+        <p>Sprint planning, backlog grooming, Kanban boards, velocity tracking, release management. These workflows work well precisely because JIRA was built for them. No other enterprise tool matches this depth.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Multi-dimensional project views</h4>
+        <p>A single user story can be examined from multiple angles — story points, timeline, assignee, sprint, epic, status, linked tickets, release version. The depth of view on individual work items is impressive.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Holistic project tracking</h4>
+        <p>Roadmaps, epics, cross-project dependencies, release timelines — the ability to zoom out from individual tickets to see the full delivery picture is a genuine strength at program scale.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Release and deployment integration</h4>
+        <p>Linking tickets to releases, tracking what's in which version, seeing what's blocking a deployment — JIRA connects development work to actual shipping in a way few tools match.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Role and permission management</h4>
+        <p>Controlling who sees what, who can edit what, and how different teams interact is a hard problem at enterprise scale. JIRA solves it thoughtfully — critical for regulated industries where access control is a compliance requirement.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Integrations and switching cost</h4>
+        <p>Confluence, GitHub, Slack, Figma, Salesforce — JIRA sits at the centre of the enterprise tooling ecosystem. Switching away from JIRA means rethinking every connected tool. That switching cost is real and deliberate.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gaps -->
+  <div class="section">
+    <div class="section-label">Gaps — from direct experience</div>
+    <h2>Where JIRA breaks down</h2>
+
+    <div class="gap">
+      <div class="gap-header">
+        <div class="gap-title">Gap 1 — Built for engineers, used by everyone</div>
+        <div class="gap-badge">Strategic gap</div>
+      </div>
+      <p>JIRA's interface, terminology, and configuration model assumes an Agile-native user. Epics, story points, sprint velocity, backlog grooming — these are engineering concepts that have meaning to a developer and are opaque to a business analyst, an executive, or a customer service lead.</p>
+      <p>At Morgan Stanley, I worked with risk analysts, MDs, VPs, and business stakeholders who all nominally used JIRA. In practice, the burden of translation fell on me as PM — configuring boards, creating views, and interpreting JIRA output into something business stakeholders could act on. The product itself offered no native way to present project status to a non-technical executive without significant manual configuration work that required ongoing maintenance.</p>
+      <p><strong>JIRA can be configured for different audiences — but "can be configured" is not the same as "works out of the box."</strong> That's a tax on the PM that the product never acknowledged or reduced.</p>
+      <div class="gap-evidence">Experienced directly at Morgan Stanley — coordinating between risk analysts, engineers, MDs, and business stakeholders all within the same JIRA instance.</div>
+    </div>
+
+    <div class="gap">
+      <div class="gap-header">
+        <div class="gap-title">Gap 2 — Cross-team work has no clean home</div>
+        <div class="gap-badge">Daily friction</div>
+      </div>
+      <p>JIRA's fundamental unit is the team board. Work lives in a team's backlog, flows through a team's sprint, and closes on a team's board. This works cleanly when work is contained within one team. Modern product development rarely is.</p>
+      <p>At both Flipt and Morgan Stanley, many tasks involved people from different teams — an engineer from one squad and an analyst from another, both contributing to the same deliverable. JIRA offered no clean way to track this. The options were: create duplicate tickets in each team's board and manually keep them in sync, or pick one board and lose visibility from the other team entirely.</p>
+      <p><strong>Neither option is good.</strong> Duplicate tickets create reconciliation overhead and confusion — which ticket is the source of truth? Picking one board means half the contributors can't see the work in their own workflow. The workaround is always a human convention rather than a product solution.</p>
+      <div class="gap-evidence">Experienced at both Flipt and Morgan Stanley — coordinating cross-functional delivery where engineering and business contributors needed shared visibility on the same tasks.</div>
+    </div>
+
+    <div class="gap">
+      <div class="gap-header">
+        <div class="gap-title">Gap 3 — A cluttered experience and no duplicate detection</div>
+        <div class="gap-badge">UX gap</div>
+      </div>
+      <p>For the users JIRA was originally designed for — developers — the interface has become cluttered and overwhelming. Backlog views surface too much information with too little hierarchy. Searching for a specific ticket requires knowing the exact terminology used when it was created. Individual ticket pages are dense with fields, most of which are irrelevant to the person looking at them.</p>
+      <p>One specific symptom: JIRA has no native duplicate ticket detection. In a team that has been using JIRA for months or years, the same task can be created multiple times by different people — because search didn't surface the original, or because different terminology was used. The result is confusion about which ticket to work on, which one reflects actual status, and where comments and updates live.</p>
+      <p><strong>This is a solved problem in other domains.</strong> Email clients detect duplicates, code repositories prevent duplicate branches — but JIRA hasn't addressed it, despite sitting on years of ticket data that would make detection straightforward.</p>
+      <div class="gap-evidence">Experienced across both companies — chaotic backlog views and duplicate tickets were a recurring friction point for developers and PMs alike.</div>
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="section">
+    <div class="section-label">What I'd fix</div>
+    <h2>Three product recommendations — prioritised</h2>
+
+    <p style="font-size:0.92rem;color:var(--ink-3);margin-bottom:1.25rem;">Prioritised by impact on the broadest number of users, and by feasibility within JIRA's existing architecture.</p>
+
+    <div class="rec high">
+      <div class="rec-header">
+        <div class="rec-title">1. Audience-aware views — the same project, for different people</div>
+        <div class="rec-badge">Highest impact</div>
+      </div>
+      <p>JIRA should natively support multiple views of the same project tailored to different audiences — without requiring a PM to manually configure them. An executive view that shows project health, key milestones, and blockers in plain language. A business stakeholder view that strips out Agile terminology and surfaces only what's relevant to their work. An engineering view that retains full sprint and backlog detail.</p>
+      <p>The data already exists in JIRA. The work is in the presentation layer — intelligently surfacing the right information to the right person based on their role, without requiring expert configuration. A business analyst should be able to open JIRA and immediately understand project status without needing a PM to translate it.</p>
+      <div class="rec-rationale"><strong>Why first:</strong> This is the gap that creates the most friction for the broadest group of users. Engineers are well-served. Everyone else is underserved. Fixing this expands JIRA's usability to the full cross-functional team without changing the underlying data model — it's a presentation layer change with high leverage.</div>
+    </div>
+
+    <div class="rec medium">
+      <div class="rec-header">
+        <div class="rec-title">2. Native cross-team ticket linking — shared work, one source of truth</div>
+        <div class="rec-badge">High impact · Harder</div>
+      </div>
+      <p>JIRA should support a native concept of shared work — a single ticket that lives simultaneously in two team boards without duplication. Both teams see it in their backlog, both can update it, both see the same status and comments. No reconciliation, no "which ticket is the source of truth" confusion.</p>
+      <p>This requires a change to JIRA's fundamental data model — work items currently belong to a project, not to multiple projects simultaneously. The engineering challenge is real. But the product gap is equally real — modern teams are cross-functional by design, and JIRA's team-board-as-unit-of-work model is a structural mismatch with how work actually happens.</p>
+      <div class="rec-rationale"><strong>Why second:</strong> Technically harder than Recommendation 1 but directly addresses the most frustrating daily pain point for PMs coordinating across teams. Linear has partially addressed this with shared views. JIRA needs a native answer rather than forcing workarounds that create their own overhead.</div>
+    </div>
+
+    <div class="rec low">
+      <div class="rec-header">
+        <div class="rec-title">3. AI-powered duplicate detection and semantic search</div>
+        <div class="rec-badge">Medium impact · Achievable now</div>
+      </div>
+      <p>JIRA should detect potential duplicate tickets before they're created — surfacing similar existing tickets as you type a new title, and flagging potential duplicates in the backlog after the fact. This is a natural application of AI that JIRA is well-positioned to implement given the volume of ticket data it holds across its customer base.</p>
+      <p>Simultaneously, search needs to work semantically rather than by keyword match alone. A developer searching for "payment processing bug" should surface tickets titled "checkout error" or "billing failure" — because in practice, different people describe the same problem with different words. Current JIRA search requires knowing exactly how a ticket was named when it was created.</p>
+      <div class="rec-rationale"><strong>Why third:</strong> Lower complexity than the first two, but meaningfully reduces the clutter and confusion that makes the JIRA experience feel chaotic. Duplicate tickets are a symptom of poor search — fix search semantically and duplicates reduce naturally. AI makes this achievable without a fundamental architectural change, and Atlassian Intelligence already exists as the foundation to build on.</div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-label">Summary</div>
+    <h2>The verdict</h2>
+
+    <div class="callout dark">
+      <p>"JIRA's dominance is real and its switching cost is high. But dominance is not the same as best. The teams who love JIRA are the teams it was designed for. Everyone else tolerates it. In a market where alternatives are getting better fast, tolerance is not a durable competitive position."</p>
+      <div class="attr">Disha Wagle · April 2026</div>
+    </div>
+
+    <div class="insights" style="margin-top:1.5rem;">
+      <div class="insight teal">
+        <h4>For engineering teams</h4>
+        <p>JIRA remains the best enterprise option for Agile delivery. The depth of sprint management, release tracking, and integrations is unmatched. Use it — but push Atlassian on the cross-team collaboration gaps.</p>
+      </div>
+      <div class="insight amber">
+        <h4>For PMs and product teams</h4>
+        <p>JIRA works but requires significant configuration investment to serve non-engineering stakeholders. Budget time for this — or accept that business stakeholders will disengage from the tool and rely on you to translate everything.</p>
+      </div>
+      <div class="insight coral">
+        <h4>For Atlassian</h4>
+        <p>The risk is not that JIRA loses enterprise accounts overnight. The risk is that new teams — especially those without a legacy JIRA investment — choose Linear, Notion, or GitHub Issues and never come back. The product gap is a new business problem, not an existing customer problem. Yet.</p>
+      </div>
+    </div>
+
+    <div class="tags" style="margin-top:1.5rem;">
+      <span class="tag good">Best-in-class Agile management</span>
+      <span class="tag good">Deep project visibility</span>
+      <span class="tag good">Enterprise security and compliance</span>
+      <span class="tag good">Unmatched integrations</span>
+      <span class="tag bad">Engineering-first, everyone-else-second</span>
+      <span class="tag bad">Cross-team work is clunky</span>
+      <span class="tag bad">Cluttered UI for developers</span>
+      <span class="tag bad">No duplicate detection</span>
+      <span class="tag neutral">Atlassian Intelligence: early but promising</span>
+      <span class="tag neutral">Linear: growing competitive pressure</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <a href="index.html">← Back to portfolio</a>
+    &nbsp;·&nbsp;
+    <a href="digest.html">See AI Research Digest case study</a>
+    &nbsp;·&nbsp;
+    © 2026 Disha Wagle
+  </p>
+</footer>
+
+</body>
+</html>
