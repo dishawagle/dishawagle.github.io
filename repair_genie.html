@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Repair Genie — Case Study · Disha Wagle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink:     #0f0f0f;
+    --ink-2:   #3a3a3a;
+    --ink-3:   #6b6b6b;
+    --ink-4:   #a0a0a0;
+    --paper:   #faf9f7;
+    --surface: #f2f0ec;
+    --accent:  #1a3a5c;
+    --accent-light: #e8eef5;
+    --teal:    #0f6e56;
+    --teal-light: #e1f5ee;
+    --coral:   #993c1d;
+    --coral-light: #faece7;
+    --orange:  #c4713a;
+    --orange-light: #f5e8dc;
+    --rule:    #d8d4cc;
+    --serif:   'DM Serif Display', Georgia, serif;
+    --sans:    'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  /* ── Nav ── */
+  nav { position: sticky; top: 0; z-index: 100; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+  .nav-back:hover { text-decoration: underline; }
+
+  /* ── Hero ── */
+  .hero { border-bottom: 1px solid var(--rule); padding: 5rem 2rem 4rem; max-width: 860px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--orange); }
+  .hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.15; color: var(--ink); margin-bottom: 1.25rem; max-width: 700px; }
+  .hero h1 em { font-style: italic; color: var(--orange); }
+  .hero-sub { font-size: 1.05rem; color: var(--ink-2); max-width: 580px; line-height: 1.75; margin-bottom: 2.5rem; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.82rem; color: var(--ink-3); padding-top: 2rem; border-top: 1px solid var(--rule); }
+  .hero-meta span strong { color: var(--ink-2); font-weight: 500; display: block; margin-bottom: 2px; }
+  .status-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--teal-light); color: var(--teal); border-radius: 20px; padding: 5px 14px; font-size: 0.78rem; font-weight: 500; margin-bottom: 1.5rem; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* ── Layout ── */
+  .page-wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── Sections ── */
+  .section { padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 0.5rem; }
+  .section h2 { font-family: var(--serif); font-size: 1.9rem; line-height: 1.2; color: var(--ink); margin-bottom: 1.5rem; }
+  .section h3 { font-size: 1.05rem; font-weight: 500; color: var(--ink); margin: 1.75rem 0 0.75rem; }
+  .section p { font-size: 0.95rem; color: var(--ink-2); line-height: 1.7; margin-bottom: 1rem; }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ── Roadmap ── */
+  .roadmap { margin: 1.5rem 0; }
+  .roadmap-row { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; transition: background 0.15s; border-radius: 8px; margin: 0 -0.5rem; padding-left: 0.5rem; padding-right: 0.5rem; }
+  .roadmap-row:last-child { border-bottom: none; }
+  .roadmap-row:hover { background: var(--accent-light); }
+  .roadmap-row:hover .roadmap-name { color: var(--accent); }
+  .roadmap-num { font-size: 0.75rem; font-weight: 500; color: var(--ink-4); width: 22px; flex-shrink: 0; padding-top: 2px; }
+  .roadmap-stage { flex: 1; }
+  .roadmap-name { font-size: 0.92rem; font-weight: 500; color: var(--ink); }
+  .roadmap-desc { font-size: 0.82rem; color: var(--ink-3); margin-top: 2px; }
+  .roadmap-status { flex-shrink: 0; }
+  .pill { display: inline-block; border-radius: 20px; padding: 3px 12px; font-size: 0.73rem; font-weight: 500; }
+  .pill.done    { background: var(--teal-light); color: var(--teal); }
+  .pill.live    { background: var(--orange-light); color: var(--orange); }
+
+  /* ── Problem callout ── */
+  .ps-callout { background: var(--accent); color: white; border-radius: 12px; padding: 2rem 2.5rem; margin: 2rem 0; }
+  .ps-callout p { font-family: var(--serif); font-size: 1.2rem; line-height: 1.6; font-style: italic; opacity: 0.95; color: white; margin: 0; }
+  .ps-callout .ps-attr { font-size: 0.78rem; opacity: 0.6; margin-top: 1rem; font-family: var(--sans); font-style: normal; }
+
+  /* ── Cards ── */
+  .card { background: white; border: 1px solid var(--rule); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 10px; }
+  .card-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 6px; }
+  .card p { font-size: 0.92rem; color: var(--ink-2); line-height: 1.65; margin: 0; }
+  .card p strong { font-weight: 500; color: var(--ink); }
+
+  /* ── Two-col grid ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 1.25rem 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.25rem 0; }
+
+  /* ── Insight blocks ── */
+  .insight { border-radius: 10px; padding: 1.1rem 1.25rem; }
+  .insight.orange { background: var(--orange-light); }
+  .insight.teal   { background: var(--teal-light); }
+  .insight.blue   { background: var(--accent-light); }
+  .insight.surface{ background: var(--surface); }
+  .insight h4 { font-size: 0.82rem; font-weight: 500; margin-bottom: 6px; }
+  .insight.orange h4 { color: #7A3B10; }
+  .insight.teal   h4 { color: #04342C; }
+  .insight.blue   h4 { color: var(--accent); }
+  .insight.surface h4 { color: var(--ink-2); }
+  .insight p { font-size: 0.85rem; line-height: 1.55; margin: 0; }
+  .insight.orange p { color: #8C4415; }
+  .insight.teal   p { color: #085041; }
+  .insight.blue   p { color: #1a3a5c; }
+  .insight.surface p { color: var(--ink-3); }
+
+  /* ── Persona table ── */
+  .persona-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.88rem; }
+  .persona-table th { text-align: left; padding: 10px 14px; background: var(--accent); color: white; font-weight: 500; font-size: 0.8rem; }
+  .persona-table th:first-child { border-radius: 8px 0 0 0; }
+  .persona-table th:last-child { border-radius: 0 8px 0 0; }
+  .persona-table td { padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink-2); line-height: 1.55; }
+  .persona-table tr:last-child td { border-bottom: none; }
+  .persona-table td:first-child { font-weight: 500; color: var(--ink-3); font-size: 0.8rem; white-space: nowrap; background: var(--surface); }
+
+  /* ── Metrics table ── */
+  .metrics-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+  .metrics-table th { text-align: left; padding: 10px 14px; background: var(--accent); color: white; font-weight: 500; font-size: 0.78rem; }
+  .metrics-table th:first-child { border-radius: 8px 0 0 0; }
+  .metrics-table th:last-child { border-radius: 0 8px 0 0; }
+  .metrics-table td { padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink-2); line-height: 1.55; }
+  .metrics-table tr:last-child td { border-bottom: none; }
+  .metrics-table td.metric-name { font-weight: 500; color: var(--ink); background: var(--surface); }
+  .metrics-table td.target { font-weight: 500; color: var(--teal); }
+
+  /* ── Flow steps ── */
+  .flow { margin: 1.25rem 0; }
+  .flow-step { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); align-items: flex-start; }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-num { width: 26px; height: 26px; border-radius: 50%; background: var(--orange); color: white; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .flow-text { font-size: 0.92rem; color: var(--ink-2); line-height: 1.6; }
+  .flow-text strong { color: var(--ink); font-weight: 500; }
+
+  /* ── Stack badge ── */
+  .stack { display: flex; flex-wrap: wrap; gap: 7px; margin: 1rem 0; }
+  .stack-item { display: inline-block; border-radius: 6px; padding: 4px 12px; font-size: 0.78rem; font-weight: 500; background: var(--surface); color: var(--ink-2); border: 1px solid var(--rule); }
+
+  /* ── Live demo CTA ── */
+  .demo-cta { background: var(--orange); border-radius: 12px; padding: 2.5rem; text-align: center; margin: 2rem 0; }
+  .demo-cta .demo-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .demo-cta h3 { font-family: var(--serif); font-size: 1.4rem; color: white; margin-bottom: 0.5rem; }
+  .demo-cta p { color: rgba(255,255,255,0.85); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .demo-btn { display: inline-block; background: white; color: var(--orange); border-radius: 8px; padding: 10px 24px; font-size: 0.88rem; font-weight: 500; text-decoration: none; margin: 0 6px; transition: opacity 0.2s; }
+  .demo-btn:hover { opacity: 0.9; }
+  .demo-btn.outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.6); }
+  .demo-btn.outline:hover { border-color: white; }
+
+  /* ── Exclude list ── */
+  .excl { display: flex; flex-wrap: wrap; gap: 8px; margin: 1rem 0; }
+  .excl-item { background: var(--surface); border-radius: 6px; padding: 5px 12px; font-size: 0.8rem; color: var(--ink-3); border: 1px solid var(--rule); }
+  .excl-item::before { content: '✕ '; color: var(--coral); }
+
+  /* ── Spec block ── */
+  .spec-block { background: var(--surface); border-radius: 10px; padding: 1rem 1.25rem; font-family: monospace; font-size: 0.8rem; color: var(--ink-2); line-height: 1.8; margin: 1rem 0; border-left: 3px solid var(--orange); }
+
+  /* ── Footer ── */
+  footer { text-align: center; padding: 3rem 2rem; font-size: 0.82rem; color: var(--ink-4); border-top: 1px solid var(--rule); }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── Animations ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .hero > * { animation: fadeUp 0.5s ease both; }
+  .hero > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero > *:nth-child(2) { animation-delay: 0.12s; }
+  .hero > *:nth-child(3) { animation-delay: 0.18s; }
+  .hero > *:nth-child(4) { animation-delay: 0.24s; }
+  .hero > *:nth-child(5) { animation-delay: 0.30s; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .page-wrap { padding: 0 1.25rem; }
+    nav { padding: 0 1.25rem; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .ps-callout { padding: 1.5rem; }
+    .ps-callout p { font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Disha Wagle</a>
+  <a class="nav-back" href="index.html#projects">← All projects</a>
+</nav>
+
+<div class="hero">
+  <div class="status-badge">
+    <span class="status-dot"></span>
+    Shipped · Live at repair-genie.streamlit.app
+  </div>
+  <div class="hero-eyebrow">Case study · AI Product · Two-sided Marketplace</div>
+  <h1>Repair Genie — <em>AI appliance diagnosis</em> meets contractor marketplace</h1>
+  <p class="hero-sub">
+    Most homeowners don't know if a broken appliance is a $10 fix or a $500 repair. Repair Genie diagnoses the issue with AI, walks homeowners through a safe DIY fix, and — if they need a pro — connects them with vetted local contractors matched by specialty and service area.
+  </p>
+  <div class="hero-meta">
+    <span><strong>My role</strong>PM · Designer · Builder</span>
+    <span><strong>Stage</strong>Shipped · v1 live</span>
+    <span><strong>Stack</strong>Python · FastAPI · Streamlit · Gemini</span>
+    <span><strong>Built at</strong>Vibe Coding Hackathon · June 2026</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- Roadmap -->
+  <div class="section">
+    <div class="section-label">What's in this case study</div>
+    <h2>The full story</h2>
+    <div class="roadmap">
+      <a href="#problem" class="roadmap-row">
+        <div class="roadmap-num">01</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">Problem statement</div>
+          <div class="roadmap-desc">The repair gap — homeowner uncertainty and contractor lead quality</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+      <a href="#users" class="roadmap-row">
+        <div class="roadmap-num">02</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">Users &amp; personas</div>
+          <div class="roadmap-desc">Three archetypes, two sides of the marketplace</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+      <a href="#solution" class="roadmap-row">
+        <div class="roadmap-num">03</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">Solution &amp; flows</div>
+          <div class="roadmap-desc">Full homeowner and contractor flows, what's deliberately out of scope</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+      <a href="#ai" class="roadmap-row">
+        <div class="roadmap-num">04</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">AI feature specification</div>
+          <div class="roadmap-desc">The diagnosis engine — model choice, prompt design, output schema, key decisions</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+      <a href="#features" class="roadmap-row">
+        <div class="roadmap-num">05</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">Key features</div>
+          <div class="roadmap-desc">Smart matching, messaging, QR verification, dual resolution</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+      <a href="#metrics" class="roadmap-row">
+        <div class="roadmap-num">06</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">Success metrics</div>
+          <div class="roadmap-desc">What we're measuring and why — and what we're deliberately ignoring</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+      <a href="#build" class="roadmap-row">
+        <div class="roadmap-num">07</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">Build &amp; ship</div>
+          <div class="roadmap-desc">Architecture, deployment, what I'd do differently</div>
+        </div>
+        <div class="roadmap-status"><span class="pill live">Live</span></div>
+      </a>
+      <a href="#roadmap" class="roadmap-row">
+        <div class="roadmap-num">08</div>
+        <div class="roadmap-stage">
+          <div class="roadmap-name">What's next</div>
+          <div class="roadmap-desc">v2 roadmap — payments, ratings, real contractor DB, mobile</div>
+        </div>
+        <div class="roadmap-status"><span class="pill done">Done</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 01 Problem -->
+  <div class="section" id="problem">
+    <div class="section-label">Stage 01 · Problem statement</div>
+    <h2>The repair gap</h2>
+
+    <div class="ps-callout">
+      <p>"Most homeowners facing a broken appliance have no reliable way to understand what's wrong or who to trust with the repair."</p>
+      <div class="ps-attr">Problem statement · derived from product thinking · June 2026</div>
+    </div>
+
+    <h3>The homeowner experience is broken</h3>
+    <p>When an appliance fails, a homeowner faces a cascade of uncertainty: What's actually wrong? Is it safe to touch? Can I fix it myself? How much should I pay? Who should I call? The current options are all suboptimal.</p>
+
+    <div class="grid-3">
+      <div class="insight orange">
+        <h4>Search online</h4>
+        <p>Generic advice that may not match their specific model or symptom.</p>
+      </div>
+      <div class="insight orange">
+        <h4>Call a contractor cold</h4>
+        <p>No idea if the quote is fair or the problem is correctly diagnosed.</p>
+      </div>
+      <div class="insight orange">
+        <h4>Replace the appliance</h4>
+        <p>Out of frustration — often for something fixable for $30.</p>
+      </div>
+    </div>
+
+    <h3>The contractor lead problem</h3>
+    <p>Local appliance repair contractors face the opposite problem: low-quality, unqualified leads. A typical enquiry arrives with no diagnostic context, no confirmation the homeowner is serious, and no filter for whether the contractor services that appliance type or area. The result is high call volume, low conversion, and significant time wasted on diagnostic conversations that should have happened before the first call.</p>
+
+    <div class="grid-2">
+      <div class="insight teal">
+        <h4>What contractors need</h4>
+        <p>Qualified leads for appliances they actually fix, in areas they actually serve, from homeowners who are ready to hire.</p>
+      </div>
+      <div class="insight blue">
+        <h4>The gap Repair Genie fills</h4>
+        <p>No product simultaneously gives homeowners an AI-powered diagnosis <em>and</em> routes context-rich leads to relevant contractors. That's the gap.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 Users -->
+  <div class="section" id="users">
+    <div class="section-label">Stage 02 · Users &amp; personas</div>
+    <h2>Two sides, three archetypes</h2>
+
+    <h3>Homeowner — the DIY-curious fixer</h3>
+    <table class="persona-table">
+      <tr><td>Who they are</td><td>Homeowner, 28–55, may have attempted DIY before. Comfortable with smartphones but not technically trained on appliances.</td></tr>
+      <tr><td>Trigger</td><td>Appliance broke this morning. Need it working, ideally without spending $300.</td></tr>
+      <tr><td>Jobs to be done</td><td>Understand what's wrong. Know if it's safe to touch. Try to fix it themselves. If they can't, find someone trustworthy without getting ripped off.</td></tr>
+      <tr><td>Frustrations</td><td>Generic YouTube tutorials that don't match their model. Contractors who quote high without diagnosing. Not knowing if a repair is worth it vs. replacing.</td></tr>
+      <tr><td>Success</td><td>Fixed the dryer for $15 and 45 minutes, or found a trustworthy contractor who knew exactly what was wrong before arriving.</td></tr>
+    </table>
+
+    <h3>Homeowner — needs a pro</h3>
+    <p>A subset of homeowners will skip or fail the DIY path. They still want the AI diagnosis — both for peace of mind and to feel confident they're not being overcharged — but their primary goal is a qualified contractor who can come today.</p>
+
+    <h3>Contractor — the local repair professional</h3>
+    <table class="persona-table">
+      <tr><td>Who they are</td><td>Independent repair technician or small repair business. Services 1–3 appliance categories. Operates within a defined geographic radius.</td></tr>
+      <tr><td>Trigger</td><td>Wants more jobs without spending money on ads or answering unqualified calls.</td></tr>
+      <tr><td>Jobs to be done</td><td>Receive job requests for appliances they actually fix, in areas they actually serve, from homeowners who are ready to hire.</td></tr>
+      <tr><td>Frustrations</td><td>Leads who haven't decided to hire. Jobs outside service area. Arriving with no context. Time wasted on diagnostic calls.</td></tr>
+      <tr><td>Success</td><td>A job request arrives with clear problem description. Contractor accepts, arrives, and resolves within one visit.</td></tr>
+    </table>
+  </div>
+
+  <!-- 03 Solution -->
+  <div class="section" id="solution">
+    <div class="section-label">Stage 03 · Solution &amp; flows</div>
+    <h2>A two-sided marketplace with an AI diagnostic layer</h2>
+
+    <p>Repair Genie has two distinct interfaces — homeowner and contractor — connected by a shared job request and messaging system.</p>
+
+    <h3>Homeowner flow</h3>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">Creates a profile — <strong>name, address, phone</strong> — so contractors know how to reach them</div></div>
+      <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">Submits appliance details: <strong>type, brand, model, problem description</strong>, optional photo/video attachments</div></div>
+      <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">AI asks up to <strong>2 clarifying questions</strong>, then produces a structured diagnosis: root causes with probability scores, safety checks, step-by-step DIY fix</div></div>
+      <div class="flow-step"><div class="flow-num">4</div><div class="flow-text">If DIY fails or isn't safe, homeowner searches for contractors — <strong>filtered automatically</strong> by their address and the appliance type</div></div>
+      <div class="flow-step"><div class="flow-num">5</div><div class="flow-text">Sends a job request — <strong>problem details only</strong>, no AI diagnosis (to prevent contractor bias)</div></div>
+      <div class="flow-step"><div class="flow-num">6</div><div class="flow-text">Receives contractor responses via <strong>in-app messaging</strong>; can share photos and videos in thread</div></div>
+      <div class="flow-step"><div class="flow-num">7</div><div class="flow-text">Contractor arrives — homeowner <strong>verifies identity using QR code</strong> match before letting them in</div></div>
+      <div class="flow-step"><div class="flow-num">8</div><div class="flow-text">Contractor marks work complete; homeowner confirms; <strong>job closes with dual confirmation</strong></div></div>
+    </div>
+
+    <h3>Contractor flow</h3>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">Creates profile: <strong>name, phone, bio, years of experience, service area, appliance specialties</strong></div></div>
+      <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">Job requests arrive in inbox — <strong>filtered to only show jobs</strong> matching their specialty and service area</div></div>
+      <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">Reviews job: appliance, brand, model, problem description, attachments. <strong>No AI diagnosis shown</strong> — intentional design decision</div></div>
+      <div class="flow-step"><div class="flow-num">4</div><div class="flow-text">Accepts, declines, or <strong>messages the homeowner</strong> to clarify before committing</div></div>
+      <div class="flow-step"><div class="flow-num">5</div><div class="flow-text">On arrival, shows <strong>QR code</strong> to homeowner for identity verification</div></div>
+      <div class="flow-step"><div class="flow-num">6</div><div class="flow-text">After completing repair, marks work done; job resolves when <strong>homeowner confirms</strong></div></div>
+    </div>
+
+    <h3>What's deliberately out of scope for v1</h3>
+    <div class="excl">
+      <span class="excl-item">Payments</span>
+      <span class="excl-item">Contractor ratings &amp; reviews</span>
+      <span class="excl-item">Real-time availability</span>
+      <span class="excl-item">Push notifications</span>
+      <span class="excl-item">Mobile app</span>
+      <span class="excl-item">Calendar integration</span>
+    </div>
+    <p style="margin-top:0.75rem">The prototype facilitates the match, not the transaction. Ratings require job volume. Scope discipline kept v1 shippable in a hackathon timeframe.</p>
+  </div>
+
+  <!-- 04 AI Spec -->
+  <div class="section" id="ai">
+    <div class="section-label">Stage 04 · AI feature specification</div>
+    <h2>The diagnosis engine</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Model</div>
+        <p><strong>Google Gemini 2.5 Flash</strong> — chosen for reasoning quality, speed, and generous free tier. Allows zero-cost prototype deployment.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Backend proxy</div>
+        <p><strong>FastAPI on Render</strong> — all Gemini calls route server-side. The API key never touches the frontend. Output is sanitised before storage.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Confidence threshold</div>
+        <p><strong>≥90% confidence</strong> before outputting a diagnosis. Below that, the model asks one clarifying question. Max 2 follow-ups before it must commit.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Token limit</div>
+        <p><strong>8,192 output tokens</strong> — ensures responses are never truncated mid-diagnosis. Truncation was the most common failure mode in early testing.</p>
+      </div>
+    </div>
+
+    <h3>Structured output schema</h3>
+    <p>When the model is confident, it outputs a JSON block under the <code>REPAIR_RESULT:</code> marker. The backend parses this with brace-counting (not regex) for robustness. All string fields are HTML-stripped before storage.</p>
+
+    <div class="spec-block">
+{<br>
+&nbsp;&nbsp;"causes":          [{"label": "string", "probability": int}],  // 1–4 causes, sum ≤ 100<br>
+&nbsp;&nbsp;"safety":          ["string"],                                  // 2–5 safety checks<br>
+&nbsp;&nbsp;"diy_possible":    boolean,                                     // false if gas/wiring/refrigerant<br>
+&nbsp;&nbsp;"diy_steps":       ["string"],                                  // 3–8 plain-language steps<br>
+&nbsp;&nbsp;"diy_note":        "string",                                    // explains if diy_possible = false<br>
+&nbsp;&nbsp;"needs_contractor":boolean,<br>
+&nbsp;&nbsp;"contractor_reason":"string"<br>
+}
+    </div>
+
+    <h3>Key design decisions</h3>
+    <div class="grid-2">
+      <div class="insight blue">
+        <h4>AI diagnosis hidden from contractors</h4>
+        <p>Deliberately excluded from the job request. Contractors should diagnose independently — the AI is for the homeowner, not the repair industry. Prevents anchoring bias.</p>
+      </div>
+      <div class="insight teal">
+        <h4>90% confidence threshold</h4>
+        <p>Prevents the model from producing a diagnosis on insufficient information, which would erode user trust. Follow-up questions are the mechanism, not a fallback.</p>
+      </div>
+      <div class="insight orange">
+        <h4>No streaming in v1</h4>
+        <p>Single completion call per turn. Streaming would improve perceived latency — clear v2 improvement, but out of scope for a hackathon build.</p>
+      </div>
+      <div class="insight surface">
+        <h4>Brace-counting JSON parser</h4>
+        <p>Gemini occasionally wraps output in markdown code fences or adds trailing text. Brace-counting extracts the first valid JSON object reliably regardless of what surrounds it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 Features -->
+  <div class="section" id="features">
+    <div class="section-label">Stage 05 · Key features</div>
+    <h2>What the product actually does</h2>
+
+    <h3>Smart contractor matching</h3>
+    <p>When a homeowner searches for contractors, the system filters by two criteria: <strong>service area overlap</strong> (homeowner address checked against contractor's declared cities/towns) and <strong>appliance specialty</strong> (bidirectional substring match). A homeowner in Jersey City with a broken washer only sees contractors who cover Jersey City and list washer as a specialty.</p>
+
+    <h3>Two-way in-app messaging</h3>
+    <p>Homeowner and contractor communicate through a shared chat thread stored in a cross-tab JSON store. Either party can attach photos or videos — images render inline; other file types generate download links. Messages are visible to both parties regardless of which tab they're in.</p>
+
+    <h3>QR-based identity verification</h3>
+    <p>Before a contractor enters a homeowner's property, both parties verify identity using a QR code tied to the specific job. The QR encodes the job ID, contractor name, and appliance type. The homeowner's app shows the expected QR; the contractor's app displays the same. If they match — contractor name, job reference, and appliance all align — the homeowner can let the contractor in with confidence.</p>
+    <div class="insight blue" style="margin-top:0.75rem">
+      <h4>Why this matters</h4>
+      <p>This feature addresses a real safety concern in the home services industry: homeowners letting strangers in based only on a phone call. The QR gives both parties cryptographic certainty tied to a specific job, not just a name.</p>
+    </div>
+
+    <h3>Dual resolution confirmation</h3>
+    <p>Issue resolution requires confirmation from both parties. Contractor marks work complete → homeowner is prompted to confirm → only when both confirm does the job close. If the homeowner declines, the job stays open and both parties are prompted to message. This creates an auditable resolution record and prevents contractors from closing jobs unilaterally.</p>
+  </div>
+
+  <!-- 06 Metrics -->
+  <div class="section" id="metrics">
+    <div class="section-label">Stage 06 · Success metrics</div>
+    <h2>What we're measuring and why</h2>
+
+    <p>Repair Genie is a two-sided marketplace. Success requires measuring both sides independently and the connection between them.</p>
+
+    <table class="metrics-table">
+      <tr>
+        <th>Metric</th>
+        <th>Definition</th>
+        <th>Target</th>
+        <th>Why it matters</th>
+      </tr>
+      <tr>
+        <td class="metric-name">Diagnosis completion rate</td>
+        <td>% of users who start a diagnosis and receive a REPAIR_RESULT</td>
+        <td class="target">&gt;80%</td>
+        <td>Core product promise: get an answer</td>
+      </tr>
+      <tr>
+        <td class="metric-name">DIY resolution rate</td>
+        <td>% of diagnoses where homeowner marks resolved without contacting a contractor</td>
+        <td class="target">&gt;35%</td>
+        <td>Validates AI quality and user trust</td>
+      </tr>
+      <tr>
+        <td class="metric-name">Contractor match rate</td>
+        <td>% of contractor searches that return ≥1 result</td>
+        <td class="target">&gt;60%</td>
+        <td>Validates network density</td>
+      </tr>
+      <tr>
+        <td class="metric-name">Job acceptance rate</td>
+        <td>% of job requests accepted by a contractor</td>
+        <td class="target">&gt;50%</td>
+        <td>Validates job quality for contractors</td>
+      </tr>
+      <tr>
+        <td class="metric-name">Dual confirmation rate</td>
+        <td>% of accepted jobs that reach full contractor + homeowner resolution</td>
+        <td class="target">&gt;70%</td>
+        <td>Validates end-to-end flow works</td>
+      </tr>
+      <tr>
+        <td class="metric-name">Contractor return rate</td>
+        <td>% of contractors who accept a second job within 30 days</td>
+        <td class="target">&gt;40%</td>
+        <td>Validates contractor-side value</td>
+      </tr>
+    </table>
+
+    <h3>Anti-metrics — what we're deliberately not optimising for</h3>
+    <div class="grid-3">
+      <div class="insight surface">
+        <h4>Session length</h4>
+        <p>Longer sessions are not better. Faster diagnosis is better.</p>
+      </div>
+      <div class="insight surface">
+        <h4>Follow-up questions</h4>
+        <p>Fewer is better, as long as diagnosis quality holds.</p>
+      </div>
+      <div class="insight surface">
+        <h4>Contractor profiles created</h4>
+        <p>Vanity metric without job acceptance to validate quality.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 Build -->
+  <div class="section" id="build">
+    <div class="section-label">Stage 07 · Build &amp; ship</div>
+    <h2>Architecture &amp; deployment</h2>
+
+    <div class="demo-cta">
+      <div class="demo-icon">🧞</div>
+      <h3>Repair Genie is live</h3>
+      <p>Full homeowner and contractor flows — AI diagnosis, smart matching, messaging, QR verification, dual resolution.</p>
+      <a href="https://repair-genie.streamlit.app/" target="_blank" class="demo-btn">Try the live app →</a>
+      <a href="https://github.com/dishawagle/repair-genie-python" target="_blank" class="demo-btn outline">View on GitHub</a>
+    </div>
+
+    <h3>Stack</h3>
+    <div class="stack">
+      <span class="stack-item">Python 3.11</span>
+      <span class="stack-item">FastAPI</span>
+      <span class="stack-item">Streamlit</span>
+      <span class="stack-item">Gemini 2.5 Flash</span>
+      <span class="stack-item">Google Generative AI SDK</span>
+      <span class="stack-item">filelock</span>
+      <span class="stack-item">qrcode[pil]</span>
+      <span class="stack-item">Render (backend)</span>
+      <span class="stack-item">Streamlit Cloud (frontend)</span>
+    </div>
+
+    <h3>Key technical decisions</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Shared file store</div>
+        <p>Cross-tab state is a JSON file with <strong>filelock</strong> for concurrency. Allows two browser tabs to share profiles, jobs, and messages — essential for a two-sided demo without a real database.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Media as base64</div>
+        <p>Chat attachments stored as <strong>base64 in the JSON store</strong>. Images render inline; other files get a download link. Works for demo scale; production needs object storage (S3/GCS).</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Python 3.11 pin</div>
+        <p><strong>Render defaulted to Python 3.14</strong> which pydantic-core couldn't build on. Pinned to 3.11 via <code>.python-version</code> file — pre-built wheels, no Rust compilation needed.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">FastAPI as AI proxy</div>
+        <p>All Gemini calls route through FastAPI. The API key never touches the Streamlit frontend. Backend also handles <strong>HTML sanitisation</strong> of all model outputs before they reach the UI.</p>
+      </div>
+    </div>
+
+    <h3>What I'd do differently in production</h3>
+    <div class="grid-2">
+      <div class="insight orange">
+        <h4>Replace JSON store with Supabase</h4>
+        <p>JSON file doesn't scale beyond a single server. PostgreSQL via Supabase gives multi-user, multi-server persistence with minimal setup.</p>
+      </div>
+      <div class="insight orange">
+        <h4>WebSockets for messaging</h4>
+        <p>Current app polls on page load. Production needs real-time push — WebSockets or server-sent events for instant message delivery.</p>
+      </div>
+      <div class="insight orange">
+        <h4>Auth layer</h4>
+        <p>Replace session-based identity with OAuth or magic link auth so users have persistent accounts across devices.</p>
+      </div>
+      <div class="insight orange">
+        <h4>Stream AI responses</h4>
+        <p>Single completion call per turn feels slow on complex diagnoses. Streaming would improve perceived latency significantly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 Roadmap -->
+  <div class="section" id="roadmap">
+    <div class="section-label">Stage 08 · What's next</div>
+    <h2>v2 roadmap</h2>
+
+    <h3>Near term — 0 to 3 months</h3>
+    <div class="grid-2">
+      <div class="insight teal">
+        <h4>Payments via Stripe</h4>
+        <p>Job deposits hold the contractor accountable and signal homeowner intent. Removes the biggest drop-off point between match and appointment.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Real contractor database</h4>
+        <p>Replace JSON profiles with a real DB. Add contractor onboarding with background check integration and identity verification.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Push notifications</h4>
+        <p>Alert contractors of new job requests and homeowners of responses in real time, not on next page load.</p>
+      </div>
+      <div class="insight teal">
+        <h4>Mobile PWA</h4>
+        <p>Streamlit is desktop-first. The on-site contractor experience demands a mobile-first interface — PWA or React Native.</p>
+      </div>
+    </div>
+
+    <h3>Medium term — 3 to 9 months</h3>
+    <div class="grid-2">
+      <div class="insight blue">
+        <h4>Contractor ratings &amp; reviews</h4>
+        <p>Post-resolution, homeowner rates the contractor. Feeds into search ranking — creates the quality signal that makes the marketplace defensible.</p>
+      </div>
+      <div class="insight blue">
+        <h4>Photo-based diagnosis</h4>
+        <p>Pass actual image bytes to Gemini Vision, not just filenames. Allows visual diagnosis of burn marks, leaks, and error codes.</p>
+      </div>
+      <div class="insight blue">
+        <h4>Parts sourcing</h4>
+        <p>For DIY users, link directly to the replacement parts identified in the diagnosis. Affiliate revenue model, better UX for homeowners.</p>
+      </div>
+      <div class="insight blue">
+        <h4>Appliance repair history</h4>
+        <p>Homeowner builds a repair history per appliance. Genie uses prior sessions as context — a compounding advantage over generic AI search.</p>
+      </div>
+    </div>
+
+    <h3>Long term — 9 to 18 months</h3>
+    <div class="grid-2">
+      <div class="insight surface">
+        <h4>Contractor CRM</h4>
+        <p>Job history, earnings, customer notes — make Repair Genie the operating system for independent repair technicians, not just a lead source.</p>
+      </div>
+      <div class="insight surface">
+        <h4>Property management B2B</h4>
+        <p>Property managers as homeowner-side power users — manage repair workflows across multiple units. Natural upsell once consumer side is proven.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<footer>
+  <a href="index.html">← Back to portfolio</a> ·
+  <a href="https://repair-genie.streamlit.app/" target="_blank">Try Repair Genie →</a> ·
+  <a href="https://github.com/dishawagle/repair-genie-python" target="_blank">GitHub</a> ·
+  © 2026 Disha Wagle
+</footer>
+
+</body>
+</html>
