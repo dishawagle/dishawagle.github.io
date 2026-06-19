@@ -3,479 +3,298 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Disha Wagle · Product Enthusiast</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>Disha Wagle · Product Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --cream: #faf7f2;
-    --ink: #1a1612;
-    --warm: #c4713a;
-    --warm-light: #f0e0d0;
-    --muted: #8a7f75;
-    --border: #e8e0d5;
-    --card: #ffffff;
-    --teal: #0f6e56;
-    --teal-light: #e1f5ee;
-    --accent-blue: #1a3a5c;
-    --accent-blue-light: #e8eef5;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 1.7;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.2rem 4rem;
-    background: rgba(250,247,242,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.01em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 2rem; }
-  .nav-links a {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--warm); }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 8rem 4rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; top: -80px; right: -80px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, #f0e0d0 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-inner { max-width: 900px; }
-  .hero-eyebrow {
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--warm);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.1s;
-  }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 7vw, 5.5rem);
-    line-height: 1.05;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.25s;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--warm);
-  }
-  .hero-desc {
-    font-size: 1.15rem;
-    color: var(--muted);
-    max-width: 560px;
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.4s;
-  }
-  .hero-tags {
-    display: flex; flex-wrap: wrap; gap: 0.6rem;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.55s;
-  }
-  .hero-tag {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    padding: 0.35rem 0.9rem;
-    border-radius: 100px;
-    background: var(--warm-light);
-    color: var(--warm);
-    border: 1px solid #e5c9b0;
-  }
-  .hero-cta {
-    display: flex; gap: 1rem; flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.7s;
-  }
-  .btn {
-    font-size: 0.88rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 0.85rem 2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-primary { background: var(--warm); color: white; }
-  .btn-primary:hover { background: #b0632e; transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
-  .btn-outline:hover { border-color: var(--ink); }
-
-  /* SECTIONS */
-  section { padding: 6rem 4rem; }
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--warm);
-    margin-bottom: 0.6rem;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 700;
-    margin-bottom: 3rem;
-    line-height: 1.2;
-  }
-
-  /* ABOUT */
-  .about { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    max-width: 1000px;
-  }
-  .about-text p {
-    color: var(--muted);
-    font-weight: 300;
-    margin-bottom: 1rem;
-    font-size: 1.05rem;
-  }
-  .about-text strong { color: var(--ink); font-weight: 500; }
-  .skills-list { list-style: none; }
-  .skills-list li {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.92rem;
-    color: var(--ink);
-  }
-  .skills-list li:last-child { border-bottom: none; }
-  .skill-bar { width: 120px; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .skill-fill {
-    height: 100%;
-    background: var(--warm);
-    border-radius: 2px;
-    transform-origin: left;
-    animation: growBar 1s ease forwards 0.8s;
-    transform: scaleX(0);
-  }
-
-  /* PROJECTS */
-  .projects { background: var(--cream); }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    max-width: 1100px;
-  }
-
-  /* Base project card — used by all four cards */
-  .project-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 2rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  .project-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--warm);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-  .project-card:hover::before { transform: scaleX(1); }
-
-  /* Featured card (AI Digest) gets a teal top bar instead */
-  .project-card.featured::before { background: var(--teal); transform: scaleX(1); }
-  .project-card.featured:hover { box-shadow: 0 12px 40px rgba(15,110,86,0.1); }
-
-  .project-domain {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--warm);
-    margin-bottom: 0.2rem;
-  }
-
-  /* Tag row for the featured card */
-  .project-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 0.2rem;
-  }
-  .project-card-tag {
-    display: inline-block;
-    background: var(--accent-blue-light);
-    color: var(--accent-blue);
-    border-radius: 4px;
-    padding: 3px 9px;
-    font-size: 0.72rem;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .project-card-tag.active {
-    background: var(--teal-light);
-    color: var(--teal);
-  }
-
-  .project-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    line-height: 1.3;
-    color: var(--ink);
-  }
-  .project-card p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.65;
-    font-weight: 300;
-    flex: 1;
-  }
-
-  /* Card footer row */
-  .project-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--border);
-    margin-top: 0.25rem;
-  }
-  .project-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-  .project-status.live { color: var(--teal); }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: #d4b896; }
-  .dot.building { background: var(--teal); animation: pulse 2s infinite; }
-
-  .case-study-link {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--accent-blue);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-  }
-  .case-study-link:hover { text-decoration: underline; }
-
-  /* THINKING */
-  .thinking { background: white; border-top: 1px solid var(--border); }
-  .thinking-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    max-width: 1100px;
-  }
-  .thought-card {
-    padding: 1.8rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--cream);
-    transition: border-color 0.2s;
-  }
-  .thought-card:hover { border-color: var(--warm); }
-  .thought-q {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-style: italic;
-    margin-bottom: 0.8rem;
-    color: var(--ink);
-    line-height: 1.4;
-  }
-  .thought-a {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.65;
-    font-weight: 300;
-  }
-
-  /* CONTACT */
-  .contact { background: var(--ink); color: white; text-align: center; }
-  .contact .section-label { color: #c4856a; }
-  .contact .section-title { color: white; margin-bottom: 1rem; }
-  .contact-sub {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-  }
-  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .contact-link {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    padding: 0.7rem 1.5rem;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 4px;
-    transition: all 0.2s;
-  }
-  .contact-link:hover { color: white; border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
-
-  footer {
-    background: var(--ink);
-    border-top: 1px solid rgba(255,255,255,0.07);
-    padding: 1.5rem 4rem;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  footer span { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes growBar {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero, section { padding: 5rem 1.5rem 3rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; line-height: 1.7; color: #1A2E2A;
+  -webkit-font-smoothing: antialiased; background: #F0F5EE;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse at 0% 0%,   #F8E8D8 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 0%,  #D8F0EC 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%,#D8EAF0 0%, transparent 55%),
+    radial-gradient(ellipse at 0% 100%,  #EEF5E0 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%,  #F5F2E8 0%, transparent 70%);
+  background-color: #F0F5EE;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 3rem; height: 62px;
+  background: rgba(240,245,238,0.78); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(160,200,180,0.2);
+}
+.nav-logo { font-family:'DM Serif Display',serif; font-size:1.05rem; color:#1A2E2A; text-decoration:none; }
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a { font-size:13px; color:#5A7A6A; text-decoration:none; transition:color .2s; }
+.nav-links a:hover { color:#1A2E2A; }
+.hero { max-width:940px; margin:0 auto; padding:6rem 2.5rem 5rem; border-bottom:1px solid rgba(160,200,180,0.2); }
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:11.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  color:#5A8A78; margin-bottom:2rem; opacity:0; animation:fadeUp .6s ease forwards .1s;
+}
+.hero-eyebrow::before { content:''; display:inline-block; width:28px; height:1.5px; background:#8ABFAA; }
+.hero h1 {
+  font-family:'DM Serif Display',serif; font-size:clamp(2.6rem,6vw,4.2rem);
+  line-height:1.08; font-weight:400; color:#1A2E2A; margin-bottom:1.75rem; max-width:680px;
+  opacity:0; animation:fadeUp .7s ease forwards .25s;
+}
+.hero h1 em { font-style:italic; color:#7A6A3A; }
+.hero-desc {
+  font-size:1.05rem; color:#4A6058; line-height:1.8; max-width:540px;
+  margin-bottom:2.5rem; font-weight:300; opacity:0; animation:fadeUp .7s ease forwards .4s;
+}
+.hero-actions { display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:3.5rem; opacity:0; animation:fadeUp .7s ease forwards .55s; }
+.btn-primary {
+  font-size:13px; font-weight:500; padding:11px 26px; border-radius:6px;
+  background:#2A6A58; color:white; border:none; cursor:pointer;
+  text-decoration:none; display:inline-block; transition:background .2s,transform .15s;
+}
+.btn-primary:hover { background:#1F5244; transform:translateY(-1px); }
+.btn-ghost {
+  font-size:13px; font-weight:500; padding:11px 26px; border-radius:6px;
+  background:transparent; color:#2A6A58; border:1.5px solid rgba(42,106,88,.35);
+  cursor:pointer; text-decoration:none; display:inline-block; transition:all .2s;
+}
+.btn-ghost:hover { border-color:#2A6A58; background:rgba(42,106,88,.05); }
+.hero-stats {
+  display:flex; flex-wrap:wrap; gap:2.5rem; padding-top:2.5rem;
+  border-top:1px solid rgba(160,200,180,.25); opacity:0; animation:fadeUp .7s ease forwards .7s;
+}
+.stat-label { font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#8ABFAA; display:block; margin-bottom:4px; }
+.stat-val { font-size:13.5px; font-weight:500; color:#1A2E2A; }
+.page-section { max-width:940px; margin:0 auto; padding:5rem 2.5rem; border-bottom:1px solid rgba(160,200,180,.18); }
+.s-kicker { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8ABFAA; margin-bottom:.6rem; display:flex; align-items:center; gap:10px; }
+.s-kicker::before { content:''; display:inline-block; width:20px; height:1px; background:#A8D8C8; }
+.s-title { font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:400; color:#1A2E2A; margin-bottom:.5rem; line-height:1.15; }
+.s-sub { font-size:.95rem; color:#5A7A6A; margin-bottom:2.5rem; font-weight:300; line-height:1.7; }
+.dual-card { display:grid; grid-template-columns:1fr 1fr; border-radius:12px; overflow:hidden; margin:2rem 0; box-shadow:0 4px 30px rgba(40,90,70,.08); }
+.dual-dark { background:#1A2E2A; padding:2rem 2.25rem; }
+.dual-light { background:rgba(255,255,255,.65); padding:2rem 2.25rem; backdrop-filter:blur(10px); border:1px solid rgba(160,200,180,.3); border-left:none; }
+.dual-label { font-size:10px; letter-spacing:.13em; text-transform:uppercase; font-weight:500; margin-bottom:.75rem; }
+.dual-dark .dual-label { color:#6ABFAA; }
+.dual-light .dual-label { color:#7A9A60; }
+.dual-heading { font-family:'DM Serif Display',serif; font-size:1.15rem; margin-bottom:1rem; line-height:1.3; }
+.dual-dark .dual-heading { color:#E8F5F0; }
+.dual-light .dual-heading { color:#1A2E2A; }
+.dual-list { list-style:none; font-size:13px; line-height:1.95; }
+.dual-dark .dual-list { color:#9ABFB0; }
+.dual-dark .dual-list li::before { content:'→ '; color:#5ABFAA; }
+.dual-light .dual-list { color:#4A6A40; }
+.dual-light .dual-list li::before { content:'→ '; color:#7AAA50; }
+.about-body { display:grid; grid-template-columns:3fr 2fr; gap:4rem; align-items:start; margin-top:2.5rem; }
+.about-text p { font-size:.95rem; color:#4A6058; line-height:1.85; margin-bottom:1.1rem; font-weight:300; }
+.about-text p strong { font-weight:500; color:#1A2E2A; }
+.about-text p:last-child { margin-bottom:0; }
+.skill-row { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid rgba(160,200,180,.2); font-size:13px; color:#4A6058; }
+.skill-row:last-child { border-bottom:none; }
+.skill-dots { display:flex; gap:4px; }
+.sd-f { width:7px; height:7px; border-radius:50%; background:#2A6A58; }
+.sd-e { width:7px; height:7px; border-radius:50%; background:rgba(160,200,180,.3); }
+.domain-pills { display:flex; flex-wrap:wrap; gap:6px; margin-top:1.75rem; }
+.dpill { font-size:12px; padding:4px 13px; border-radius:4px; font-weight:400; }
+.dp-teal  { background:rgba(42,106,88,.1);  color:#1A5244; border:1px solid rgba(42,106,88,.2); }
+.dp-sand  { background:rgba(160,130,60,.1); color:#5A4010; border:1px solid rgba(160,130,60,.2); }
+.dp-aqua  { background:rgba(40,120,160,.1); color:#1A4A6A; border:1px solid rgba(40,120,160,.2); }
+.dp-mint  { background:rgba(60,140,100,.1); color:#1A4A30; border:1px solid rgba(60,140,100,.2); }
+.caps-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.cap { background:rgba(255,255,255,.55); backdrop-filter:blur(8px); border:1px solid rgba(160,200,180,.3); border-radius:10px; padding:1.6rem; transition:border-color .2s,transform .2s; }
+.cap:hover { border-color:rgba(42,106,88,.4); transform:translateY(-2px); }
+.cap-icon { font-size:1.4rem; margin-bottom:.75rem; }
+.cap h3 { font-size:15px; font-weight:500; color:#1A2E2A; margin-bottom:.5rem; }
+.cap p { font-size:13px; color:#5A7A6A; line-height:1.65; font-weight:300; }
+.testimonial-wrap { max-width:940px; margin:0 auto; padding:0 2.5rem 4rem; }
+.testimonial { background:rgba(255,255,255,.55); backdrop-filter:blur(10px); border:1px solid rgba(160,200,180,.25); border-radius:12px; padding:2.25rem 2.5rem; position:relative; }
+.testimonial::before { content:'"'; font-family:'DM Serif Display',serif; font-size:6rem; color:rgba(160,200,180,.35); position:absolute; top:-.75rem; left:1.75rem; line-height:1; }
+.testimonial-text { font-family:'DM Serif Display',serif; font-size:1.12rem; font-style:italic; color:#2A3A30; line-height:1.65; margin-bottom:1rem; padding-top:1.5rem; }
+.testimonial-attr { font-size:12.5px; color:#8ABFAA; }
+.testimonial-attr strong { font-weight:500; color:#4A6058; display:block; }
+.projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.25rem; }
+.project-card { background:rgba(255,255,255,.58); backdrop-filter:blur(10px); border:1px solid rgba(160,200,180,.28); border-radius:10px; padding:1.75rem; display:flex; flex-direction:column; gap:.6rem; transition:border-color .2s,transform .2s; position:relative; overflow:hidden; }
+.project-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:#8ABFAA; transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+.project-card:hover { transform:translateY(-3px); border-color:rgba(42,106,88,.35); }
+.project-card:hover::before { transform:scaleX(1); }
+.project-card.featured::before { background:#2A6A58; transform:scaleX(1); }
+.project-domain { font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:#7ABFAA; }
+.project-card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:.2rem; }
+.project-card-tag { display:inline-block; background:rgba(40,120,160,.1); color:#1A4A6A; border-radius:4px; padding:3px 9px; font-size:11.5px; font-weight:500; white-space:nowrap; }
+.project-card-tag.active { background:rgba(42,106,88,.12); color:#1A5244; }
+.project-card h3 { font-family:'DM Serif Display',serif; font-size:1.1rem; font-weight:400; line-height:1.3; color:#1A2E2A; }
+.project-card p { font-size:.9rem; color:#5A7A6A; line-height:1.65; font-weight:300; flex:1; }
+.project-card-footer { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding-top:.75rem; border-top:1px solid rgba(160,200,180,.2); margin-top:.25rem; }
+.project-status { display:inline-flex; align-items:center; gap:.4rem; font-size:12px; font-weight:500; color:#8ABFAA; letter-spacing:.03em; }
+.project-status.live { color:#2A6A58; }
+.dot { width:6px; height:6px; border-radius:50%; background:#A8D8C8; }
+.dot.building { background:#2A6A58; animation:pulse 2s infinite; }
+.case-study-link { font-size:13px; font-weight:500; color:#2A6A58; text-decoration:none; }
+.case-study-link:hover { text-decoration:underline; }
+.faq-item { border-bottom:1px solid rgba(160,200,180,.2); }
+.faq-item:first-child { border-top:1px solid rgba(160,200,180,.2); }
+.faq-q { display:flex; justify-content:space-between; align-items:center; padding:1.2rem 0; cursor:pointer; font-size:15px; font-weight:400; color:#1A2E2A; gap:1rem; transition:color .2s; background:none; border:none; width:100%; text-align:left; font-family:inherit; }
+.faq-q:hover { color:#2A6A58; }
+.faq-icon { font-size:20px; color:#A8D8C8; flex-shrink:0; transition:transform .3s; font-style:normal; line-height:1; }
+.faq-a { max-height:0; overflow:hidden; transition:max-height .4s ease,padding .3s ease; }
+.faq-a.open { max-height:300px; padding-bottom:1.2rem; }
+.faq-a p { font-size:14px; color:#5A7A6A; line-height:1.75; font-weight:300; }
+.connect-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-top:2rem; }
+.connect-form { display:flex; flex-direction:column; gap:.75rem; }
+.form-label { font-size:12px; color:#8ABFAA; margin-bottom:4px; display:block; letter-spacing:.03em; }
+.form-input,.form-textarea { width:100%; padding:10px 14px; border-radius:7px; border:1px solid rgba(160,200,180,.4); background:rgba(255,255,255,.6); font-family:'DM Sans',sans-serif; font-size:14px; color:#1A2E2A; outline:none; transition:border-color .2s,background .2s; }
+.form-input:focus,.form-textarea:focus { border-color:#2A6A58; background:rgba(255,255,255,.9); }
+.form-textarea { resize:vertical; min-height:110px; }
+.connect-alt { display:flex; align-items:center; gap:.85rem; text-decoration:none; color:#4A6058; font-size:14px; padding:.85rem 1rem; border-radius:9px; border:1px solid rgba(160,200,180,.25); background:rgba(255,255,255,.4); transition:all .2s; margin-bottom:.6rem; }
+.connect-alt:hover { border-color:rgba(42,106,88,.4); background:rgba(255,255,255,.7); color:#2A6A58; }
+.connect-alt-icon { font-size:1.25rem; }
+.connect-alt-name { font-weight:500; font-size:14px; }
+.connect-alt-sub { font-size:12px; color:#8ABFAA; }
+.connect-note { font-size:13px; color:#8ABFAA; font-style:italic; margin-top:1.5rem; line-height:1.65; font-weight:300; }
+footer { max-width:940px; margin:0 auto; padding:2rem 2.5rem 3rem; display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(160,200,180,.18); font-size:12.5px; color:#8ABFAA; }
+footer a { color:#2A6A58; text-decoration:none; }
+footer a:hover { text-decoration:underline; }
+.footer-links { display:flex; gap:1.5rem; }
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+@media (max-width:768px) {
+  nav { padding:0 1.25rem; }
+  .nav-links { display:none; }
+  .hero,.page-section { padding-left:1.25rem; padding-right:1.25rem; }
+  .dual-card,.about-body,.connect-grid { grid-template-columns:1fr; }
+  .dual-light { border-left:1px solid rgba(160,200,180,.3); border-top:none; }
+  .caps-grid { grid-template-columns:1fr; }
+  footer { flex-direction:column; gap:.75rem; text-align:center; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a class="nav-name" href="#">Disha Wagle</a>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#thinking">Thinking</a>
-    <a href="#contact">Contact</a>
-  </div>
+  <a class="nav-logo" href="#">Disha Wagle</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#thinking">Thinking</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-inner">
-    <p class="hero-eyebrow">AI Product Management · Portfolio</p>
-    <h1>Disha Wagle<br/><em>Product Enthusiast</em></h1>
-    <p class="hero-desc">
-      Engineer turned Product Owner, now building at the intersection of AI and human experience.
-      I care about products that are useful, trustworthy, and a little bit delightful.
-    </p>
-    <div class="hero-tags">
-      <span class="hero-tag">AI Copilots</span>
-      <span class="hero-tag">Fintech</span>
-      <span class="hero-tag">EdTech</span>
-      <span class="hero-tag">Healthcare AI</span>
-    </div>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="#projects">See my projects</a>
-      <a class="btn btn-outline" href="#contact">Get in touch</a>
-    </div>
+<div class="hero">
+  <div class="hero-eyebrow">Product Manager · Engineer · Builder</div>
+  <h1>I turn <em>complex problems</em><br>into products people use.</h1>
+  <p class="hero-desc">Five years shipping software as an engineer, then as a product owner across healthcare and fintech. Now building at the intersection of AI and real human problems — with the technical depth to know what's possible and the product instinct to know what's worth building.</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">See my work</a>
+    <a href="#connect" class="btn-ghost">Get in touch</a>
   </div>
-</section>
+  <div class="hero-stats">
+    <div><span class="stat-label">Background</span><span class="stat-val">Engineer → PO → AI PM</span></div>
+    <div><span class="stat-label">Industries</span><span class="stat-val">Healthcare · Fintech · AI</span></div>
+    <div><span class="stat-label">Currently</span><span class="stat-val">Open to PM roles</span></div>
+    <div><span class="stat-label">Latest build</span><span class="stat-val">Repair Genie · Live demo ↗</span></div>
+  </div>
+</div>
 
-<!-- ABOUT -->
-<section class="about" id="about">
-  <p class="section-label">Background</p>
-  <h2 class="section-title">Where I'm coming from</h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>
-        I started as a <strong>software engineer</strong> — which means I've sat in sprint planning rooms arguing about story points,
-        read API docs at midnight, and genuinely love talking to developers.
-      </p>
-      <p>
-        From there I moved into <strong>product ownership</strong>, where I learned that the hardest part of building software
-        isn't the code — it's deciding what to build and why.
-      </p>
-      <p>
-        Now I'm focused on <strong>AI products specifically</strong>: how to ship AI features responsibly,
-        how to write specs when the output is non-deterministic, and how to bring users along
-        when the technology feels like magic (or a black box).
-      </p>
-      <p>
-        I'm open to AI PM roles across product, platform, and 0→1 work.
-      </p>
+<section class="page-section reveal" id="about">
+  <div class="s-kicker">Background</div>
+  <h2 class="s-title">Two things at once.</h2>
+  <p class="s-sub">Traditional product rigour and AI fluency aren't opposites — they compound.</p>
+  <div class="dual-card">
+    <div class="dual-dark">
+      <div class="dual-label">Traditional PM</div>
+      <div class="dual-heading">Grounded in discovery, strategy &amp; delivery</div>
+      <ul class="dual-list">
+        <li>User research &amp; synthesis</li>
+        <li>Roadmap prioritisation</li>
+        <li>Stakeholder alignment</li>
+        <li>Agile facilitation</li>
+        <li>0→1 through scaling</li>
+      </ul>
     </div>
-    <div>
-      <ul class="skills-list">
-        <li>Product strategy & roadmapping <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></li>
-        <li>User research & discovery <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></li>
-        <li>Technical depth (eng background) <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></li>
-        <li>AI/ML product thinking <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></li>
-        <li>Agile / sprint facilitation <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></li>
-        <li>Stakeholder communication <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></li>
+    <div class="dual-light">
+      <div class="dual-label">AI-fluent builder</div>
+      <div class="dual-heading">Understands the model, ships the product</div>
+      <ul class="dual-list">
+        <li>Prompt design &amp; eval frameworks</li>
+        <li>Non-deterministic output specs</li>
+        <li>Trust &amp; transparency UX</li>
+        <li>Built with Gemini, Claude, FastAPI</li>
+        <li>Can prototype end-to-end</li>
       </ul>
     </div>
   </div>
+  <div class="about-body">
+    <div class="about-text">
+      <p>I started as a <strong>software engineer</strong> — which means I've sat in sprint planning rooms arguing about story points, read API docs at midnight, and genuinely love talking to developers.</p>
+      <p>From there I moved into <strong>product ownership</strong>, where I learned that the hardest part of building software isn't the code — it's deciding what to build and why. I shipped claims adjudication systems that processed thousands of decisions a day and healthcare tools used by clinicians under pressure.</p>
+      <p>Now I work on <strong>AI products</strong>: how to spec features when the output is non-deterministic, how to build user trust in systems that feel like magic, and how to bring the same rigour I learned in regulated industries to a space that moves fast.</p>
+      <p>I'm open to PM roles of all kinds. AI is where I'm most fluent right now, but I bring the same care to any product with real users and real stakes.</p>
+    </div>
+    <div>
+      <div class="skill-row"><span>Product strategy &amp; roadmap</span><div class="skill-dots"><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div></div></div>
+      <div class="skill-row"><span>User research &amp; discovery</span><div class="skill-dots"><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div></div></div>
+      <div class="skill-row"><span>Technical depth (eng background)</span><div class="skill-dots"><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-e"></div></div></div>
+      <div class="skill-row"><span>AI/ML product thinking</span><div class="skill-dots"><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-e"></div></div></div>
+      <div class="skill-row"><span>Stakeholder communication</span><div class="skill-dots"><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div></div></div>
+      <div class="skill-row"><span>Agile &amp; sprint facilitation</span><div class="skill-dots"><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-f"></div><div class="sd-e"></div></div></div>
+      <div class="domain-pills">
+        <span class="dpill dp-teal">Healthcare</span>
+        <span class="dpill dp-aqua">Fintech</span>
+        <span class="dpill dp-teal">AI Products</span>
+        <span class="dpill dp-sand">Enterprise SaaS</span>
+        <span class="dpill dp-mint">Developer Tools</span>
+        <span class="dpill dp-aqua">B2B &amp; B2C</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- PROJECTS -->
-<section class="projects" id="projects">
-  <p class="section-label">Work in progress</p>
-  <h2 class="section-title">Projects & case studies</h2>
+
+<section class="page-section reveal" id="capabilities">
+  <div class="s-kicker">What I do</div>
+  <h2 class="s-title">Where I'm most useful.</h2>
+  <p class="s-sub">Most of my work falls into a few patterns. If you see yourself in one of these, let's talk.</p>
+  <div class="caps-grid">
+    <div class="cap"><div class="cap-icon">🗺</div><h3>Product Strategy &amp; Roadmap</h3><p>Clarifying the bets, deciding where AI actually belongs, and building roadmaps that survive contact with reality and stakeholders.</p></div>
+    <div class="cap"><div class="cap-icon">🔍</div><h3>Discovery &amp; User Research</h3><p>Talking to the right people, synthesising what they say and what they do, and turning fuzzy signals into clear problems worth solving.</p></div>
+    <div class="cap"><div class="cap-icon">🤖</div><h3>AI Product Spec &amp; Delivery</h3><p>Writing specs for non-deterministic systems — defining guardrails, failure modes, human fallbacks, and what "good" looks like when the output varies.</p></div>
+    <div class="cap"><div class="cap-icon">🛠</div><h3>Prototype &amp; Build</h3><p>Engineering background means I can go from idea to working prototype. I've shipped AI-powered apps end-to-end, from system prompt to deployed product.</p></div>
+  </div>
+</section>
+
+<section class="page-section reveal" id="projects">
+  <div class="s-kicker">Work</div>
+  <h2 class="s-title">Projects &amp; case studies</h2>
+  <p class="s-sub">A mix of shipped work, teardowns, and built prototypes — showing how I think across different contexts.</p>
   <div class="projects-grid">
 
-    <!-- AI Digest — active case study -->
+    <div class="project-card featured">
+      <div class="project-card-tags">
+        <span class="project-card-tag active">● Live</span>
+        <span class="project-card-tag">AI · Home Services</span>
+        <span class="project-card-tag">Two-sided Marketplace</span>
+        <span class="project-card-tag">Vibe Coding Hackathon</span>
+      </div>
+      <h3>Repair Genie — AI appliance diagnosis &amp; contractor marketplace</h3>
+      <p>Most homeowners don't know if an appliance problem is a $10 fix or a $500 repair. Repair Genie diagnoses the issue with AI, walks the homeowner through a safe DIY fix, and — if they need a pro — connects them with vetted local contractors matched by specialty and service area. Built end-to-end at the Vibe Coding Hackathon.</p>
+      <div class="project-card-footer">
+        <span class="project-status live"><span class="dot building"></span> Shipped · Built at hackathon</span>
+        <div style="display:flex;gap:0.75rem;align-items:center;">
+          <a href="https://repair-genie.streamlit.app/" target="_blank" class="case-study-link">Try it →</a>
+          <a href="https://github.com/dishawagle/repair-genie-python" target="_blank" class="case-study-link">GitHub →</a>
+          <a href="repair-genie.html" class="case-study-link">Case study →</a>
+        </div>
+      </div>
+    </div>
+
     <div class="project-card featured">
       <div class="project-card-tags">
         <span class="project-card-tag active">● Live</span>
@@ -484,12 +303,7 @@
         <span class="project-card-tag">B2B · SaaS</span>
       </div>
       <h3>AI Research Digest — role-aware intelligence for product managers</h3>
-      <p>
-        Product managers have abandoned any consistent habit of tracking AI research —
-        not from lack of interest, but because nothing filters it for their role.
-        This tool delivers crisp, PM-specific takeaways from the week's most important
-        papers and news, in under 5 minutes, every Monday morning.
-      </p>
+      <p>Product managers have abandoned any consistent habit of tracking AI research — not from lack of interest, but because nothing filters it for their role. This tool delivers crisp, PM-specific takeaways from the week's most important papers and news, in under 5 minutes, every Monday morning.</p>
       <div class="project-card-footer">
         <span class="project-status live"><span class="dot building"></span> Shipped · v1 live</span>
         <div style="display:flex;gap:0.75rem;align-items:center;">
@@ -499,7 +313,6 @@
       </div>
     </div>
 
-    <!-- Claims Adjudication Engine -->
     <div class="project-card">
       <div class="project-card-tags">
         <span class="project-card-tag">Work Project</span>
@@ -507,18 +320,13 @@
         <span class="project-card-tag">0→1 Build</span>
       </div>
       <h3>Claims adjudication engine — 8,000 decisions a day, under one second</h3>
-      <p>
-        Built from scratch at Flipt to process pharmacy prescription claims in real time.
-        A HIPAA-compliant, sub-1s adjudication system that grew from one employer to enterprise
-        scale — and the PM story of the decisions, tradeoffs, and feedback loops behind it.
-      </p>
+      <p>Built from scratch at Flipt to process pharmacy prescription claims in real time. A HIPAA-compliant, sub-1s adjudication system that grew from one employer to enterprise scale — and the PM story of the decisions, tradeoffs, and feedback loops behind it.</p>
       <div class="project-card-footer">
         <span class="project-status"><span class="dot"></span> Shipped · 2019–2024</span>
         <a href="claims.html" class="case-study-link">Read case study →</a>
       </div>
     </div>
 
-    <!-- JIRA Teardown -->
     <div class="project-card">
       <div class="project-card-tags">
         <span class="project-card-tag">Product Teardown</span>
@@ -526,94 +334,105 @@
         <span class="project-card-tag">Project Management</span>
       </div>
       <h3>JIRA — built for engineers, deployed on everyone</h3>
-      <p>
-        A teardown of the world's most deployed project management tool — from someone who used
-        it as a developer, a product owner, and a team lead across two regulated industries.
-        JIRA became the default for everyone but was only ever designed for engineers.
-      </p>
+      <p>A teardown of the world's most deployed project management tool — from someone who used it as a developer, a product owner, and a team lead across two regulated industries. JIRA became the default for everyone but was only ever designed for engineers.</p>
       <div class="project-card-footer">
         <span class="project-status"><span class="dot"></span> Published · Apr 2026</span>
         <a href="jira.html" class="case-study-link">Read teardown →</a>
       </div>
     </div>
 
-
-    <!-- Repair Genie -->
     <div class="project-card">
-      <div class="project-card-tags">
-        <span class="project-card-tag active">● Live</span>
-        <span class="project-card-tag">AI · Home Services</span>
-        <span class="project-card-tag">Two-sided Marketplace</span>
-        <span class="project-card-tag">Vibe Coding Hackathon</span>
-      </div>
-      <h3>Repair Genie — AI appliance diagnosis &amp; contractor marketplace</h3>
-      <p>
-        Most homeowners don't know if an appliance problem is a $10 fix or a $500 repair.
-        Repair Genie diagnoses the issue with AI, walks the homeowner through a safe DIY fix,
-        and — if they need a pro — connects them with vetted local contractors matched by
-        specialty and service area. Built end-to-end at the Vibe Coding Hackathon: homeowner
-        and contractor flows, in-app messaging, QR-based identity verification, and dual
-        resolution confirmation.
-      </p>
+      <p class="project-domain">Healthcare · AI</p>
+      <h3>Care Navigator — AI triage assistant for clinics</h3>
+      <p>Before a patient sees a doctor, an AI navigator collects symptom history, flags urgent signals, and surfaces relevant context for the clinician. Reduces admin burden without replacing clinical judgment.</p>
       <div class="project-card-footer">
-        <span class="project-status live"><span class="dot building"></span> Shipped · Built at hackathon</span>
-        <div style="display:flex;gap:0.75rem;align-items:center;">
-          <a href="https://repair-genie.streamlit.app/" target="_blank" class="case-study-link">Try it →</a>
-          <a href="https://github.com/dishawagle/repair-genie" target="_blank" class="case-study-link">GitHub →</a>
-          <a href="repair_genie.html" class="case-study-link">Case study →</a>
-        </div>
+        <span class="project-status"><span class="dot"></span> Idea stage</span>
       </div>
     </div>
 
-    
   </div>
 </section>
 
-<!-- THINKING -->
-<section class="thinking" id="thinking">
-  <p class="section-label">My perspective</p>
-  <h2 class="section-title">How I think about AI products</h2>
-  <div class="thinking-grid">
-
-    <div class="thought-card">
-      <p class="thought-q">"How do you spec a feature when the AI output isn't guaranteed?"</p>
-      <p class="thought-a">
-        You spec the guardrails, not the output. Define what failure looks like, how the product degrades gracefully,
-        and what the human fallback is. Non-determinism is a design constraint, not an excuse.
-      </p>
+<section class="page-section reveal" id="thinking">
+  <div class="s-kicker">My perspective</div>
+  <h2 class="s-title">How I think about products.</h2>
+  <p class="s-sub">Questions I get asked — and how I actually answer them.</p>
+  <div id="faqs">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">How do you spec a feature when the AI output isn't guaranteed?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>You spec the guardrails, not the output. Define what failure looks like, how the product degrades gracefully, and what the human fallback is. Non-determinism is a design constraint, not an excuse. Forcing teams to define failure modes early surfaces assumptions that would otherwise blow up in production.</p></div>
     </div>
-
-    <div class="thought-card">
-      <p class="thought-q">"What makes an AI feature trustworthy?"</p>
-      <p class="thought-a">
-        Transparency about what it can and can't do. Users don't need to understand transformers —
-        they need to know when to trust the output and when to double-check. That's a UX problem as much as a model problem.
-      </p>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">What makes an AI feature trustworthy to users?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Transparency about what it can and can't do. Users don't need to understand transformers — they need to know when to trust the output and when to double-check. That's a UX problem as much as a model problem. Confidence thresholds, graceful fallbacks, and honest empty states matter more than accuracy on the happy path.</p></div>
     </div>
-
-    <div class="thought-card">
-      <p class="thought-q">"How does your engineering background help you as a PM?"</p>
-      <p class="thought-a">
-        I can read a technical spec, spot unrealistic estimates, and have honest conversations
-        about trade-offs. I don't need things translated. That builds trust with eng teams quickly.
-      </p>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">How does your engineering background help as a PM?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>I can read a technical spec, spot unrealistic estimates, and have honest conversations about trade-offs without needing things translated. That builds trust with engineering teams quickly and means we can have the real conversation — not the polished one.</p></div>
     </div>
-
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">Traditional PM or AI PM — which are you really?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Both, and I think the distinction is starting to matter less. I learned product craft on regulated, high-stakes software before AI was a job title. That foundation — rigorous discovery, hard prioritisation calls, stakeholder alignment — makes my AI work more grounded, not less.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">What does a good PM actually do day to day?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Less strategy decks than people think. Mostly: talking to users, unblocking the next decision, writing things down clearly so the team doesn't have to ask twice, protecting engineering from scope creep, and knowing which fires to let burn. The job is mostly context management and decision quality.</p></div>
+    </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <p class="section-label">Let's talk</p>
-  <h2 class="section-title">Open to AI PM opportunities</h2>
-  <p class="contact-sub">Especially roles at the intersection of AI and real human problems.</p>
-  <div class="contact-links">
-    <a class="contact-link" href="/cdn-cgi/l/email-protection#c7a3aeb4afa687a2bfa6aab7aba2e9a4a8aa">Email me</a>
-    <a class="contact-link" href="https://linkedin.com/in/dishawagle" target="_blank">LinkedIn</a>
-    <a class="contact-link" href="#">Download resume</a>
+<section class="page-section reveal" id="connect">
+  <div class="s-kicker">Let's talk</div>
+  <h2 class="s-title">Open to PM opportunities.</h2>
+  <p class="s-sub">Traditional PM roles, AI product roles, and anything in between. A short conversation is usually enough to see if there's a fit.</p>
+  <div class="connect-grid">
+    <div class="connect-form">
+      <div><label class="form-label">Name</label><input type="text" class="form-input" placeholder="Your name"/></div>
+      <div><label class="form-label">Email</label><input type="email" class="form-input" placeholder="your@email.com"/></div>
+      <div><label class="form-label">What's on your mind?</label><textarea class="form-textarea" placeholder="Tell me what you're working on or what you're looking for..."></textarea></div>
+      <button class="btn-primary" style="align-self:flex-start">Send it →</button>
+    </div>
+    <div>
+      <a href="/cdn-cgi/l/email-protection#c7a3aeb4afa687a2bfa6aab7aba2e9a4a8aa" class="connect-alt">
+        <span class="connect-alt-icon">📧</span>
+        <div><div class="connect-alt-name">Email directly</div><div class="connect-alt-sub">I read every message personally</div></div>
+      </a>
+      <a href="https://linkedin.com/in/dishawagle" target="_blank" class="connect-alt">
+        <span class="connect-alt-icon">💼</span>
+        <div><div class="connect-alt-name">LinkedIn</div><div class="connect-alt-sub">linkedin.com/in/dishawagle</div></div>
+      </a>
+      <a href="#" class="connect-alt">
+        <span class="connect-alt-icon">📄</span>
+        <div><div class="connect-alt-name">Download resume</div><div class="connect-alt-sub">PDF · Updated June 2026</div></div>
+      </a>
+      <p class="connect-note">If you're hiring, a line about the role is all I need to start the conversation.</p>
+    </div>
   </div>
 </section>
 
 <footer>
   <span>© 2026 Disha Wagle</span>
-  <span>Product Enthusiast ·
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/dishawagle" target="_blank">LinkedIn</a>
+    <a href="https://github.com/dishawagle" target="_blank">GitHub</a>
+    <a href="/cdn-cgi/l/email-protection#c7a3aeb4afa687a2bfa6aab7aba2e9a4a8aa">Email</a>
+  </div>
+</footer>
+
+<script>
+function toggle(btn) {
+  const answer = btn.nextElementSibling;
+  const icon = btn.querySelector('.faq-icon');
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a.open').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(el => { el.textContent = '+'; });
+  if (!isOpen) { answer.classList.add('open'); icon.textContent = '−'; }
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
+HTMLEOF
